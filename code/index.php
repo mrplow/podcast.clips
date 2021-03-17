@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Peaks.js Demo Page</title>
+    <title>AD Demo Page</title>
     <style>
       body {
         font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
@@ -77,84 +77,127 @@
       }
     </style>
   </head>
-  <body>
-    <div id="titles">
-      <h1>Peaks.js</h1>
-      <p>
-        Peaks.js is a JavaScript library that allows you to display and
-        interaction with audio waveforms in the browser.
-      </p>
-      <p>
-        It was developed by <a href="https://www.bbc.co.uk/rd">BBC R&amp;D</a>
-        to allow audio editors to make accurate clippings of audio content.
-        You can read more about the project
-        <a href="https://waveform.prototyping.bbc.co.uk/">here</a>.
-      </p>
+<body>
+<?php
+include ('/var/connect.php');
 
-      <h2>Demo pages</h2>
+$dbconnect = mysqli_connect($hostname, $username, $password, $db);
+
+if ($dbconnect->connect_error)
+{
+    die("Database connection failed: " . $dbconnect->connect_error);
+}
+echo "    <form action='?' method='post'>\n";
+
+$episodes = mysqli_query($dbconnect, "SELECT
+                                         ep_rowid,
+                                         CONCAT(ep_episode_num, ' - ', ep_title) AS ep_title
+                                     FROM
+                                         episodes
+                                     ORDER BY
+                                         ep_episode_num") or die(mysqli_error($dbconnect));
+
+echo "        <select name='id'>
+            <option disabled hidden='' selected value=''>
+                Choose an episode
+            </option>";
+
+while ($row = $episodes->fetch_assoc())
+{
+
+    unset($ep_rowid, $ep_title);
+    $ep_rowid = $row['ep_rowid'];
+    $ep_title = $row['ep_title'];
+    echo '
+            <option value="' . $ep_rowid . '">
+                ' . $ep_title . '
+            </option>';
+
+}
+
+echo "
+        </select> <input name='formEpisode' type='submit' value='Select'>
+    </form>\n";
+
+if (isset($_POST['formEpisode']))
+{
+    $aEpisode = $_POST['id'];
+
+    if (!isset($aEpisode))
+    {
+        echo ("<p>You didn't select an episode 🤔</p>\n");
+    }
+    else
+    {
+
+        $selected_episode = mysqli_query($dbconnect, "SELECT ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = $aEpisode") or die(mysqli_error($dbconnect));
+
+        while ($row = mysqli_fetch_array($selected_episode))
+        {
+        $ep_title = htmlspecialchars("".$row['ep_title']."",ENT_QUOTES);
+        $ep_description = htmlspecialchars("".$row['ep_description']."",ENT_QUOTES);
+            echo "
+    <div id='titles'>
+      <h1>Dan is Testing Things</h1>
       <p>
-        The following pages demonstrate various configuration options:
+        Using the JavaScript library <a href=\"https://github.com/bbc/peaks.js/\">Peaks.js...</a> Thanks BBC!
       </p>
-      <p>
-        Precomputed Waveform Data |
-        <a href="webaudio.html">Web Audio API</a> |
-        <a href="zoomable-waveform.html">Single Zoomable Waveform</a> |
-        <a href="overview-waveform.html">Single Fixed Waveform</a> |
-        <a href="cue-events.html">Cue Events</a> |
-        <a href="set-source.html">Changing the Media URL</a> |
-        <a href="multi-channel.html">Multi-Channel Waveform</a> |
-        <a href="custom-markers.html">Custom Point and Segment Markers</a> |
-        <a href="external-player.html">External Audio Player</a>
-      </p>
-      <h2>Demo: Precomputed Waveform Data</h2>
-      <p>
-        This demo shows how to use waveform data precomputed using
-        <a href="https://github.com/bbc/audiowaveform">audiowaveform</a>.
-        The data is requested from the web server in binary or JSON format.
-      </p>
+      <h2>Episode {$row['ep_episode_num']}: $ep_title</h2>
+      <h4>Released {$row['ep_release_date']}</h4>
+      <h3>$ep_description</h3>
+    </div>
+    
+    <div id='waveform-container'>
+      <div id='zoomview-container'></div>
+      <div id='overview-container'></div>
     </div>
 
-    <div id="waveform-container">
-      <div id="zoomview-container"></div>
-      <div id="overview-container"></div>
-    </div>
-
-    <div id="demo-controls">
-      <audio id="audio" controls="controls">
-        <source src="TOL_6min_720p_download.mp3" type="audio/mpeg">
-        <source src="TOL_6min_720p_download.ogg" type="audio/ogg">
+    <div id='demo-controls'>
+      <audio id='audio' controls='controls'>
+        <source src='/podcasts/AD/{$row['ep_filename']}.mp3' type='audio/mpeg'>
         Your browser does not support the audio element.
       </audio>
 
-      <div id="controls">
-        <button data-action="zoom-in">Zoom in</button>
-        <button data-action="zoom-out">Zoom out</button>
-        <button data-action="add-segment">Add a Segment at current time</button>
-        <button data-action="add-point">Add a Point at current time</button>
-        <button data-action="log-data">Log segments/points</button>
-        <input type="text" id="seek-time" value="0.0">
-        <button data-action="seek">Seek</button>
-        <label for="amplitude-scale">Amplitude scale</label>
-        <input type="range" id="amplitude-scale" min="0" max="10" step="1">
-        <input type="checkbox" id="auto-scroll" checked>
-        <label for="auto-scroll">Auto-scroll</label>
-        <button data-action="resize">Resize</button>
-        <button data-action="toggle-zoomview">Show/hide zoomable waveform</button>
-        <button data-action="toggle-overview">Show/hide overview waveform</button>
-        <button data-action="destroy">Destroy</button>
+      <div id='controls'>
+        <button data-action='zoom-in'>Zoom in</button>
+        <button data-action='zoom-out'>Zoom out</button>
+        <input type='text' id='seek-time' value='0.0'>
+        <button data-action='seek'>Jump to (sec)</button>
+        <label for='amplitude-scale'>Amplitude scale</label>
+        <input type='range' id='amplitude-scale' min='0' max='10' step='1'>
+        <input type='checkbox' id='auto-scroll' checked>
+        <label for='auto-scroll'>Auto-scroll</label>
+        <button data-action='resize'>Big/Small</button>
+        <button data-action='toggle-overview'>Show/hide overview waveform</button>
       </div>
     </div>
-
-    <div class="log">
-      <div id="segments" class="hide">
+    <div style='text-align: center;'>
+        <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-segment'>Add a Segment at current time</button><br>
+        <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-point'>Add a Point at current time</button><br>
+        <button style='width: 50%; background-color: #FF2800; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='log-data'>Show/refresh submitted segments/points</button>
+    </div>
+    <div class='log'>
+      <div id='segments' class='hide'>
         <h2>Segments</h2>
         <table>
+    <colgroup>
+       <col span='1'>
+       <col span='1' style='width: 60%;'>
+       <col span='1'>
+       <col span='1'>
+       <col span='1'>
+       <col span='1'>
+       <col span='1'>
+    </colgroup>
+
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Label</th>
+              <th>Created by</th>
+              <th>Comment</th>
               <th>Start time</th>
               <th>End time</th>
+              <th></th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -163,13 +206,13 @@
         </table>
       </div>
 
-      <div id="points" class="hide">
+      <div id='points' class='hide'>
         <h2>Points</h2>
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Label</th>
+              <th>Created by</th>
+              <th>Comment</th>
               <th>Time</th>
             </tr>
           </thead>
@@ -178,8 +221,8 @@
         </table>
       </div>
     </div>
-
-    <script src="peaks.js"></script>
+    
+    <script src='peaks.js'></script>
     <script>
       (function(Peaks) {
         var renderSegments = function(peaks) {
@@ -191,13 +234,13 @@
             var segment = segments[i];
 
             var row = '<tr>' +
-              '<td>' + segment.id + '</td>' +
-              '<td><input data-action="update-segment-label" type="text" value="' + segment.labelText + '" data-id="' + segment.id + '"/></td>' +
-              '<td><input data-action="update-segment-start-time" type="number" value="' + segment.startTime + '" data-id="' + segment.id + '"/></td>' +
-              '<td><input data-action="update-segment-end-time" type="number" value="' + segment.endTime + '" data-id="' + segment.id + '"/></td>' +
-              '<td>' + '<a href="#' + segment.id + '" data-action="play-segment" data-id="' + segment.id + '">Play</a>' + '</td>' +
-              '<td>' + '<a href="#' + segment.id + '" data-action="loop-segment" data-id="' + segment.id + '">Loop</a>' + '</td>' +
-              '<td>' + '<a href="#' + segment.id + '" data-action="remove-segment" data-id="' + segment.id + '">Remove</a>' + '</td>' +
+              '<td>' + segment.createdBy + '</td>' +
+              '<td><textarea rows=\"4\" cols=\"50\" maxlength=\"256\" data-action=\"update-segment-label\" data-id=\"' + segment.id + '\"/>' + segment.labelText + '</textarea></td>' +
+              '<td><input data-action=\"update-segment-start-time\" type=\"number\" value=\"' + segment.startTime + '\" data-id=\"' + segment.id + '\"/></td>' +
+              '<td><input data-action=\"update-segment-end-time\" type=\"number\" value=\"' + segment.endTime + '\" data-id=\"' + segment.id + '\"/></td>' +
+              '<td>' + '<a href=\"#' + segment.id + '\" data-action=\"play-segment\" data-id=\"' + segment.id + '\">Play</a>' + '</td>' +
+              '<td>' + '<a href=\"#' + segment.id + '\" data-action=\"loop-segment\" data-id=\"' + segment.id + '\">Loop</a>' + '</td>' +
+              '<td>' + '<input type=\"submit\" value=\"Save\"> <input type=\"submit\" value=\"Delete\">' + '</td>' +
               '</tr>';
 
             html += row;
@@ -209,7 +252,7 @@
             segmentsContainer.classList.remove('hide');
           }
 
-          document.querySelectorAll('input[data-action="update-segment-start-time"]').forEach(function(inputElement) {
+          document.querySelectorAll('input[data-action=\"update-segment-start-time\"]').forEach(function(inputElement) {
             inputElement.addEventListener('input', function(event) {
               var element = event.target;
               var id = element.getAttribute('data-id');
@@ -233,7 +276,7 @@
             });
           });
 
-          document.querySelectorAll('input[data-action="update-segment-end-time"]').forEach(function(inputElement) {
+          document.querySelectorAll('input[data-action=\"update-segment-end-time\"]').forEach(function(inputElement) {
             inputElement.addEventListener('input', function(event) {
               var element = event.target;
               var id = element.getAttribute('data-id');
@@ -257,7 +300,7 @@
             });
           });
 
-          document.querySelectorAll('input[data-action="update-segment-label"]').forEach(function(inputElement) {
+          document.querySelectorAll('input[data-action=\"update-segment-label\"]').forEach(function(inputElement) {
             inputElement.addEventListener('input', function(event) {
               var element = event.target;
               var id = element.getAttribute('data-id');
@@ -281,9 +324,9 @@
 
             var row = '<tr>' +
               '<td>' + point.id + '</td>' +
-              '<td><input data-action="update-point-label" type="text" value="' + point.labelText + '" data-id="' + point.id + '"/></td>' +
-              '<td><input data-action="update-point-time" type="number" value="' + point.time + '" data-id="' + point.id + '"/></td>' +
-              '<td>' + '<a href="#' + point.id + '" data-action="remove-point" data-id="' + point.id + '">Remove</a>' + '</td>' +
+              '<td><input data-action=\"update-point-label\" type=\"text\" value=\"' + point.labelText + '\" data-id=\"' + point.id + '\"/></td>' +
+              '<td><input data-action=\"update-point-time\" type=\"number\" value=\"' + point.time + '\" data-id=\"' + point.id + '\"/></td>' +
+              '<td>' + '<input type=\"submit\" value=\"Save\"> <input type=\"submit\" value=\"Delete\">' + '</td>' +
               '</tr>';
 
             html += row;
@@ -295,7 +338,7 @@
             pointsContainer.classList.remove('hide');
           }
 
-          document.querySelectorAll('input[data-action="update-point-time"]').forEach(function(inputElement) {
+          document.querySelectorAll('input[data-action=\"update-point-time\"]').forEach(function(inputElement) {
             inputElement.addEventListener('input', function(event) {
               var element = event.target;
               var id = element.getAttribute('data-id');
@@ -314,7 +357,7 @@
             });
           });
 
-          document.querySelectorAll('input[data-action="update-point-label"]').forEach(function(inputElement) {
+          document.querySelectorAll('input[data-action=\"update-point-label\"]').forEach(function(inputElement) {
             inputElement.addEventListener('input', function(event) {
               var element = event.target;
               var id = element.getAttribute('data-id');
@@ -335,8 +378,8 @@
           },
           mediaElement: document.getElementById('audio'),
           dataUri: {
-            arraybuffer: 'TOL_6min_720p_download.dat',
-            json: 'TOL_6min_720p_download.json'
+            arraybuffer: 'podcasts/AD/{$row['ep_filename']}.dat',
+            json: 'podcasts/AD/{$row['ep_filename']}.json'
           },
           keyboard: true,
           pointMarkerColor: '#006eb0',
@@ -349,51 +392,49 @@
             return;
           }
 
-          console.log("Peaks instance ready");
+          console.log(\"Peaks instance ready\");
 
-          document.querySelector('[data-action="zoom-in"]').addEventListener('click', function() {
+          document.querySelector('[data-action=\"zoom-in\"]').addEventListener('click', function() {
             peaksInstance.zoom.zoomIn();
           });
 
-          document.querySelector('[data-action="zoom-out"]').addEventListener('click', function() {
+          document.querySelector('[data-action=\"zoom-out\"]').addEventListener('click', function() {
             peaksInstance.zoom.zoomOut();
           });
 
           var segmentCounter = 1;
 
-          document.querySelector('button[data-action="add-segment"]').addEventListener('click', function() {
+          document.querySelector('button[data-action=\"add-segment\"]').addEventListener('click', function() {
             peaksInstance.segments.add({
               startTime: peaksInstance.player.getCurrentTime(),
               endTime: peaksInstance.player.getCurrentTime() + 10,
-              labelText: 'Test segment ' + segmentCounter++,
+              labelText: 'Segment ' + segmentCounter++,
               editable: true
             });
           });
 
-          document.querySelector('button[data-action="add-point"]').addEventListener('click', function() {
+          var pointCounter = 1;
+
+          document.querySelector('button[data-action=\"add-point\"]').addEventListener('click', function() {
             peaksInstance.points.add({
               time: peaksInstance.player.getCurrentTime(),
-              labelText: 'Test point',
+              labelText: 'Point ' + pointCounter++,
               editable: true
             });
           });
 
-          document.querySelector('button[data-action="log-data"]').addEventListener('click', function(event) {
+          document.querySelector('button[data-action=\"log-data\"]').addEventListener('click', function(event) {
             renderSegments(peaksInstance);
             renderPoints(peaksInstance);
           });
 
-          document.querySelector('button[data-action="seek"]').addEventListener('click', function(event) {
+          document.querySelector('button[data-action=\"seek\"]').addEventListener('click', function(event) {
             var time = document.getElementById('seek-time').value;
             var seconds = parseFloat(time);
 
             if (!Number.isNaN(seconds)) {
               peaksInstance.player.seek(seconds);
             }
-          });
-
-          document.querySelector('button[data-action="destroy"]').addEventListener('click', function(event) {
-            peaksInstance.destroy();
           });
 
           document.getElementById('auto-scroll').addEventListener('change', function(event) {
@@ -414,26 +455,64 @@
               var segment = peaksInstance.segments.getSegment(id);
               peaksInstance.player.playSegment(segment, true);
             }
-            else if (action === 'remove-point') {
-              peaksInstance.points.removeById(id);
-            }
-            else if (action === 'remove-segment') {
-              peaksInstance.segments.removeById(id);
-            }
-          });
+          });";
+            $segments = mysqli_query($dbconnect, "SELECT
+                                                      sg_rowid,
+                                                      cby.us_name AS cby,
+                                                      sg_cdate,
+                                                      mby.us_name AS mby,
+                                                      sg_mdate,
+                                                      sg_comment,
+                                                      sg_starttime,
+                                                      sg_endtime
+                                                  FROM
+                                                      segments
+                                                  JOIN users AS cby
+                                                  ON
+                                                      sg_cby = cby.us_rowid
+                                                  LEFT JOIN users AS mby
+                                                  ON
+                                                      sg_mby = cby.us_rowid
+                                                  WHERE
+                                                      sg_rowid_episode = $aEpisode") or die(mysqli_error($dbconnect));
 
+            while ($row = mysqli_fetch_array($segments))
+
+            {
+
+                unset($sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime);
+                $sg_rowid = $row['sg_rowid'];
+                $cby = htmlspecialchars("".$row['cby']."",ENT_QUOTES);
+                $sg_cdate = $row['sg_cdate'];
+                $mby = htmlspecialchars("".$row['mby']."",ENT_QUOTES);
+                $sg_mdate = $row['sg_mdate'];
+                $sg_comment = str_replace("\n","&#010;", str_replace("\r","&#010;", str_replace("\r\n","&#010;", htmlspecialchars("".$row['sg_comment']."",ENT_QUOTES))));
+                $sg_starttime = $row['sg_starttime'];
+                $sg_endtime = $row['sg_endtime'];
+
+                echo "peaksInstance.segments.add({
+            id: " . $sg_rowid . ",
+            startTime: " . $sg_starttime . ",
+            endTime: " . $sg_endtime . ",
+            createdBy: '" . $cby . "',
+            labelText: '" . $sg_comment . "',
+            editable: true
+          });";
+
+            }
+            echo "
           var amplitudeScales = {
-            "0": 0.0,
-            "1": 0.1,
-            "2": 0.25,
-            "3": 0.5,
-            "4": 0.75,
-            "5": 1.0,
-            "6": 1.5,
-            "7": 2.0,
-            "8": 3.0,
-            "9": 4.0,
-            "10": 5.0
+            \"0\": 0.0,
+            \"1\": 0.1,
+            \"2\": 0.25,
+            \"3\": 0.5,
+            \"4\": 0.75,
+            \"5\": 1.0,
+            \"6\": 1.5,
+            \"7\": 2.0,
+            \"8\": 3.0,
+            \"9\": 4.0,
+            \"10\": 5.0
           };
 
           document.getElementById('amplitude-scale').addEventListener('input', function(event) {
@@ -443,7 +522,7 @@
             peaksInstance.views.getView('overview').setAmplitudeScale(scale);
           });
 
-          document.querySelector('button[data-action="resize"]').addEventListener('click', function(event) {
+          document.querySelector('button[data-action=\"resize\"]').addEventListener('click', function(event) {
             var zoomviewContainer = document.getElementById('zoomview-container');
             var overviewContainer = document.getElementById('overview-container');
 
@@ -464,21 +543,7 @@
             }
           });
 
-          document.querySelector('button[data-action="toggle-zoomview"]').addEventListener('click', function(event) {
-            var container = document.getElementById('zoomview-container');
-            var zoomview = peaksInstance.views.getView('zoomview');
-
-            if (zoomview) {
-              peaksInstance.views.destroyZoomview();
-              container.style.display = 'none';
-            }
-            else {
-              container.style.display = 'block';
-              peaksInstance.views.createZoomview(container);
-            }
-          });
-
-          document.querySelector('button[data-action="toggle-overview"]').addEventListener('click', function(event) {
+          document.querySelector('button[data-action=\"toggle-overview\"]').addEventListener('click', function(event) {
             var container = document.getElementById('overview-container');
             var overview = peaksInstance.views.getView('overview');
 
@@ -570,5 +635,14 @@
         });
       })(peaks);
     </script>
-  </body>
+    ";
+
+        }
+
+    }
+}
+?>
+
+</body>
 </html>
+
