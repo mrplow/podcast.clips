@@ -1,3 +1,9 @@
+#password containing files
 connect.php
 .env_mariadb
 setupdb/01-create-database-and-user.sql
+
+#don't need to track the podcasts
+podcasts/*.dat
+podcasts/*.json
+podcasts/*.mp3

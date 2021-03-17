@@ -154,7 +154,7 @@ if (isset($_POST['formEpisode']))
 
     <div id='demo-controls'>
       <audio id='audio' controls='controls'>
-        <source src='/podcasts/AD/{$row['ep_filename']}.mp3' type='audio/mpeg'>
+        <source src='/podcasts/{$row['ep_filename']}.mp3' type='audio/mpeg'>
         Your browser does not support the audio element.
       </audio>
 
@@ -378,8 +378,8 @@ if (isset($_POST['formEpisode']))
           },
           mediaElement: document.getElementById('audio'),
           dataUri: {
-            arraybuffer: 'podcasts/AD/{$row['ep_filename']}.dat',
-            json: 'podcasts/AD/{$row['ep_filename']}.json'
+            arraybuffer: 'podcasts/{$row['ep_filename']}.dat',
+            json: 'podcasts/{$row['ep_filename']}.json'
           },
           keyboard: true,
           pointMarkerColor: '#006eb0',
