@@ -1,4 +1,33 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.peaks = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
+(function() {
+  var colors = {
+    aqua:    '#7fdbff',
+    blue:    '#0074d9',
+    lime:    '#01ff70',
+    navy:    '#001f3f',
+    teal:    '#39cccc',
+    olive:   '#3d9970',
+    green:   '#2ecc40',
+    red:     '#ff4136',
+    maroon:  '#85144b',
+    orange:  '#ff851b',
+    purple:  '#b10dc9',
+    yellow:  '#ffdc00',
+    fuchsia: '#f012be',
+    gray:    '#aaaaaa',
+    white:   '#ffffff',
+    black:   '#111111',
+    silver:  '#dddddd'
+  };
+
+  if(typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = colors;
+  } else {
+    window.colors = colors;
+  }
+})();
+
+},{}],2:[function(_dereq_,module,exports){
 'use strict';
 
 var has = Object.prototype.hasOwnProperty
@@ -336,7 +365,7 @@ if ('undefined' !== typeof module) {
   module.exports = EventEmitter;
 }
 
-},{}],2:[function(_dereq_,module,exports){
+},{}],3:[function(_dereq_,module,exports){
 (function (global){(function (){
 var WORKER_ENABLED = !!(global === global.window && global.URL && global.Blob && global.Worker);
 
@@ -380,7 +409,7 @@ module.exports = InlineWorker;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],3:[function(_dereq_,module,exports){
+},{}],4:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Animation = void 0;
@@ -527,7 +556,7 @@ var Animation = (function () {
 }());
 exports.Animation = Animation;
 
-},{"./Global":10}],4:[function(_dereq_,module,exports){
+},{"./Global":11}],5:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -664,7 +693,7 @@ var HitCanvas = (function (_super) {
 }(Canvas));
 exports.HitCanvas = HitCanvas;
 
-},{"./Context":6,"./Factory":8,"./Global":10,"./Util":18,"./Validators":19}],5:[function(_dereq_,module,exports){
+},{"./Context":7,"./Factory":9,"./Global":11,"./Util":19,"./Validators":20}],6:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1004,7 +1033,7 @@ Factory_1.Factory.addGetterSetter(Container, 'clipHeight', undefined, Validators
 Factory_1.Factory.addGetterSetter(Container, 'clipFunc');
 Util_1.Collection.mapMethods(Container);
 
-},{"./Factory":8,"./Node":13,"./Util":18,"./Validators":19}],6:[function(_dereq_,module,exports){
+},{"./Factory":9,"./Node":14,"./Util":19,"./Validators":20}],7:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1534,7 +1563,7 @@ var HitContext = (function (_super) {
 }(Context));
 exports.HitContext = HitContext;
 
-},{"./Global":10,"./Util":18}],7:[function(_dereq_,module,exports){
+},{"./Global":11,"./Util":19}],8:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DD = void 0;
@@ -1641,7 +1670,7 @@ if (Global_1.Konva.isBrowser) {
     window.addEventListener('touchend', exports.DD._endDragAfter, false);
 }
 
-},{"./Global":10,"./Util":18}],8:[function(_dereq_,module,exports){
+},{"./Global":11,"./Util":19}],9:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Factory = void 0;
@@ -1763,7 +1792,7 @@ exports.Factory = {
     },
 };
 
-},{"./Util":18,"./Validators":19}],9:[function(_dereq_,module,exports){
+},{"./Util":19,"./Validators":20}],10:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1798,7 +1827,7 @@ FastLayer.prototype.nodeType = 'FastLayer';
 Global_1._registerNode(FastLayer);
 Util_1.Collection.mapMethods(FastLayer);
 
-},{"./Global":10,"./Layer":12,"./Util":18}],10:[function(_dereq_,module,exports){
+},{"./Global":11,"./Layer":13,"./Util":19}],11:[function(_dereq_,module,exports){
 (function (global){(function (){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1891,7 +1920,7 @@ exports._registerNode = _registerNode;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],11:[function(_dereq_,module,exports){
+},{}],12:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1929,7 +1958,7 @@ Group.prototype.nodeType = 'Group';
 Global_1._registerNode(Group);
 Util_1.Collection.mapMethods(Group);
 
-},{"./Container":5,"./Global":10,"./Util":18}],12:[function(_dereq_,module,exports){
+},{"./Container":6,"./Global":11,"./Util":19}],13:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -2250,7 +2279,7 @@ Factory_1.Factory.addGetterSetter(Layer, 'clearBeforeDraw', true);
 Factory_1.Factory.addGetterSetter(Layer, 'hitGraphEnabled', true, Validators_1.getBooleanValidator());
 Util_1.Collection.mapMethods(Layer);
 
-},{"./Canvas":4,"./Container":5,"./Factory":8,"./Global":10,"./Node":13,"./Shape":15,"./Util":18,"./Validators":19}],13:[function(_dereq_,module,exports){
+},{"./Canvas":5,"./Container":6,"./Factory":9,"./Global":11,"./Node":14,"./Shape":16,"./Util":19,"./Validators":20}],14:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Node = exports._removeName = exports._addName = exports._removeId = exports.names = exports.ids = void 0;
@@ -3709,7 +3738,7 @@ Factory_1.Factory.backCompat(Node, {
 });
 Util_1.Collection.mapMethods(Node);
 
-},{"./Canvas":4,"./DragAndDrop":7,"./Factory":8,"./Global":10,"./Util":18,"./Validators":19}],14:[function(_dereq_,module,exports){
+},{"./Canvas":5,"./DragAndDrop":8,"./Factory":9,"./Global":11,"./Util":19,"./Validators":20}],15:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.releaseCapture = exports.setPointerCapture = exports.hasPointerCapture = exports.createEvent = exports.getCapturedShape = void 0;
@@ -3756,7 +3785,7 @@ function releaseCapture(pointerId, target) {
 }
 exports.releaseCapture = releaseCapture;
 
-},{"./Global":10}],15:[function(_dereq_,module,exports){
+},{"./Global":11}],16:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -4292,7 +4321,7 @@ Factory_1.Factory.backCompat(Shape, {
 });
 Util_1.Collection.mapMethods(Shape);
 
-},{"./Factory":8,"./Global":10,"./Node":13,"./PointerEvents":14,"./Util":18,"./Validators":19}],16:[function(_dereq_,module,exports){
+},{"./Factory":9,"./Global":11,"./Node":14,"./PointerEvents":15,"./Util":19,"./Validators":20}],17:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5075,7 +5104,7 @@ Stage.prototype.nodeType = STAGE;
 Global_2._registerNode(Stage);
 Factory_1.Factory.addGetterSetter(Stage, 'container');
 
-},{"./Canvas":4,"./Container":5,"./DragAndDrop":7,"./Factory":8,"./Global":10,"./PointerEvents":14,"./Util":18}],17:[function(_dereq_,module,exports){
+},{"./Canvas":5,"./Container":6,"./DragAndDrop":8,"./Factory":9,"./Global":11,"./PointerEvents":15,"./Util":19}],18:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Easings = exports.Tween = void 0;
@@ -5600,7 +5629,7 @@ exports.Easings = {
     },
 };
 
-},{"./Animation":3,"./Global":10,"./Node":13,"./Util":18}],18:[function(_dereq_,module,exports){
+},{"./Animation":4,"./Global":11,"./Node":14,"./Util":19}],19:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Util = exports.Transform = exports.Collection = void 0;
@@ -6437,7 +6466,7 @@ exports.Util = {
     },
 };
 
-},{"./Global":10}],19:[function(_dereq_,module,exports){
+},{"./Global":11}],20:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getComponentValidator = exports.getBooleanValidator = exports.getNumberArrayValidator = exports.getFunctionValidator = exports.getStringOrGradientValidator = exports.getStringValidator = exports.getNumberOrAutoValidator = exports.getNumberOrArrayOfNumbersValidator = exports.getNumberValidator = exports.alphaComponent = exports.RGBComponent = void 0;
@@ -6621,7 +6650,7 @@ function getComponentValidator(components) {
 }
 exports.getComponentValidator = getComponentValidator;
 
-},{"./Global":10,"./Util":18}],20:[function(_dereq_,module,exports){
+},{"./Global":11,"./Util":19}],21:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Konva = void 0;
@@ -6662,7 +6691,7 @@ exports.Konva = Util_1.Util._assign(Global_1.Konva, {
     Canvas: Canvas_1.Canvas
 });
 
-},{"./Animation":3,"./Canvas":4,"./Container":5,"./Context":6,"./DragAndDrop":7,"./FastLayer":9,"./Global":10,"./Group":11,"./Layer":12,"./Node":13,"./Shape":15,"./Stage":16,"./Tween":17,"./Util":18}],21:[function(_dereq_,module,exports){
+},{"./Animation":4,"./Canvas":5,"./Container":6,"./Context":7,"./DragAndDrop":8,"./FastLayer":10,"./Global":11,"./Group":12,"./Layer":13,"./Node":14,"./Shape":16,"./Stage":17,"./Tween":18,"./Util":19}],22:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Konva = void 0;
@@ -6745,7 +6774,7 @@ exports.Konva = _CoreInternals_1.Konva.Util._assign(_CoreInternals_1.Konva, {
     },
 });
 
-},{"./_CoreInternals":20,"./filters/Blur":22,"./filters/Brighten":23,"./filters/Contrast":24,"./filters/Emboss":25,"./filters/Enhance":26,"./filters/Grayscale":27,"./filters/HSL":28,"./filters/HSV":29,"./filters/Invert":30,"./filters/Kaleidoscope":31,"./filters/Mask":32,"./filters/Noise":33,"./filters/Pixelate":34,"./filters/Posterize":35,"./filters/RGB":36,"./filters/RGBA":37,"./filters/Sepia":38,"./filters/Solarize":39,"./filters/Threshold":40,"./shapes/Arc":42,"./shapes/Arrow":43,"./shapes/Circle":44,"./shapes/Ellipse":45,"./shapes/Image":46,"./shapes/Label":47,"./shapes/Line":48,"./shapes/Path":49,"./shapes/Rect":50,"./shapes/RegularPolygon":51,"./shapes/Ring":52,"./shapes/Sprite":53,"./shapes/Star":54,"./shapes/Text":55,"./shapes/TextPath":56,"./shapes/Transformer":57,"./shapes/Wedge":58}],22:[function(_dereq_,module,exports){
+},{"./_CoreInternals":21,"./filters/Blur":23,"./filters/Brighten":24,"./filters/Contrast":25,"./filters/Emboss":26,"./filters/Enhance":27,"./filters/Grayscale":28,"./filters/HSL":29,"./filters/HSV":30,"./filters/Invert":31,"./filters/Kaleidoscope":32,"./filters/Mask":33,"./filters/Noise":34,"./filters/Pixelate":35,"./filters/Posterize":36,"./filters/RGB":37,"./filters/RGBA":38,"./filters/Sepia":39,"./filters/Solarize":40,"./filters/Threshold":41,"./shapes/Arc":43,"./shapes/Arrow":44,"./shapes/Circle":45,"./shapes/Ellipse":46,"./shapes/Image":47,"./shapes/Label":48,"./shapes/Line":49,"./shapes/Path":50,"./shapes/Rect":51,"./shapes/RegularPolygon":52,"./shapes/Ring":53,"./shapes/Sprite":54,"./shapes/Star":55,"./shapes/Text":56,"./shapes/TextPath":57,"./shapes/Transformer":58,"./shapes/Wedge":59}],23:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Blur = void 0;
@@ -7448,7 +7477,7 @@ var Blur = function Blur(imageData) {
 exports.Blur = Blur;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'blurRadius', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],23:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],24:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Brighten = void 0;
@@ -7466,7 +7495,7 @@ var Brighten = function (imageData) {
 exports.Brighten = Brighten;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'brightness', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],24:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],25:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Contrast = void 0;
@@ -7506,7 +7535,7 @@ var Contrast = function (imageData) {
 exports.Contrast = Contrast;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'contrast', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],25:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],26:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Emboss = void 0;
@@ -7614,7 +7643,7 @@ Factory_1.Factory.addGetterSetter(Node_1.Node, 'embossWhiteLevel', 0.5, Validato
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'embossDirection', 'top-left', null, Factory_1.Factory.afterSetFilter);
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'embossBlend', false, null, Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Util":18,"../Validators":19}],26:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Util":19,"../Validators":20}],27:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Enhance = void 0;
@@ -7703,7 +7732,7 @@ var Enhance = function (imageData) {
 exports.Enhance = Enhance;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'enhance', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],27:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],28:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Grayscale = void 0;
@@ -7718,7 +7747,7 @@ var Grayscale = function (imageData) {
 };
 exports.Grayscale = Grayscale;
 
-},{}],28:[function(_dereq_,module,exports){
+},{}],29:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HSL = void 0;
@@ -7748,7 +7777,7 @@ var HSL = function (imageData) {
 };
 exports.HSL = HSL;
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],29:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],30:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HSV = void 0;
@@ -7778,7 +7807,7 @@ Factory_1.Factory.addGetterSetter(Node_1.Node, 'hue', 0, Validators_1.getNumberV
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'saturation', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'value', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],30:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],31:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Invert = void 0;
@@ -7792,7 +7821,7 @@ var Invert = function (imageData) {
 };
 exports.Invert = Invert;
 
-},{}],31:[function(_dereq_,module,exports){
+},{}],32:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Kaleidoscope = void 0;
@@ -7930,7 +7959,7 @@ exports.Kaleidoscope = Kaleidoscope;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'kaleidoscopePower', 2, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'kaleidoscopeAngle', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Util":18,"../Validators":19}],32:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Util":19,"../Validators":20}],33:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mask = void 0;
@@ -8076,7 +8105,7 @@ var Mask = function (imageData) {
 exports.Mask = Mask;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'threshold', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],33:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],34:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Noise = void 0;
@@ -8094,7 +8123,7 @@ var Noise = function (imageData) {
 exports.Noise = Noise;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'noise', 0.2, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],34:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],35:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pixelate = void 0;
@@ -8160,7 +8189,7 @@ var Pixelate = function (imageData) {
 exports.Pixelate = Pixelate;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'pixelSize', 8, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Util":18,"../Validators":19}],35:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Util":19,"../Validators":20}],36:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Posterize = void 0;
@@ -8176,7 +8205,7 @@ var Posterize = function (imageData) {
 exports.Posterize = Posterize;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'levels', 0.5, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],36:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],37:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RGB = void 0;
@@ -8221,7 +8250,7 @@ Factory_1.Factory.addGetterSetter(Node_1.Node, 'green', 0, function (val) {
 });
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'blue', 0, Validators_1.RGBComponent, Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],37:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],38:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RGBA = void 0;
@@ -8276,7 +8305,7 @@ Factory_1.Factory.addGetterSetter(Node_1.Node, 'alpha', 1, function (val) {
     }
 });
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],38:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],39:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sepia = void 0;
@@ -8293,7 +8322,7 @@ var Sepia = function (imageData) {
 };
 exports.Sepia = Sepia;
 
-},{}],39:[function(_dereq_,module,exports){
+},{}],40:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Solarize = void 0;
@@ -8324,7 +8353,7 @@ var Solarize = function (imageData) {
 };
 exports.Solarize = Solarize;
 
-},{}],40:[function(_dereq_,module,exports){
+},{}],41:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Threshold = void 0;
@@ -8340,13 +8369,13 @@ var Threshold = function (imageData) {
 exports.Threshold = Threshold;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'threshold', 0.5, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":8,"../Node":13,"../Validators":19}],41:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Node":14,"../Validators":20}],42:[function(_dereq_,module,exports){
 var Konva = _dereq_('./_FullInternals').Konva;
 Konva._injectGlobal(Konva);
 exports['default'] = Konva;
 module.exports = exports['default'];
 
-},{"./_FullInternals":21}],42:[function(_dereq_,module,exports){
+},{"./_FullInternals":22}],43:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8407,7 +8436,7 @@ Factory_1.Factory.addGetterSetter(Arc, 'angle', 0, Validators_1.getNumberValidat
 Factory_1.Factory.addGetterSetter(Arc, 'clockwise', false, Validators_1.getBooleanValidator());
 Util_1.Collection.mapMethods(Arc);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],43:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],44:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8513,7 +8542,7 @@ Factory_1.Factory.addGetterSetter(Arrow, 'pointerWidth', 10, Validators_1.getNum
 Factory_1.Factory.addGetterSetter(Arrow, 'pointerAtBeginning', false);
 Util_1.Collection.mapMethods(Arrow);
 
-},{"../Factory":8,"../Global":10,"../Util":18,"../Validators":19,"./Line":48}],44:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Util":19,"../Validators":20,"./Line":49}],45:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8572,7 +8601,7 @@ Global_1._registerNode(Circle);
 Factory_1.Factory.addGetterSetter(Circle, 'radius', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Circle);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],45:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],46:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8635,7 +8664,7 @@ Factory_1.Factory.addGetterSetter(Ellipse, 'radiusX', 0, Validators_1.getNumberV
 Factory_1.Factory.addGetterSetter(Ellipse, 'radiusY', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Ellipse);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],46:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],47:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8739,7 +8768,7 @@ Factory_1.Factory.addGetterSetter(Image, 'cropWidth', 0, Validators_1.getNumberV
 Factory_1.Factory.addGetterSetter(Image, 'cropHeight', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Image);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],47:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],48:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8936,7 +8965,7 @@ Factory_1.Factory.addGetterSetter(Tag, 'pointerHeight', 0, Validators_1.getNumbe
 Factory_1.Factory.addGetterSetter(Tag, 'cornerRadius', 0, Validators_1.getNumberOrArrayOfNumbersValidator(4));
 Util_1.Collection.mapMethods(Tag);
 
-},{"../Factory":8,"../Global":10,"../Group":11,"../Shape":15,"../Util":18,"../Validators":19}],48:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Group":12,"../Shape":16,"../Util":19,"../Validators":20}],49:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9102,7 +9131,7 @@ Factory_1.Factory.addGetterSetter(Line, 'tension', 0, Validators_1.getNumberVali
 Factory_1.Factory.addGetterSetter(Line, 'points', [], Validators_1.getNumberArrayValidator());
 Util_1.Collection.mapMethods(Line);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],49:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],50:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9749,7 +9778,7 @@ Global_1._registerNode(Path);
 Factory_1.Factory.addGetterSetter(Path, 'data');
 Util_1.Collection.mapMethods(Path);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18}],50:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19}],51:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9817,7 +9846,7 @@ Global_1._registerNode(Rect);
 Factory_1.Factory.addGetterSetter(Rect, 'cornerRadius', 0, Validators_1.getNumberOrArrayOfNumbersValidator(4));
 Util_1.Collection.mapMethods(Rect);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],51:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],52:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9908,7 +9937,7 @@ Factory_1.Factory.addGetterSetter(RegularPolygon, 'radius', 0, Validators_1.getN
 Factory_1.Factory.addGetterSetter(RegularPolygon, 'sides', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(RegularPolygon);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],52:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],53:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9967,7 +9996,7 @@ Factory_1.Factory.addGetterSetter(Ring, 'innerRadius', 0, Validators_1.getNumber
 Factory_1.Factory.addGetterSetter(Ring, 'outerRadius', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Ring);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],53:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],54:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -10099,7 +10128,7 @@ Factory_1.Factory.backCompat(Sprite, {
 });
 Util_1.Collection.mapMethods(Sprite);
 
-},{"../Animation":3,"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],54:[function(_dereq_,module,exports){
+},{"../Animation":4,"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],55:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -10163,7 +10192,7 @@ Factory_1.Factory.addGetterSetter(Star, 'innerRadius', 0, Validators_1.getNumber
 Factory_1.Factory.addGetterSetter(Star, 'outerRadius', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Star);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],55:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],56:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -10542,7 +10571,7 @@ Factory_1.Factory.addGetterSetter(Text, 'text', '', Validators_1.getStringValida
 Factory_1.Factory.addGetterSetter(Text, 'textDecoration', '');
 Util_1.Collection.mapMethods(Text);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],56:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],57:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -10912,7 +10941,7 @@ Factory_1.Factory.addGetterSetter(TextPath, 'textDecoration', null);
 Factory_1.Factory.addGetterSetter(TextPath, 'kerningFunc', null);
 Util_1.Collection.mapMethods(TextPath);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19,"./Path":49,"./Text":55}],57:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20,"./Path":50,"./Text":56}],58:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -11888,7 +11917,7 @@ Factory_1.Factory.backCompat(Transformer, {
 });
 Util_1.Collection.mapMethods(Transformer);
 
-},{"../Factory":8,"../Global":10,"../Group":11,"../Node":13,"../Shape":15,"../Util":18,"../Validators":19,"./Rect":50}],58:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Group":12,"../Node":14,"../Shape":16,"../Util":19,"../Validators":20,"./Rect":51}],59:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -11952,7 +11981,7 @@ Factory_1.Factory.backCompat(Wedge, {
 });
 Util_1.Collection.mapMethods(Wedge);
 
-},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],59:[function(_dereq_,module,exports){
+},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],60:[function(_dereq_,module,exports){
 "use strict";
 
 /**
@@ -12131,7 +12160,7 @@ WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
 
 module.exports = WaveformDataArrayBufferAdapter;
 
-},{}],60:[function(_dereq_,module,exports){
+},{}],61:[function(_dereq_,module,exports){
 "use strict";
 
 /**
@@ -12275,7 +12304,7 @@ WaveformDataObjectAdapter.prototype = {
 
 module.exports = WaveformDataObjectAdapter;
 
-},{}],61:[function(_dereq_,module,exports){
+},{}],62:[function(_dereq_,module,exports){
 "use strict";
 
 var WaveformData = _dereq_("../core");
@@ -12470,7 +12499,7 @@ function getAudioDecoder(options, callback) {
 
 module.exports = getAudioDecoder;
 
-},{"../core":65,"inline-worker":2}],62:[function(_dereq_,module,exports){
+},{"../core":66,"inline-worker":3}],63:[function(_dereq_,module,exports){
 "use strict";
 
 var defaultOptions = {
@@ -12495,7 +12524,7 @@ function getOptions(options) {
 
 module.exports = getOptions;
 
-},{}],63:[function(_dereq_,module,exports){
+},{}],64:[function(_dereq_,module,exports){
 "use strict";
 
 var getAudioDecoder = _dereq_("./audiodecoder");
@@ -12580,7 +12609,7 @@ function createFromAudio(options, callback) {
 
 module.exports = createFromAudio;
 
-},{"./audiodecoder":61,"./options":62}],64:[function(_dereq_,module,exports){
+},{"./audiodecoder":62,"./options":63}],65:[function(_dereq_,module,exports){
 "use strict";
 
 /**
@@ -12682,7 +12711,7 @@ WaveformDataChannel.prototype.max_array = function() {
 
 module.exports = WaveformDataChannel;
 
-},{}],65:[function(_dereq_,module,exports){
+},{}],66:[function(_dereq_,module,exports){
 "use strict";
 
 var WaveformDataChannel = _dereq_("./channel");
@@ -13191,7 +13220,7 @@ WaveformData.prototype = {
 
 module.exports = WaveformData;
 
-},{"./adapters/arraybuffer":59,"./adapters/object":60,"./channel":64}],66:[function(_dereq_,module,exports){
+},{"./adapters/arraybuffer":60,"./adapters/object":61,"./channel":65}],67:[function(_dereq_,module,exports){
 "use strict";
 
 var WaveformData = _dereq_("./lib/core");
@@ -13200,7 +13229,7 @@ WaveformData.createFromAudio = _dereq_("./lib/builders/webaudio");
 
 module.exports = WaveformData;
 
-},{"./lib/builders/webaudio":63,"./lib/core":65}],67:[function(_dereq_,module,exports){
+},{"./lib/builders/webaudio":64,"./lib/core":66}],68:[function(_dereq_,module,exports){
 module.exports = function (Cue, Utils) {
     'use strict';
     var isHeadless = /HeadlessChrome/.test(navigator.userAgent);
@@ -13379,7 +13408,7 @@ module.exports = function (Cue, Utils) {
     };
     return CueEmitter;
 }(_dereq_('./cue'), _dereq_('./utils'));
-},{"./cue":68,"./utils":86}],68:[function(_dereq_,module,exports){
+},{"./cue":69,"./utils":87}],69:[function(_dereq_,module,exports){
 module.exports = function () {
     'use strict';
     function Cue(time, type, id) {
@@ -13395,7 +13424,7 @@ module.exports = function () {
     };
     return Cue;
 }();
-},{}],69:[function(_dereq_,module,exports){
+},{}],70:[function(_dereq_,module,exports){
 module.exports = function (Konva) {
     'use strict';
     function DefaultPointMarker(options) {
@@ -13506,7 +13535,7 @@ module.exports = function (Konva) {
     };
     return DefaultPointMarker;
 }(_dereq_('konva'));
-},{"konva":41}],70:[function(_dereq_,module,exports){
+},{"konva":42}],71:[function(_dereq_,module,exports){
 module.exports = function (Konva) {
     'use strict';
     function DefaultSegmentMarker(options) {
@@ -13594,7 +13623,7 @@ module.exports = function (Konva) {
     };
     return DefaultSegmentMarker;
 }(_dereq_('konva'));
-},{"konva":41}],71:[function(_dereq_,module,exports){
+},{"konva":42}],72:[function(_dereq_,module,exports){
 module.exports = function (Utils, Konva) {
     'use strict';
     function HighlightLayer(view, offset, color) {
@@ -13669,7 +13698,7 @@ module.exports = function (Utils, Konva) {
     };
     return HighlightLayer;
 }(_dereq_('./utils'), _dereq_('konva'));
-},{"./utils":86,"konva":41}],72:[function(_dereq_,module,exports){
+},{"./utils":87,"konva":42}],73:[function(_dereq_,module,exports){
 module.exports = function () {
     'use strict';
     var nodes = [
@@ -13734,8 +13763,8 @@ module.exports = function () {
     };
     return KeyboardHandler;
 }();
-},{}],73:[function(_dereq_,module,exports){
-module.exports = function (EventEmitter, CueEmitter, WaveformPoints, WaveformSegments, KeyboardHandler, MediaElementPlayer, Player, MarkerFactories, ViewController, ZoomController, WaveformBuilder, Utils) {
+},{}],74:[function(_dereq_,module,exports){
+module.exports = function (Colors, EventEmitter, CueEmitter, WaveformPoints, WaveformSegments, KeyboardHandler, MediaElementPlayer, Player, MarkerFactories, ViewController, ZoomController, WaveformBuilder, Utils) {
     'use strict';
     function buildUi(container) {
         return {
@@ -13761,28 +13790,28 @@ module.exports = function (EventEmitter, CueEmitter, WaveformPoints, WaveformSeg
             deprecationLogger: console.log.bind(console),
             keyboard: false,
             nudgeIncrement: 1,
-            segmentStartMarkerColor: '#aaaaaa',
-            segmentEndMarkerColor: '#aaaaaa',
+            segmentStartMarkerColor: Colors.gray,
+            segmentEndMarkerColor: Colors.gray,
             zoomWaveformColor: 'rgba(0, 225, 128, 1)',
             overviewWaveformColor: 'rgba(0,0,0,0.2)',
-            overviewHighlightColor: '#aaaaaa',
+            overviewHighlightColor: 'grey',
             overviewHighlightOffset: 11,
             randomizeSegmentColor: true,
             height: 200,
-            segmentColor: '#ff851b',
-            playheadColor: '#111111',
-            playheadTextColor: '#aaaaaa',
+            segmentColor: Colors.orange,
+            playheadColor: Colors.black,
+            playheadTextColor: Colors.gray,
             timeLabelPrecision: 2,
             showPlayheadTime: false,
-            axisGridlineColor: '#cccccc',
-            axisLabelColor: '#aaaaaa',
+            axisGridlineColor: '#ccc',
+            axisLabelColor: Colors.gray,
             template: [
                 '<div class="waveform">',
                 '<div class="zoom-container"></div>',
                 '<div class="overview-container"></div>',
                 '</div>'
             ].join(''),
-            pointMarkerColor: '#39cccc',
+            pointMarkerColor: Colors.teal,
             webAudio: null,
             zoomAdapter: 'static',
             emitCueEvents: false,
@@ -13803,8 +13832,11 @@ module.exports = function (EventEmitter, CueEmitter, WaveformPoints, WaveformSeg
             return;
         }
         var containers = null;
-        if (instance.options.template) {
-            instance.options.container.innerHTML = instance.options.template;
+        if (typeof instance.options.template === 'string') {
+            opts.container.innerHTML = instance.options.template;
+            containers = buildUi(instance.options.container);
+        } else if (Utils.isHTMLElement(instance.options.template)) {
+            this.container.appendChild(instance.options.template);
             containers = buildUi(instance.options.container);
         } else if (instance.options.containers) {
             containers = instance.options.containers;
@@ -13896,7 +13928,7 @@ module.exports = function (EventEmitter, CueEmitter, WaveformPoints, WaveformSeg
         }
         if (!opts.container && !opts.containers) {
             return new Error('Peaks.init(): Please specify either a container or containers option');
-        } else if (opts.container && opts.containers) {
+        } else if (Boolean(opts.container) === Boolean(opts.containers)) {
             return new Error('Peaks.init(): Please specify either a container or containers option, but not both');
         }
         if (opts.template && opts.containers) {
@@ -13927,6 +13959,7 @@ module.exports = function (EventEmitter, CueEmitter, WaveformPoints, WaveformSeg
         if (opts.logger) {
             this.logger = opts.logger;
         }
+        return null;
     };
     Peaks.prototype.setSource = function (options, callback) {
         var self = this;
@@ -14004,8 +14037,8 @@ module.exports = function (EventEmitter, CueEmitter, WaveformPoints, WaveformSeg
         }
     };
     return Peaks;
-}(_dereq_('eventemitter3'), _dereq_('./cue-emitter'), _dereq_('./waveform-points'), _dereq_('./waveform-segments'), _dereq_('./keyboard-handler'), _dereq_('./mediaelement-player'), _dereq_('./player'), _dereq_('./marker-factories'), _dereq_('./view-controller'), _dereq_('./zoom-controller'), _dereq_('./waveform-builder'), _dereq_('./utils'));
-},{"./cue-emitter":67,"./keyboard-handler":72,"./marker-factories":74,"./mediaelement-player":75,"./player":77,"./utils":86,"./view-controller":87,"./waveform-builder":89,"./waveform-points":91,"./waveform-segments":92,"./zoom-controller":95,"eventemitter3":1}],74:[function(_dereq_,module,exports){
+}(_dereq_('colors.css'), _dereq_('eventemitter3'), _dereq_('./cue-emitter'), _dereq_('./waveform-points'), _dereq_('./waveform-segments'), _dereq_('./keyboard-handler'), _dereq_('./mediaelement-player'), _dereq_('./player'), _dereq_('./marker-factories'), _dereq_('./view-controller'), _dereq_('./zoom-controller'), _dereq_('./waveform-builder'), _dereq_('./utils'));
+},{"./cue-emitter":68,"./keyboard-handler":73,"./marker-factories":75,"./mediaelement-player":76,"./player":78,"./utils":87,"./view-controller":88,"./waveform-builder":90,"./waveform-points":92,"./waveform-segments":93,"./zoom-controller":96,"colors.css":1,"eventemitter3":2}],75:[function(_dereq_,module,exports){
 module.exports = function (DefaultPointMarker, DefaultSegmentMarker, Konva) {
     'use strict';
     function createSegmentMarker(options) {
@@ -14035,7 +14068,7 @@ module.exports = function (DefaultPointMarker, DefaultSegmentMarker, Konva) {
         createPointMarker: createPointMarker
     };
 }(_dereq_('./default-point-marker'), _dereq_('./default-segment-marker'), _dereq_('konva'));
-},{"./default-point-marker":69,"./default-segment-marker":70,"konva":41}],75:[function(_dereq_,module,exports){
+},{"./default-point-marker":70,"./default-segment-marker":71,"konva":42}],76:[function(_dereq_,module,exports){
 module.exports = function () {
     'use strict';
     function MediaElementPlayer(peaks, mediaElement) {
@@ -14116,7 +14149,7 @@ module.exports = function () {
     };
     return MediaElementPlayer;
 }();
-},{}],76:[function(_dereq_,module,exports){
+},{}],77:[function(_dereq_,module,exports){
 module.exports = function (Konva) {
     'use strict';
     function getMarkerObject(obj) {
@@ -14205,7 +14238,7 @@ module.exports = function (Konva) {
     };
     return MouseDragHandler;
 }(_dereq_('konva'));
-},{"konva":41}],77:[function(_dereq_,module,exports){
+},{"konva":42}],78:[function(_dereq_,module,exports){
 module.exports = function (Utils) {
     'use strict';
     function getAllPropertiesFrom(adapter) {
@@ -14315,7 +14348,7 @@ module.exports = function (Utils) {
     };
     return Player;
 }(_dereq_('./utils'));
-},{"./utils":86}],78:[function(_dereq_,module,exports){
+},{"./utils":87}],79:[function(_dereq_,module,exports){
 module.exports = function (Konva) {
     'use strict';
     function PlayheadLayer(options) {
@@ -14412,15 +14445,15 @@ module.exports = function (Konva) {
                 this._playheadVisible = true;
                 this._playheadGroup.show();
             }
-            this._playheadGroup.setX(playheadX);
+            this._playheadGroup.setAttr('x', playheadX);
             if (this._playheadText) {
                 var text = this._view.formatTime(time);
                 var playheadTextWidth = this._playheadText.getTextWidth();
                 this._playheadText.setText(text);
                 if (playheadTextWidth + playheadX > width - 2) {
-                    this._playheadText.setX(-playheadTextWidth - 2);
+                    this._playheadText.setAttr('x', -playheadTextWidth - 2);
                 } else if (playheadTextWidth + playheadX < width) {
-                    this._playheadText.setX(2);
+                    this._playheadText.setAttr('x', 2);
                 }
             }
             this._playheadLayer.draw();
@@ -14501,7 +14534,7 @@ module.exports = function (Konva) {
     };
     return PlayheadLayer;
 }(_dereq_('konva'));
-},{"konva":41}],79:[function(_dereq_,module,exports){
+},{"konva":42}],80:[function(_dereq_,module,exports){
 module.exports = function (Konva) {
     'use strict';
     function PointMarker(options) {
@@ -14581,7 +14614,7 @@ module.exports = function (Konva) {
     };
     return PointMarker;
 }(_dereq_('konva'));
-},{"konva":41}],80:[function(_dereq_,module,exports){
+},{"konva":42}],81:[function(_dereq_,module,exports){
 module.exports = function (Utils) {
     'use strict';
     var pointOptions = [
@@ -14680,7 +14713,7 @@ module.exports = function (Utils) {
     };
     return Point;
 }(_dereq_('./utils'));
-},{"./utils":86}],81:[function(_dereq_,module,exports){
+},{"./utils":87}],82:[function(_dereq_,module,exports){
 module.exports = function (PointMarker, Utils, Konva) {
     'use strict';
     var defaultFontFamily = 'sans-serif';
@@ -14885,7 +14918,7 @@ module.exports = function (PointMarker, Utils, Konva) {
     };
     return PointsLayer;
 }(_dereq_('./point-marker'), _dereq_('./utils'), _dereq_('konva'));
-},{"./point-marker":79,"./utils":86,"konva":41}],82:[function(_dereq_,module,exports){
+},{"./point-marker":80,"./utils":87,"konva":42}],83:[function(_dereq_,module,exports){
 module.exports = function (Konva) {
     'use strict';
     function SegmentMarker(options) {
@@ -14976,7 +15009,7 @@ module.exports = function (Konva) {
     };
     return SegmentMarker;
 }(_dereq_('konva'));
-},{"konva":41}],83:[function(_dereq_,module,exports){
+},{"konva":42}],84:[function(_dereq_,module,exports){
 module.exports = function (SegmentMarker, WaveformShape) {
     'use strict';
     var defaultFontFamily = 'sans-serif';
@@ -15158,7 +15191,7 @@ module.exports = function (SegmentMarker, WaveformShape) {
     };
     return SegmentShape;
 }(_dereq_('./segment-marker'), _dereq_('./waveform-shape'));
-},{"./segment-marker":82,"./waveform-shape":93}],84:[function(_dereq_,module,exports){
+},{"./segment-marker":83,"./waveform-shape":94}],85:[function(_dereq_,module,exports){
 module.exports = function (Utils) {
     'use strict';
     var segmentOptions = [
@@ -15283,7 +15316,7 @@ module.exports = function (Utils) {
     };
     return Segment;
 }(_dereq_('./utils'));
-},{"./utils":86}],85:[function(_dereq_,module,exports){
+},{"./utils":87}],86:[function(_dereq_,module,exports){
 module.exports = function (SegmentShape, Utils, Konva) {
     'use strict';
     function SegmentsLayer(peaks, view, allowEditing) {
@@ -15453,7 +15486,7 @@ module.exports = function (SegmentShape, Utils, Konva) {
     };
     return SegmentsLayer;
 }(_dereq_('./segment-shape'), _dereq_('./utils'), _dereq_('konva'));
-},{"./segment-shape":83,"./utils":86,"konva":41}],86:[function(_dereq_,module,exports){
+},{"./segment-shape":84,"./utils":87,"konva":42}],87:[function(_dereq_,module,exports){
 module.exports = function () {
     'use strict';
     if (typeof Number.isFinite !== 'function') {
@@ -15575,7 +15608,7 @@ module.exports = function () {
         }
     };
 }();
-},{}],87:[function(_dereq_,module,exports){
+},{}],88:[function(_dereq_,module,exports){
 module.exports = function (WaveformOverview, WaveformZoomView, Utils) {
     'use strict';
     function ViewController(peaks) {
@@ -15657,7 +15690,7 @@ module.exports = function (WaveformOverview, WaveformZoomView, Utils) {
     };
     return ViewController;
 }(_dereq_('./waveform-overview'), _dereq_('./waveform-zoomview'), _dereq_('./utils'));
-},{"./utils":86,"./waveform-overview":90,"./waveform-zoomview":94}],88:[function(_dereq_,module,exports){
+},{"./utils":87,"./waveform-overview":91,"./waveform-zoomview":95}],89:[function(_dereq_,module,exports){
 module.exports = function (Utils, Konva) {
     'use strict';
     function WaveformAxis(view, options) {
@@ -15753,7 +15786,7 @@ module.exports = function (Utils, Konva) {
     };
     return WaveformAxis;
 }(_dereq_('./utils'), _dereq_('konva'));
-},{"./utils":86,"konva":41}],89:[function(_dereq_,module,exports){
+},{"./utils":87,"konva":42}],90:[function(_dereq_,module,exports){
 module.exports = function (WaveformData, Utils) {
     'use strict';
     var isXhr2 = 'withCredentials' in new XMLHttpRequest();
@@ -15935,7 +15968,7 @@ module.exports = function (WaveformData, Utils) {
     };
     return WaveformBuilder;
 }(_dereq_('waveform-data'), _dereq_('./utils'));
-},{"./utils":86,"waveform-data":66}],90:[function(_dereq_,module,exports){
+},{"./utils":87,"waveform-data":67}],91:[function(_dereq_,module,exports){
 module.exports = function (HighlightLayer, MouseDragHandler, PlayheadLayer, PointsLayer, SegmentsLayer, WaveformAxis, WaveformShape, Utils, Konva) {
     'use strict';
     function WaveformOverview(waveformData, container, peaks) {
@@ -16198,7 +16231,7 @@ module.exports = function (HighlightLayer, MouseDragHandler, PlayheadLayer, Poin
     };
     return WaveformOverview;
 }(_dereq_('./highlight-layer'), _dereq_('./mouse-drag-handler'), _dereq_('./playhead-layer'), _dereq_('./points-layer'), _dereq_('./segments-layer'), _dereq_('./waveform-axis'), _dereq_('./waveform-shape'), _dereq_('./utils'), _dereq_('konva'));
-},{"./highlight-layer":71,"./mouse-drag-handler":76,"./playhead-layer":78,"./points-layer":81,"./segments-layer":85,"./utils":86,"./waveform-axis":88,"./waveform-shape":93,"konva":41}],91:[function(_dereq_,module,exports){
+},{"./highlight-layer":72,"./mouse-drag-handler":77,"./playhead-layer":79,"./points-layer":82,"./segments-layer":86,"./utils":87,"./waveform-axis":89,"./waveform-shape":94,"konva":42}],92:[function(_dereq_,module,exports){
 module.exports = function (Point, Utils) {
     'use strict';
     function WaveformPoints(peaks) {
@@ -16301,8 +16334,8 @@ module.exports = function (Point, Utils) {
     };
     return WaveformPoints;
 }(_dereq_('./point'), _dereq_('./utils'));
-},{"./point":80,"./utils":86}],92:[function(_dereq_,module,exports){
-module.exports = function (Segment, Utils) {
+},{"./point":81,"./utils":87}],93:[function(_dereq_,module,exports){
+module.exports = function (Colors, Segment, Utils) {
     'use strict';
     function WaveformSegments(peaks) {
         this._peaks = peaks;
@@ -16315,16 +16348,16 @@ module.exports = function (Segment, Utils) {
         return 'peaks.segment.' + this._segmentIdCounter++;
     };
     var colors = [
-        '#001f3f',
-        '#0074d9',
-        '#7fdbff',
-        '#39cccc',
-        '#ffdc00',
-        '#ff851b',
-        '#ff4136',
-        '#85144b',
-        '#f012be',
-        '#b10dc9'
+        Colors.navy,
+        Colors.blue,
+        Colors.aqua,
+        Colors.teal,
+        Colors.yellow,
+        Colors.orange,
+        Colors.red,
+        Colors.maroon,
+        Colors.fuchsia,
+        Colors.purple
     ];
     WaveformSegments.prototype._getSegmentColor = function () {
         if (this._peaks.options.randomizeSegmentColor) {
@@ -16446,8 +16479,8 @@ module.exports = function (Segment, Utils) {
         this._peaks.emit('segments.remove_all');
     };
     return WaveformSegments;
-}(_dereq_('./segment'), _dereq_('./utils'));
-},{"./segment":84,"./utils":86}],93:[function(_dereq_,module,exports){
+}(_dereq_('colors.css'), _dereq_('./segment'), _dereq_('./utils'));
+},{"./segment":85,"./utils":87,"colors.css":1}],94:[function(_dereq_,module,exports){
 module.exports = function (Utils, Konva) {
     'use strict';
     function WaveformShape(options) {
@@ -16582,7 +16615,7 @@ module.exports = function (Utils, Konva) {
     };
     return WaveformShape;
 }(_dereq_('./utils'), _dereq_('konva'));
-},{"./utils":86,"konva":41}],94:[function(_dereq_,module,exports){
+},{"./utils":87,"konva":42}],95:[function(_dereq_,module,exports){
 module.exports = function (MouseDragHandler, PlayheadLayer, PointsLayer, SegmentsLayer, WaveformAxis, WaveformShape, Utils, Konva) {
     'use strict';
     function WaveformZoomView(waveformData, container, peaks) {
@@ -16980,7 +17013,7 @@ module.exports = function (MouseDragHandler, PlayheadLayer, PointsLayer, Segment
     };
     return WaveformZoomView;
 }(_dereq_('./mouse-drag-handler'), _dereq_('./playhead-layer'), _dereq_('./points-layer'), _dereq_('./segments-layer'), _dereq_('./waveform-axis'), _dereq_('./waveform-shape'), _dereq_('./utils'), _dereq_('konva'));
-},{"./mouse-drag-handler":76,"./playhead-layer":78,"./points-layer":81,"./segments-layer":85,"./utils":86,"./waveform-axis":88,"./waveform-shape":93,"konva":41}],95:[function(_dereq_,module,exports){
+},{"./mouse-drag-handler":77,"./playhead-layer":79,"./points-layer":82,"./segments-layer":86,"./utils":87,"./waveform-axis":89,"./waveform-shape":94,"konva":42}],96:[function(_dereq_,module,exports){
 module.exports = function () {
     'use strict';
     function ZoomController(peaks, zoomLevels) {
@@ -17023,6 +17056,6 @@ module.exports = function () {
     };
     return ZoomController;
 }();
-},{}]},{},[73])(73)
+},{}]},{},[74])(74)
 });
 //# sourceMappingURL=peaks.js.map
