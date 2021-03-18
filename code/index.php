@@ -173,8 +173,7 @@ if (isset($_POST['formEpisode']))
     </div>
     <div style='text-align: center;'>
         <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-segment'>Add a Segment at current time</button><br>
-        <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-point'>Add a Point at current time</button><br>
-        <button style='width: 50%; background-color: #FF2800; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='log-data'>Refresh submitted segments/points</button>
+        <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-point'>Add a Point at current time</button>
     </div>
     <div class='log'>
       <div id='segments' class='hide'>
@@ -423,11 +422,6 @@ if (isset($_POST['formEpisode']))
               labelText: 'Point ' + pointCounter++,
               editable: true
             });
-            renderSegments(peaksInstance);
-            renderPoints(peaksInstance);
-          });
-
-          document.querySelector('button[data-action=\"log-data\"]').addEventListener('click', function(event) {
             renderSegments(peaksInstance);
             renderPoints(peaksInstance);
           });
