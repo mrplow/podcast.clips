@@ -174,7 +174,7 @@ if (isset($_POST['formEpisode']))
     <div style='text-align: center;'>
         <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-segment'>Add a Segment at current time</button><br>
         <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-point'>Add a Point at current time</button><br>
-        <button style='width: 50%; background-color: #FF2800; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='log-data'>Show/refresh submitted segments/points</button>
+        <button style='width: 50%; background-color: #FF2800; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='log-data'>Refresh submitted segments/points</button>
     </div>
     <div class='log'>
       <div id='segments' class='hide'>
@@ -502,9 +502,8 @@ if (isset($_POST['formEpisode']))
             labelText: '" . $sg_comment . "',
             editable: true
           });
-                      renderSegments(peaksInstance);
+            renderSegments(peaksInstance);
             renderPoints(peaksInstance);";
-
             }
             echo "
           var amplitudeScales = {
@@ -583,6 +582,8 @@ if (isset($_POST['formEpisode']))
 
           peaksInstance.on('points.dragmove', function(point) {
             console.log('points.dragmove:', point);
+            renderSegments(peaksInstance);
+            renderPoints(peaksInstance);
           });
 
           peaksInstance.on('points.dragend', function(point) {
@@ -601,6 +602,8 @@ if (isset($_POST['formEpisode']))
 
           peaksInstance.on('segments.dragged', function(segment, startMarker) {
             console.log('segments.dragged:', segment, startMarker);
+            renderSegments(peaksInstance);
+            renderPoints(peaksInstance);
           });
 
           peaksInstance.on('segments.mouseenter', function(segment) {
@@ -651,4 +654,3 @@ if (isset($_POST['formEpisode']))
 
 </body>
 </html>
-
