@@ -411,6 +411,8 @@ if (isset($_POST['formEpisode']))
               labelText: 'Segment ' + segmentCounter++,
               editable: true
             });
+            renderSegments(peaksInstance);
+            renderPoints(peaksInstance);
           });
 
           var pointCounter = 1;
@@ -421,6 +423,8 @@ if (isset($_POST['formEpisode']))
               labelText: 'Point ' + pointCounter++,
               editable: true
             });
+            renderSegments(peaksInstance);
+            renderPoints(peaksInstance);
           });
 
           document.querySelector('button[data-action=\"log-data\"]').addEventListener('click', function(event) {
