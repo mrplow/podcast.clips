@@ -134,8 +134,8 @@ if (isset($_POST['formEpisode']))
 
         while ($row = mysqli_fetch_array($selected_episode))
         {
-        $ep_title = htmlspecialchars("".$row['ep_title']."",ENT_QUOTES);
-        $ep_description = htmlspecialchars("".$row['ep_description']."",ENT_QUOTES);
+            $ep_title = htmlspecialchars("" . $row['ep_title'] . "", ENT_QUOTES);
+            $ep_description = htmlspecialchars("" . $row['ep_description'] . "", ENT_QUOTES);
             echo "
     <div id='titles'>
       <h1>Dan is Testing Things</h1>
@@ -486,11 +486,11 @@ if (isset($_POST['formEpisode']))
 
                 unset($sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime);
                 $sg_rowid = $row['sg_rowid'];
-                $cby = htmlspecialchars("".$row['cby']."",ENT_QUOTES);
+                $cby = htmlspecialchars("" . $row['cby'] . "", ENT_QUOTES);
                 $sg_cdate = $row['sg_cdate'];
-                $mby = htmlspecialchars("".$row['mby']."",ENT_QUOTES);
+                $mby = htmlspecialchars("" . $row['mby'] . "", ENT_QUOTES);
                 $sg_mdate = $row['sg_mdate'];
-                $sg_comment = str_replace("\n","&#010;", str_replace("\r","&#010;", str_replace("\r\n","&#010;", htmlspecialchars("".$row['sg_comment']."",ENT_QUOTES))));
+                $sg_comment = str_replace("\n", "&#010;", str_replace("\r", "&#010;", str_replace("\r\n", "&#010;", htmlspecialchars("" . $row['sg_comment'] . "", ENT_QUOTES))));
                 $sg_starttime = $row['sg_starttime'];
                 $sg_endtime = $row['sg_endtime'];
 
@@ -501,7 +501,9 @@ if (isset($_POST['formEpisode']))
             createdBy: '" . $cby . "',
             labelText: '" . $sg_comment . "',
             editable: true
-          });";
+          });
+                      renderSegments(peaksInstance);
+            renderPoints(peaksInstance);";
 
             }
             echo "
