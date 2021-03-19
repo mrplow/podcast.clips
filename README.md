@@ -5,7 +5,7 @@ A simple web interface for podcast listeners to stream/download episodes and sav
 
 ### Goals
 - [x] docker-compose backend
-- [x] mariaDB backend
+- [x] mariaDB
   - [x] episodes
   - [x] segments/points
   - [x] users
@@ -20,3 +20,23 @@ A simple web interface for podcast listeners to stream/download episodes and sav
 - [ ] Other things
 
 Made with [The After Disaster Podcast](https://www.patreon.com/AfterDisaster) in mind.
+
+## Setup Instructions
+Edit .env_mariadb and change the root password, probably want a decent password ;)
+<pre>
+MYSQL_ROOT_PASSWORD=<b>654321</b>
+</pre>
+<br />
+
+Edit connect.php and change the username and password variable which will be used by php
+<pre>
+$username = "<b>databaseuser</b>";
+$password = "<b>changeme</b>";
+</pre>
+<br />
+
+Edit setupdb/01-create-database-and-user.sql and change the username (in two places) and the password to match the connect.php variables
+<pre>
+CREATE USER '<b>databaseuser</b>'@'%' IDENTIFIED BY '<b>changeme</b>';
+GRANT CREATE, ALTER, INDEX, LOCK TABLES, REFERENCES, UPDATE, DELETE, DROP, SELECT, INSERT ON `podcast_clips`.* TO '<b>databaseuser</b>'@'%';`
+</pre>
