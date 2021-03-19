@@ -3,6 +3,8 @@
 ## Overview
 A simple web interface for podcast listeners to stream/download episodes and save timestamped segments and points with comments.
 
+---
+
 ### Goals
 - [x] docker-compose backend
 - [x] mariaDB
@@ -19,10 +21,20 @@ A simple web interface for podcast listeners to stream/download episodes and sav
 - [ ] Make it not ugly
 - [ ] Other things
 
-Made with [The After Disaster Podcast](https://www.patreon.com/AfterDisaster) in mind.
+---
 
-## Setup Instructions
-Edit .env_mariadb and change the root password, probably want a decent password ;)
+## Made with [The After Disaster Podcast](https://www.patreon.com/AfterDisaster) in mind.
+
+---
+
+### Setup Instructions
+clone the repository
+
+`git pull https://github.com/mrplow/podcast.clips.git`
+
+`cd podcast.clips`
+
+Edit .env_mariadb and change the root password, probably want a decent password 😉
 <pre>
 MYSQL_ROOT_PASSWORD=<b>654321</b>
 </pre>
@@ -40,3 +52,7 @@ Edit setupdb/01-create-database-and-user.sql and change the username (in two pla
 CREATE USER '<b>databaseuser</b>'@'%' IDENTIFIED BY '<b>changeme</b>';
 GRANT CREATE, ALTER, INDEX, LOCK TABLES, REFERENCES, UPDATE, DELETE, DROP, SELECT, INSERT ON `podcast_clips`.* TO '<b>databaseuser</b>'@'%';`
 </pre>
+
+start docker-compose
+
+`docker-compose up -d`
