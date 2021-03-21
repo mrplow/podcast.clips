@@ -17,7 +17,7 @@ if (isset($_POST['Save']))
         $upd_start = $_POST['StartTime'];
         $upd_end = $_POST['EndTime'];
         $upd_rowid = $_POST['Save'];
-        $UpdSegStm = $dbconnect->prepare('UPDATE segments SET sg_mby = ?, sg_mdate = CURDATE(), sg_comment = ?, sg_starttime = ?, sg_endtime = ? WHERE sg_rowid = ?');
+        $UpdSegStm = $dbconnect->prepare('UPDATE segments SET sg_mby = ?, sg_mdate = NOW(), sg_comment = ?, sg_starttime = ?, sg_endtime = ? WHERE sg_rowid = ?');
         $UpdSegStm->bind_param('isddi', $upd_by, $upd_comment, $upd_start, $upd_end, $upd_rowid);
         $UpdSegStm->execute();
     }
@@ -28,7 +28,7 @@ if (isset($_POST['Save']))
         $cr_comment = htmlspecialchars($_POST['Comment']);
         $cr_start = $_POST['StartTime'];
         $cr_end = $_POST['EndTime'];
-        $CrSegStm = $dbconnect->prepare('INSERT INTO segments (sg_rowid_episode, sg_cby, sg_cdate, sg_comment, sg_starttime, sg_endtime) VALUES( ?, ?, CURDATE(), ?, ?, ? )');
+        $CrSegStm = $dbconnect->prepare('INSERT INTO segments (sg_rowid_episode, sg_cby, sg_cdate, sg_comment, sg_starttime, sg_endtime) VALUES( ?, ?, NOW(), ?, ?, ? )');
         $CrSegStm->bind_param('iisdd', $cr_eprowid, $cr_by, $cr_comment, $cr_start, $cr_end);
         $CrSegStm->execute();
     }
@@ -42,6 +42,6 @@ if (isset($_POST['Delete']))
     $DelSegStm->execute();
 
 }
-echo "<script type='text/javascript'>window.parent.location.reload()</script>";
+#echo "<script type='text/javascript'>window.parent.location.reload()</script>";
 
 ?>
