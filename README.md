@@ -1,20 +1,20 @@
 # podcast.clips
 
 ## Overview
-A simple web interface for podcast listeners to stream/download episodes and save timestamped segments and points with comments.
+A simple web interface for podcast listeners to stream/download episodes and save timestamped segments with comments.
 
 ---
 
 ### Goals
 - [x] docker-compose backend
-- [x] mariaDB
+- [x] mariaDB tables created
   - [x] episodes
-  - [x] segments/points
+  - [x] segments
   - [x] users
   - [ ] tags
-  - [ ] segment/point voting, thumbs up/down or star
-- [ ] Figuring how how to implement a php submit form within a javascript loop
-- [ ] Searching and filtering of segments/points
+  - [ ] segment voting, thumbs up/down or star
+- [x] Figuring how how to implement a php submit form within a javascript loop
+- [ ] Searching and filtering of segments
 - [ ] Exporting clips
   - [ ] possibly appending clips together
 - [ ] User management
