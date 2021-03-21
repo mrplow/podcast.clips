@@ -5,25 +5,37 @@ CREATE TABLE `podcast_clips`.`episodes`(
     `ep_release_date` DATE NULL,
     `ep_title` VARCHAR(256) NULL,
     `ep_description` VARCHAR(4096) NULL,
-    PRIMARY KEY(`ep_rowid`)
-) ENGINE = INNODB;
+    PRIMARY KEY(`ep_rowid`),
+    UNIQUE KEY `ep_episode_num`(`ep_episode_num`)
+) ENGINE = INNODB AUTO_INCREMENT = 1;
+
+CREATE TABLE `podcast_clips`.`userlevel`(
+    `ul_rowid` INT NOT NULL AUTO_INCREMENT,
+    `ul_level` INT NOT NULL,
+    `ul_descr` VARCHAR(40),
+    PRIMARY KEY(`ul_rowid`),
+    UNIQUE KEY `ul_level`(`ul_level`)
+) ENGINE = INNODB AUTO_INCREMENT = 1;
 
 CREATE TABLE `podcast_clips`.`users`(
     `us_rowid` INT NOT NULL AUTO_INCREMENT,
+    `us_username` VARCHAR(128) NOT NULL,
+    `us_password` VARCHAR(40) NOT NULL,
+    `us_salt` VARCHAR(128) NOT NULL,
     `us_name` VARCHAR(256) NOT NULL,
-    `us_cdate` DATE NOT NULL,
-    `us_mdate` DATE NULL,
-    `us_pass` VARCHAR(256) NOT NULL,
-    PRIMARY KEY(`us_rowid`)
-) ENGINE = INNODB;
+    `us_cdate` DATETIME NOT NULL,
+    `us_mdate` DATETIME NULL
+    PRIMARY KEY(`us_rowid`),
+    UNIQUE KEY `us_username`(`us_username`)
+) ENGINE = INNODB AUTO_INCREMENT = 1;
 
 CREATE TABLE `podcast_clips`.`segments`(
     `sg_rowid` INT NOT NULL AUTO_INCREMENT,
     `sg_rowid_episode` INT NOT NULL,
     `sg_cby` INT NOT NULL,
-    `sg_cdate` DATE NOT NULL,
+    `sg_cdate` DATETIME NOT NULL,
     `sg_mby` INT NULL,
-    `sg_mdate` DATE NULL,
+    `sg_mdate` DATETIME NULL,
     `sg_comment` VARCHAR(256) NOT NULL,
     `sg_starttime` DECIMAL(32, 28) NOT NULL,
     `sg_endtime` DECIMAL(32, 28) NOT NULL,
@@ -31,6 +43,6 @@ CREATE TABLE `podcast_clips`.`segments`(
     FOREIGN KEY(sg_rowid_episode) REFERENCES episodes(ep_rowid),
     FOREIGN KEY(sg_cby) REFERENCES users(us_rowid),
     FOREIGN KEY(sg_mby) REFERENCES users(us_rowid)
-) ENGINE = INNODB;
+) ENGINE = INNODB AUTO_INCREMENT = 1;
 
 FLUSH PRIVILEGES;
