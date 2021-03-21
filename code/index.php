@@ -231,15 +231,15 @@ if (isset($_POST['formEpisode']))
 
           for (var i = 0; i < segments.length; i++) {
             var segment = segments[i];
-            var row = '<form action=\"segment.php\" id=\"delete_seg\" target=\"delete-segment\" method=\"post\"><tr>' +
+            var row = '<form action=\"segment.php\" id=\"segment\" target=\"delete-segment\" method=\"post\"><tr>' +
               '<td>' + segment.createdBy + '</td>' +
-              '<td><textarea rows=\"4\" cols=\"50\" maxlength=\"256\" data-action=\"update-segment-label\" data-id=\"' + segment.id + '\"/>' + segment.labelText + '</textarea></td>' +
-              '<td><input data-action=\"update-segment-start-time\" type=\"number\" value=\"' + segment.startTime + '\" data-id=\"' + segment.id + '\"/></td>' +
-              '<td><input data-action=\"update-segment-end-time\" type=\"number\" value=\"' + segment.endTime + '\" data-id=\"' + segment.id + '\"/></td>' +
-              '<td>' + '<a href=\"#' + segment.id + '\" data-action=\"play-segment\" data-id=\"' + segment.id + '\">Play</a>' + '</td>' +
-              '<td>' + '<a href=\"#' + segment.id + '\" data-action=\"loop-segment\" data-id=\"' + segment.id + '\">Loop</a>' + '</td>' +
-              '<td>' + '<input type=\"submit\" value=\"Save\"> <button form=\"delete_seg\" name=\"Delete\" value=\"' + segment.id + '\"/>Delete</button>' + '</td>' +
-              '</tr></form>';
+              '<td><textarea form=\"segment\" name=\"Comment\" rows=\"4\" cols=\"50\" maxlength=\"256\" data-action=\"update-segment-label\" data-id=\"' + segment.id + '\"/>' + segment.labelText + '</textarea></td>' +
+              '<td><input form=\"segment\" name=\"StartTime\" data-action=\"update-segment-start-time\" type=\"number\" value=\"' + segment.startTime + '\" data-id=\"' + segment.id + '\"/></td>' +
+              '<td><input form=\"segment\" name=\"EndTime\" data-action=\"update-segment-end-time\" type=\"number\" value=\"' + segment.endTime + '\" data-id=\"' + segment.id + '\"/></td>' +
+              '<td><a href=\"#' + segment.id + '\" data-action=\"play-segment\" data-id=\"' + segment.id + '\">Play</a></td>' +
+              '<td><a href=\"#' + segment.id + '\" data-action=\"loop-segment\" data-id=\"' + segment.id + '\">Loop</a></td>' +
+              '<td><button form=\"segment\" name=\"Save\" value=\"' + segment.id + '\"/>Save</button> <button form=\"segment\" name=\"Delete\" value=\"' + segment.id + '\"/>Delete</button>' + '</td>' +
+              '<input type=\"hidden\" form=\"segment\" name=\"EpisodeRowid\" value=\"$aEpisode\"></tr></form>';
 
             html += row;
           }
