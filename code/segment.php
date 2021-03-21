@@ -42,6 +42,6 @@ if (isset($_POST['Delete']))
     $DelSegStm->execute();
 
 }
+echo "<script type='text/javascript'>window.parent.location.reload()</script>";
 
 ?>
-
