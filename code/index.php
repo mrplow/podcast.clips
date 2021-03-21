@@ -173,7 +173,6 @@ if (isset($_POST['formEpisode']))
     </div>
     <div style='text-align: center;'>
         <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-segment'>Add a Segment at current time</button><br>
-        <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-point'>Add a Point at current time</button>
     </div>
     <div class='log'>
       <div id='segments' class='hide'>
@@ -205,20 +204,6 @@ if (isset($_POST['formEpisode']))
         </table>
       </div>
 
-      <div id='points' class='hide'>
-        <h2>Points</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Created by</th>
-              <th>Comment</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
     </div>
     
     <script src='peaks.js'></script>
@@ -312,63 +297,6 @@ if (isset($_POST['formEpisode']))
           });
         };
 
-        var renderPoints = function(peaks) {
-          var pointsContainer = document.getElementById('points');
-          var points = peaks.points.getPoints();
-          var html = '';
-
-          for (var i = 0; i < points.length; i++) {
-            var point = points[i];
-
-            var row = '<tr>' +
-              '<td>' + point.id + '</td>' +
-              '<td><input data-action=\"update-point-label\" type=\"text\" value=\"' + point.labelText + '\" data-id=\"' + point.id + '\"/></td>' +
-              '<td><input data-action=\"update-point-time\" type=\"number\" value=\"' + point.time + '\" data-id=\"' + point.id + '\"/></td>' +
-              '<td>' + '<input type=\"submit\" value=\"Save\"> <input type=\"submit\" value=\"Delete\">' + '</td>' +
-              '</tr>';
-
-            html += row;
-          }
-
-          pointsContainer.querySelector('tbody').innerHTML = html;
-
-          if (html.length) {
-            pointsContainer.classList.remove('hide');
-          }
-
-          document.querySelectorAll('input[data-action=\"update-point-time\"]').forEach(function(inputElement) {
-            inputElement.addEventListener('input', function(event) {
-              var element = event.target;
-              var id = element.getAttribute('data-id');
-              var point = peaks.points.getPoint(id);
-
-              if (point) {
-                var time = parseFloat(element.value);
-
-                if (time < 0) {
-                  time = 0;
-                  element.value = 0;
-                }
-
-                point.update({ time: time });
-              }
-            });
-          });
-
-          document.querySelectorAll('input[data-action=\"update-point-label\"]').forEach(function(inputElement) {
-            inputElement.addEventListener('input', function(event) {
-              var element = event.target;
-              var id = element.getAttribute('data-id');
-              var point = peaks.points.getPoint(id);
-              var labelText = element.labelText;
-
-              if (point) {
-                point.update({ labelText: labelText });
-              }
-            });
-          });
-        };
-
         var options = {
           containers: {
             zoomview: document.getElementById('zoomview-container'),
@@ -380,7 +308,6 @@ if (isset($_POST['formEpisode']))
             json: 'podcasts/{$row['ep_filename']}.json'
           },
           keyboard: true,
-          pointMarkerColor: '#006eb0',
           showPlayheadTime: true
         };
 
@@ -410,19 +337,6 @@ if (isset($_POST['formEpisode']))
               editable: true
             });
             renderSegments(peaksInstance);
-            renderPoints(peaksInstance);
-          });
-
-          var pointCounter = 1;
-
-          document.querySelector('button[data-action=\"add-point\"]').addEventListener('click', function() {
-            peaksInstance.points.add({
-              time: peaksInstance.player.getCurrentTime(),
-              labelText: 'Point ' + pointCounter++,
-              editable: true
-            });
-            renderSegments(peaksInstance);
-            renderPoints(peaksInstance);
           });
 
           document.querySelector('button[data-action=\"seek\"]').addEventListener('click', function(event) {
@@ -495,8 +409,7 @@ if (isset($_POST['formEpisode']))
             labelText: '" . $sg_comment . "',
             editable: true
           });
-            renderSegments(peaksInstance);
-            renderPoints(peaksInstance);";
+            renderSegments(peaksInstance);";
             }
             echo "
           var amplitudeScales = {
@@ -555,34 +468,6 @@ if (isset($_POST['formEpisode']))
             }
           });
 
-          // Points mouse events
-
-          peaksInstance.on('points.mouseenter', function(point) {
-            console.log('points.mouseenter:', point);
-          });
-
-          peaksInstance.on('points.mouseleave', function(point) {
-            console.log('points.mouseleave:', point);
-          });
-
-          peaksInstance.on('points.dblclick', function(point) {
-            console.log('points.dblclick:', point);
-          });
-
-          peaksInstance.on('points.dragstart', function(point) {
-            console.log('points.dragstart:', point);
-          });
-
-          peaksInstance.on('points.dragmove', function(point) {
-            console.log('points.dragmove:', point);
-            renderSegments(peaksInstance);
-            renderPoints(peaksInstance);
-          });
-
-          peaksInstance.on('points.dragend', function(point) {
-            console.log('points.dragend:', point);
-          });
-
           // Segments mouse events
 
           peaksInstance.on('segments.dragstart', function(segment, startMarker) {
@@ -596,7 +481,6 @@ if (isset($_POST['formEpisode']))
           peaksInstance.on('segments.dragged', function(segment, startMarker) {
             console.log('segments.dragged:', segment, startMarker);
             renderSegments(peaksInstance);
-            renderPoints(peaksInstance);
           });
 
           peaksInstance.on('segments.mouseenter', function(segment) {
