@@ -6,6 +6,7 @@ networks:
 services:
     nginx:
         image: nginx:stable-alpine
+        restart: unless-stopped
         container_name: podcast_clips_nginx
         ports:
             - "8889:80"
@@ -20,6 +21,7 @@ services:
 
     mariaDB:
         image: mariadb:latest
+        restart: unless-stopped
         container_name: podcast_clips_mariaDB
         volumes:
             - ./database:/var/lib/mysql:rw
@@ -35,6 +37,7 @@ services:
     php:
         build:
           context: ./php
+        restart: unless-stopped
         container_name: podcast_clips_php
         volumes:
             - ./code:/var/www/code
@@ -47,6 +50,7 @@ services:
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
+        restart: unless-stopped
         container_name: podcast_clips_phpMyAdmin
         ports:
             - "8183:80"
