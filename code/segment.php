@@ -1,7 +1,7 @@
 <?php
 include ('/var/connect.php');
 
-$dbconnect = mysqli_connect($hostname, $username, $password, $db);
+$dbconnect = mysqli_connect($GLOBALS["mysql_hostname"], $GLOBALS["mysql_username"], $GLOBALS["mysql_password"], $GLOBALS["mysql_database"]);
 
 if ($dbconnect->connect_error)
 {
