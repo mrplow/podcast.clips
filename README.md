@@ -17,7 +17,7 @@ A simple web interface for podcast listeners to stream/download episodes and sav
 - [ ] Searching and filtering of segments
 - [ ] Exporting clips
   - [ ] possibly appending clips together
-- [ ] User management
+- [x] User management (kinda)
 - [ ] Make it not ugly
 - [ ] Other things
 
