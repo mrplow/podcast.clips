@@ -19,14 +19,16 @@ CREATE TABLE `podcast_clips`.`userlevel`(
 
 CREATE TABLE `podcast_clips`.`users`(
     `us_rowid` INT NOT NULL AUTO_INCREMENT,
+    `us_rowid_userlevel` INT NOT NULL,
     `us_username` VARCHAR(128) NOT NULL,
     `us_password` VARCHAR(40) NOT NULL,
     `us_salt` VARCHAR(128) NOT NULL,
     `us_name` VARCHAR(256) NOT NULL,
     `us_cdate` DATETIME NOT NULL,
-    `us_mdate` DATETIME NULL
+    `us_mdate` DATETIME NULL,
     PRIMARY KEY(`us_rowid`),
-    UNIQUE KEY `us_username`(`us_username`)
+    UNIQUE KEY `us_username`(`us_username`),
+    FOREIGN KEY(us_rowid_userlevel) REFERENCES userlevel(ul_rowid)
 ) ENGINE = INNODB AUTO_INCREMENT = 1;
 
 CREATE TABLE `podcast_clips`.`segments`(
