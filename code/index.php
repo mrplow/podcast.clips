@@ -369,9 +369,9 @@ if (isset($_POST['formEpisode']))
           });";
             $segments = mysqli_query($dbconnect, "SELECT
                                                       sg_rowid,
-                                                      cby.us_name AS cby,
+                                                      cby.us_username AS cby,
                                                       sg_cdate,
-                                                      mby.us_name AS mby,
+                                                      mby.us_username AS mby,
                                                       sg_mdate,
                                                       sg_comment,
                                                       sg_starttime,
