@@ -3,7 +3,7 @@ session_start();
 
 if (isset($_SESSION['user_id']))
 {
-    header("Location: /index2.php");
+    header("Location: /");
 }
 
 include ('/var/connect.php');
@@ -40,7 +40,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']))
     {
 
         $_SESSION['user_id'] = $ReturnedID;
-        header("Location: /index2.php");
+        header("Location: /");
 
     }
     else

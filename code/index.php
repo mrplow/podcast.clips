@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id']))
+{
+    header("Location: /login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -117,7 +124,7 @@ while ($row = $episodes->fetch_assoc())
 
 echo "
         </select> <input name='formEpisode' type='submit' value='Select'>
-    </form>\n";
+    </form><a href=\"/logout.php\">Logout</a>\n";
 
 if (isset($_POST['formEpisode']))
 {
