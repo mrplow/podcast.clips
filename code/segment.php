@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include ('/var/connect.php');
 
 $dbconnect = mysqli_connect($GLOBALS["mysql_hostname"], $GLOBALS["mysql_username"], $GLOBALS["mysql_password"], $GLOBALS["mysql_database"]);
@@ -8,17 +10,29 @@ if ($dbconnect->connect_error)
     die("Database connection failed: " . $dbconnect->connect_error);
 }
 
+$LoggedIn = $dbconnect->prepare('SELECT us_rowid, us_username FROM users WHERE us_rowid = ?');
+$LoggedIn->bind_param('i', $_SESSION['user_id']);
+$LoggedIn->execute();
+$LoggedIn->store_result();
+$LoggedIn->bind_result($ID, $Username);
+while ($LoggedIn->fetch())
+{
+    $LoggedInID = $ID;
+    $LoggedInUser = $Username;
+}
+$LoggedIn->close();
+
 if (isset($_POST['Save']))
 {
     if (is_numeric($_POST['Save']))
     {
-        $upd_by = 1;
+        $upd_by = $LoggedInID;
         $upd_comment = htmlspecialchars($_POST['Comment']);
         $upd_start = $_POST['StartTime'];
         $upd_end = $_POST['EndTime'];
         $upd_rowid = $_POST['Save'];
-        $UpdSegStm = $dbconnect->prepare('UPDATE segments SET sg_mby = ?, sg_mdate = NOW(), sg_comment = ?, sg_starttime = ?, sg_endtime = ? WHERE sg_rowid = ?');
-        $UpdSegStm->bind_param('isddi', $upd_by, $upd_comment, $upd_start, $upd_end, $upd_rowid);
+        $UpdSegStm = $dbconnect->prepare('UPDATE segments SET sg_mby = ?, sg_mdate = NOW(), sg_comment = ?, sg_starttime = ?, sg_endtime = ? WHERE sg_rowid = ? AND sg_cby = ?');
+        $UpdSegStm->bind_param('isddii', $upd_by, $upd_comment, $upd_start, $upd_end, $upd_rowid, $upd_by);
         $UpdSegStm->execute();
     }
     else
@@ -36,9 +50,9 @@ if (isset($_POST['Save']))
 if (isset($_POST['Delete']))
 {
     $del_rowid = $_POST['Delete'];
-
-    $DelSegStm = $dbconnect->prepare('DELETE segments FROM segments WHERE sg_rowid = ?');
-    $DelSegStm->bind_param('i', $del_rowid);
+    $upd_by = $LoggedInID;
+    $DelSegStm = $dbconnect->prepare('DELETE segments FROM segments WHERE sg_rowid = ? AND sg_cby = ?');
+    $DelSegStm->bind_param('ii', $del_rowid, $upd_by);
     $DelSegStm->execute();
 
 }

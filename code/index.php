@@ -153,7 +153,7 @@ if (isset($_POST['formEpisode']))
       <h4>Released {$row['ep_release_date']}</h4>
       <h3>$ep_description</h3>
     </div>
-    
+
     <div id='waveform-container'>
       <div id='zoomview-container'></div>
       <div id='overview-container'></div>
@@ -212,7 +212,7 @@ if (isset($_POST['formEpisode']))
       </div>
 
     </div>
-    
+
     <script src='peaks.js'></script>
     <script>
       (function(Peaks) {
@@ -231,7 +231,7 @@ if (isset($_POST['formEpisode']))
               '<td><a href=\"#' + segment.id + '\" data-action=\"play-segment\" data-id=\"' + segment.id + '\">Play</a></td>' +
               '<td><a href=\"#' + segment.id + '\" data-action=\"loop-segment\" data-id=\"' + segment.id + '\">Loop</a></td>' +
               '<td><button form=\"segment\" name=\"Save\" value=\"' + segment.id + '\"/>Save</button> <button form=\"segment\" name=\"Delete\" value=\"' + segment.id + '\"/>Delete</button>' + '</td>' +
-              '<input type=\"hidden\" form=\"segment\" name=\"EpisodeRowid\" value=\"$aEpisode\"></tr></form>';
+              '<input type=\"hidden\" form=\"segment\" name=\"EpisodeRowid\" value=\"$aEpisode\"><input type=\"hidden\" form=\"segment\" name=\"UserRowid\" value=\"' + segment.createdBy + '\"></tr></form>';
 
             html += row;
           }
