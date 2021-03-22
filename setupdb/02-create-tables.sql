@@ -21,7 +21,7 @@ CREATE TABLE `podcast_clips`.`users`(
     `us_rowid` INT NOT NULL AUTO_INCREMENT,
     `us_rowid_userlevel` INT NOT NULL,
     `us_username` VARCHAR(128) NOT NULL,
-    `us_password` VARCHAR(40) NOT NULL,
+    `us_password` CHAR(60) NOT NULL,
     `us_cdate` DATETIME NOT NULL,
     `us_mdate` DATETIME NULL,
     PRIMARY KEY(`us_rowid`),
