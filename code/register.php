@@ -77,7 +77,7 @@ else
 <?php
 if ($OwnerRows > 0)
 {
-    echo "<br /><h2>Don't forget your password, there is no reset.</h2><br />";
+    echo "<br /><h2>Don't forget your password, there is no email reset.</h2><br />";
 }
 else
 {

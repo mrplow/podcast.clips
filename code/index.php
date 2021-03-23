@@ -124,7 +124,7 @@ while ($row = $episodes->fetch_assoc())
 
 echo "
         </select> <input name='formEpisode' type='submit' value='Select'>
-    </form><a href=\"/logout.php\">Logout</a>\n";
+    </form>Logged in as " . $_SESSION['user_name'] . "<br /><a href=\"/logout.php\">Logout</a><br /><a href=\"/changepass.php\">Change Password</a>\n";
 
 if (isset($_POST['formEpisode']))
 {

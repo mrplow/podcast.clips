@@ -40,6 +40,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']))
     {
 
         $_SESSION['user_id'] = $ReturnedID;
+        $_SESSION['user_name'] = $ReturnedUsername;
         header("Location: /");
 
     }
