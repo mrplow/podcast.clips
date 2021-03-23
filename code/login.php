@@ -56,7 +56,34 @@ if (!empty($_POST['username']) && !empty($_POST['password']))
 <!DOCTYPE html>
 <html>
 <body>
+  <head>
+    <meta charset="UTF-8">
+    <title>AD Demo Page</title>
+    <style>
+      body {
+        font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
+      }
 
+      button, select, textarea, input {
+        background-color: white;
+        border: 2px solid #008CBA;
+        color: black;
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+      }
+
+      button:hover, select:hover, textarea:hover, input:hover {
+        background-color: #008CBA;
+        color: white;
+      }
+    </style>
+  </head>
 	<?php if (!empty($message)): ?>
 		<p><?=$message
 ?></p>

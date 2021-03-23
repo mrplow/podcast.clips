@@ -36,21 +36,42 @@ if (!isset($_SESSION['user_id']))
         height: 85px;
       }
 
-      #demo-controls {
+      #media-controls {
         margin: 0 auto 24px auto;
         width: 1000px;
         display: flex;
         align-items: center;
+        flex: 0 0 100%;
       }
 
-      #demo-controls button {
-        background: #fff;
-        border: 1px solid #919191;
+      button, select, textarea, input {
+        background-color: white;
+        border: 2px solid #008CBA;
+        color: black;
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
         cursor: pointer;
       }
 
+      button:hover, select:hover, textarea:hover, input:hover {
+        background-color: #008CBA;
+        color: white;
+      }
+
+      .segtime {
+        padding: 16px 16px;
+        margin: 4px 2px;
+        font-size: 15px;
+        width: 62px;
+      }
+
       #audio {
-        flex: 0 0 30%;
+        flex: 0 0 100%;
       }
 
       #controls {
@@ -159,27 +180,31 @@ if (isset($_POST['formEpisode']))
       <div id='overview-container'></div>
     </div>
 
-    <div id='demo-controls'>
+    <div id='media-controls'>
       <audio id='audio' controls='controls'>
         <source src='/podcasts/{$row['ep_filename']}.mp3' type='audio/mpeg'>
         Your browser does not support the audio element.
       </audio>
-
-      <div id='controls'>
+    </div>
+      <div id='media-controls'>
         <button data-action='zoom-in'>Zoom in</button>
         <button data-action='zoom-out'>Zoom out</button>
+        <label for='amplitude-scale'>&nbsp; Amplitude scale</label>
+        <input type='range' id='amplitude-scale' min='0' max='10' step='1'>
+      </div>
+      <div id='media-controls'>
         <input type='text' id='seek-time' value='0.0'>
         <button data-action='seek'>Jump to (sec)</button>
-        <label for='amplitude-scale'>Amplitude scale</label>
-        <input type='range' id='amplitude-scale' min='0' max='10' step='1'>
         <input type='checkbox' id='auto-scroll' checked>
         <label for='auto-scroll'>Auto-scroll</label>
+      </div>
+      <div id='media-controls'>
         <button data-action='resize'>Big/Small</button>
         <button data-action='toggle-overview'>Show/hide overview waveform</button>
       </div>
-    </div>
-    <div style='text-align: center;'>
-        <button style='width: 50%; background-color: #4CAF50; padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;' data-action='add-segment'>Add a Segment at current time</button><br>
+
+    <div id='media-controls'>
+        <button style='font-size: 24px;' data-action='add-segment'>Add a Segment at current time</button><br>
     </div>
     <div class='log'>
       <div id='segments' class='hide'>
@@ -225,9 +250,9 @@ if (isset($_POST['formEpisode']))
             var segment = segments[i];
             var row = '<form action=\"segment.php\" id=\"segment\" target=\"delete-segment\" method=\"post\"><tr>' +
               '<td>' + segment.createdBy + '</td>' +
-              '<td><textarea form=\"segment\" name=\"Comment\" rows=\"4\" cols=\"50\" maxlength=\"256\" data-action=\"update-segment-label\" data-id=\"' + segment.id + '\"/>' + segment.labelText + '</textarea></td>' +
-              '<td><input form=\"segment\" name=\"StartTime\" data-action=\"update-segment-start-time\" type=\"number\" value=\"' + segment.startTime + '\" data-id=\"' + segment.id + '\"/></td>' +
-              '<td><input form=\"segment\" name=\"EndTime\" data-action=\"update-segment-end-time\" type=\"number\" value=\"' + segment.endTime + '\" data-id=\"' + segment.id + '\"/></td>' +
+              '<td><textarea form=\"segment\" name=\"Comment\" rows=\"2\" cols=\"30\" maxlength=\"256\" data-action=\"update-segment-label\" data-id=\"' + segment.id + '\"/>' + segment.labelText + '</textarea></td>' +
+              '<td><input form=\"segment\" class=\"segtime\" name=\"StartTime\" data-action=\"update-segment-start-time\" type=\"number\" value=\"' + segment.startTime + '\" data-id=\"' + segment.id + '\"/></td>' +
+              '<td><input form=\"segment\" class=\"segtime\" name=\"EndTime\" data-action=\"update-segment-end-time\" type=\"number\" value=\"' + segment.endTime + '\" data-id=\"' + segment.id + '\"/></td>' +
               '<td><a href=\"#' + segment.id + '\" data-action=\"play-segment\" data-id=\"' + segment.id + '\">Play</a></td>' +
               '<td><a href=\"#' + segment.id + '\" data-action=\"loop-segment\" data-id=\"' + segment.id + '\">Loop</a></td>' +
               '<td><button form=\"segment\" name=\"Save\" value=\"' + segment.id + '\"/>Save</button> <button form=\"segment\" name=\"Delete\" value=\"' + segment.id + '\"/>Delete</button>' + '</td>' +
