@@ -29,6 +29,9 @@ CREATE TABLE `podcast_clips`.`users`(
     FOREIGN KEY(us_rowid_userlevel) REFERENCES userlevel(ul_rowid)
 ) ENGINE = INNODB AUTO_INCREMENT = 1;
 
+INSERT INTO `podcast_clips`.`userlevel`(`ul_rowid`, `ul_level`, `ul_descr`)
+VALUES(1, 1, 'owner'),(2, 10, 'moderator'),(3, 20, 'normal');
+
 CREATE TABLE `podcast_clips`.`segments`(
     `sg_rowid` INT NOT NULL AUTO_INCREMENT,
     `sg_rowid_episode` INT NOT NULL,
