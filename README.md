@@ -15,7 +15,7 @@ A simple web interface for podcast listeners to stream/download episodes and sav
   - [ ] segment voting, thumbs up/down or star
 - [x] Figuring how how to implement a php submit form within a javascript loop
 - [ ] Searching and filtering of segments
-- [ ] Exporting clips
+- [x] Exporting clips
   - [ ] possibly appending clips together
 - [x] User management (kinda)
 - [ ] Make it not ugly
