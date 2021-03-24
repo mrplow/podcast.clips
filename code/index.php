@@ -106,6 +106,11 @@ if (!isset($_SESSION['user_id']))
     </style>
   </head>
 <body>
+<form action='?' method='post'>
+<select name='id'>
+            <option disabled hidden='' selected value=''>
+                Choose an episode
+            </option>
 <?php
 include ('/var/connect.php');
 
@@ -115,7 +120,6 @@ if ($dbconnect->connect_error)
 {
     die("Database connection failed: " . $dbconnect->connect_error);
 }
-echo "    <form action='?' method='post'>\n";
 
 $episodes = mysqli_query($dbconnect, "SELECT
                                          ep_rowid,
@@ -124,11 +128,6 @@ $episodes = mysqli_query($dbconnect, "SELECT
                                          episodes
                                      ORDER BY
                                          ep_episode_num") or die(mysqli_error($dbconnect));
-
-echo "        <select name='id'>
-            <option disabled hidden='' selected value=''>
-                Choose an episode
-            </option>";
 
 while ($row = $episodes->fetch_assoc())
 {
@@ -142,37 +141,40 @@ while ($row = $episodes->fetch_assoc())
             </option>';
 
 }
+?>
 
-echo "
         </select> <input name='formEpisode' type='submit' value='Select'>
-    </form>Logged in as " . $_SESSION['user_name'] . "<br /><a href=\"/logout.php\">Logout</a><br /><a href=\"/changepass.php\">Change Password</a>\n";
+    </form>Logged in as <?php echo $_SESSION['user_name'];?><br /><a href="/logout.php">Logout</a><br /><a href="/changepass.php">Change Password</a>
+<?php if (isset($_POST['formEpisode'])): ?>
 
-if (isset($_POST['formEpisode']))
-{
-    $aEpisode = $_POST['id'];
+<?php $aEpisode = $_POST['id']; ?>
 
-    if (!isset($aEpisode))
-    {
-        echo ("<p>You didn't select an episode 🤔</p>\n");
-    }
-    else
-    {
+<?php if (isset($aEpisode)): ?>
+<?php
 
-        $selected_episode = mysqli_query($dbconnect, "SELECT ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = $aEpisode") or die(mysqli_error($dbconnect));
-
-        while ($row = mysqli_fetch_array($selected_episode))
+        $selected_episode = $dbconnect->prepare("SELECT ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?");
+        $selected_episode->bind_param('i', $aEpisode);
+        $selected_episode->execute();
+        $selected_episode->store_result();
+        $selected_episode->bind_result($filename, $episode_num, $release_date, $title, $description);
+        while ($selected_episode->fetch())
         {
-            $ep_title = htmlspecialchars("" . $row['ep_title'] . "", ENT_QUOTES);
-            $ep_description = htmlspecialchars("" . $row['ep_description'] . "", ENT_QUOTES);
-            echo "
+            $ep_filename = $filename;
+            $ep_title = htmlspecialchars($title, ENT_QUOTES);
+            $ep_description = htmlspecialchars($description, ENT_QUOTES);
+            $ep_episode_num = $episode_num;
+            $ep_release_date = $release_date;
+        }
+        $selected_episode->close();
+?>
     <div id='titles'>
       <h1>Dan is Testing Things</h1>
       <p>
-        Using the JavaScript library <a href=\"https://github.com/bbc/peaks.js/\">Peaks.js...</a> Thanks BBC!
+        Using the JavaScript library <a href="https://github.com/bbc/peaks.js/">Peaks.js...</a> Thanks BBC!
       </p>
-      <h2>Episode {$row['ep_episode_num']}: $ep_title</h2>
-      <h4>Released {$row['ep_release_date']}</h4>
-      <h3>$ep_description</h3>
+      <h2>Episode <?php echo $ep_episode_num . ": " . $ep_title;?></h2>
+      <h4>Released <?php echo $ep_release_date;?></h4>
+      <h3><?php echo $ep_description;?></h3>
     </div>
 
     <div id='waveform-container'>
@@ -182,7 +184,7 @@ if (isset($_POST['formEpisode']))
 
     <div id='media-controls'>
       <audio id='audio' controls='controls'>
-        <source src='/podcasts/{$row['ep_filename']}.mp3' type='audio/mpeg'>
+        <source src='/podcasts/<?php echo $ep_filename;?>.mp3' type='audio/mpeg'>
         Your browser does not support the audio element.
       </audio>
     </div>
@@ -248,15 +250,15 @@ if (isset($_POST['formEpisode']))
 
           for (var i = 0; i < segments.length; i++) {
             var segment = segments[i];
-            var row = '<form action=\"segment.php\" id=\"segment\" target=\"delete-segment\" method=\"post\"><tr>' +
+            var row = '<form action="segment.php" id="segment" target="delete-segment" method="post"><tr>' +
               '<td>' + segment.createdBy + '</td>' +
-              '<td><textarea form=\"segment\" name=\"Comment\" rows=\"2\" cols=\"30\" maxlength=\"256\" data-action=\"update-segment-label\" data-id=\"' + segment.id + '\"/>' + segment.labelText + '</textarea></td>' +
-              '<td><input form=\"segment\" class=\"segtime\" name=\"StartTime\" data-action=\"update-segment-start-time\" type=\"number\" value=\"' + segment.startTime + '\" data-id=\"' + segment.id + '\"/></td>' +
-              '<td><input form=\"segment\" class=\"segtime\" name=\"EndTime\" data-action=\"update-segment-end-time\" type=\"number\" value=\"' + segment.endTime + '\" data-id=\"' + segment.id + '\"/></td>' +
-              '<td><a href=\"#' + segment.id + '\" data-action=\"play-segment\" data-id=\"' + segment.id + '\">Play</a></td>' +
-              '<td><a href=\"#' + segment.id + '\" data-action=\"loop-segment\" data-id=\"' + segment.id + '\">Loop</a></td>' +
-              '<td><button form=\"segment\" name=\"Save\" value=\"' + segment.id + '\"/>Save</button> <button form=\"segment\" name=\"Delete\" value=\"' + segment.id + '\"/>Delete</button>' + '</td>' +
-              '<input type=\"hidden\" form=\"segment\" name=\"EpisodeRowid\" value=\"$aEpisode\"><input type=\"hidden\" form=\"segment\" name=\"UserRowid\" value=\"' + segment.createdBy + '\"></tr></form>';
+              '<td><textarea form="segment" name="Comment" rows="2" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + '</textarea></td>' +
+              '<td><input form="segment" class="segtime" name="StartTime" data-action="update-segment-start-time" type="number" value="' + segment.startTime + '" data-id="' + segment.id + '"/></td>' +
+              '<td><input form="segment" class="segtime" name="EndTime" data-action="update-segment-end-time" type="number" value="' + segment.endTime + '" data-id="' + segment.id + '"/></td>' +
+              '<td><a href="#' + segment.id + '" data-action="play-segment" data-id="' + segment.id + '">Play</a></td>' +
+              '<td><a href="#' + segment.id + '" data-action="loop-segment" data-id="' + segment.id + '">Loop</a></td>' +
+              '<td><button form="segment" name="Save" value="' + segment.id + '"/>Save</button> <button form="segment" name="Delete" value="' + segment.id + '"/>Delete</button>' + '</td>' +
+              '<input type="hidden" form="segment" name="EpisodeRowid" value="<?php echo $aEpisode;?>"><input type="hidden" form="segment" name="UserRowid" value="' + segment.createdBy + '"></tr></form>';
 
             html += row;
           }
@@ -267,7 +269,7 @@ if (isset($_POST['formEpisode']))
             segmentsContainer.classList.remove('hide');
           }
 
-          document.querySelectorAll('input[data-action=\"update-segment-start-time\"]').forEach(function(inputElement) {
+          document.querySelectorAll('input[data-action="update-segment-start-time"]').forEach(function(inputElement) {
             inputElement.addEventListener('input', function(event) {
               var element = event.target;
               var id = element.getAttribute('data-id');
@@ -291,7 +293,7 @@ if (isset($_POST['formEpisode']))
             });
           });
 
-          document.querySelectorAll('input[data-action=\"update-segment-end-time\"]').forEach(function(inputElement) {
+          document.querySelectorAll('input[data-action="update-segment-end-time"]').forEach(function(inputElement) {
             inputElement.addEventListener('input', function(event) {
               var element = event.target;
               var id = element.getAttribute('data-id');
@@ -315,7 +317,7 @@ if (isset($_POST['formEpisode']))
             });
           });
 
-          document.querySelectorAll('input[data-action=\"update-segment-label\"]').forEach(function(inputElement) {
+          document.querySelectorAll('input[data-action="update-segment-label"]').forEach(function(inputElement) {
             inputElement.addEventListener('input', function(event) {
               var element = event.target;
               var id = element.getAttribute('data-id');
@@ -336,8 +338,8 @@ if (isset($_POST['formEpisode']))
           },
           mediaElement: document.getElementById('audio'),
           dataUri: {
-            arraybuffer: 'podcasts/{$row['ep_filename']}.dat',
-            json: 'podcasts/{$row['ep_filename']}.json'
+            arraybuffer: 'podcasts/<?php echo $ep_filename;?>.dat',
+            json: 'podcasts/<?php echo $ep_filename;?>.json'
           },
           keyboard: true,
           showPlayheadTime: true
@@ -349,19 +351,19 @@ if (isset($_POST['formEpisode']))
             return;
           }
 
-          console.log(\"Peaks instance ready\");
+          console.log("Peaks instance ready");
 
-          document.querySelector('[data-action=\"zoom-in\"]').addEventListener('click', function() {
+          document.querySelector('[data-action="zoom-in"]').addEventListener('click', function() {
             peaksInstance.zoom.zoomIn();
           });
 
-          document.querySelector('[data-action=\"zoom-out\"]').addEventListener('click', function() {
+          document.querySelector('[data-action="zoom-out"]').addEventListener('click', function() {
             peaksInstance.zoom.zoomOut();
           });
 
           var segmentCounter = 1;
 
-          document.querySelector('button[data-action=\"add-segment\"]').addEventListener('click', function() {
+          document.querySelector('button[data-action="add-segment"]').addEventListener('click', function() {
             peaksInstance.segments.add({
               startTime: peaksInstance.player.getCurrentTime(),
               endTime: peaksInstance.player.getCurrentTime() + 10,
@@ -371,7 +373,7 @@ if (isset($_POST['formEpisode']))
             renderSegments(peaksInstance);
           });
 
-          document.querySelector('button[data-action=\"seek\"]').addEventListener('click', function(event) {
+          document.querySelector('button[data-action="seek"]').addEventListener('click', function(event) {
             var time = document.getElementById('seek-time').value;
             var seconds = parseFloat(time);
 
@@ -398,8 +400,9 @@ if (isset($_POST['formEpisode']))
               var segment = peaksInstance.segments.getSegment(id);
               peaksInstance.player.playSegment(segment, true);
             }
-          });";
-            $segments = mysqli_query($dbconnect, "SELECT
+          });
+          <?php
+        $segments = mysqli_query($dbconnect, "SELECT
                                                       sg_rowid,
                                                       cby.us_username AS cby,
                                                       sg_cdate,
@@ -419,21 +422,21 @@ if (isset($_POST['formEpisode']))
                                                   WHERE
                                                       sg_rowid_episode = $aEpisode") or die(mysqli_error($dbconnect));
 
-            while ($row = mysqli_fetch_array($segments))
+        while ($row = mysqli_fetch_array($segments))
 
-            {
+        {
 
-                unset($sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime);
-                $sg_rowid = $row['sg_rowid'];
-                $cby = htmlspecialchars("" . $row['cby'] . "", ENT_QUOTES);
-                $sg_cdate = $row['sg_cdate'];
-                $mby = htmlspecialchars("" . $row['mby'] . "", ENT_QUOTES);
-                $sg_mdate = $row['sg_mdate'];
-                $sg_comment = str_replace("\n", "&#010;", str_replace("\r", "&#010;", str_replace("\r\n", "&#010;", htmlspecialchars("" . $row['sg_comment'] . "", ENT_QUOTES))));
-                $sg_starttime = $row['sg_starttime'];
-                $sg_endtime = $row['sg_endtime'];
+            unset($sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime);
+            $sg_rowid = $row['sg_rowid'];
+            $cby = htmlspecialchars("" . $row['cby'] . "", ENT_QUOTES);
+            $sg_cdate = $row['sg_cdate'];
+            $mby = htmlspecialchars("" . $row['mby'] . "", ENT_QUOTES);
+            $sg_mdate = $row['sg_mdate'];
+            $sg_comment = str_replace("\n", "&#010;", str_replace("\r", "&#010;", str_replace("\r\n", "&#010;", htmlspecialchars("" . $row['sg_comment'] . "", ENT_QUOTES))));
+            $sg_starttime = $row['sg_starttime'];
+            $sg_endtime = $row['sg_endtime'];
 
-                echo "peaksInstance.segments.add({
+            echo "peaksInstance.segments.add({
             id: " . $sg_rowid . ",
             startTime: " . $sg_starttime . ",
             endTime: " . $sg_endtime . ",
@@ -442,20 +445,21 @@ if (isset($_POST['formEpisode']))
             editable: true
           });
             renderSegments(peaksInstance);";
-            }
-            echo "
+        }
+?>
+ 
           var amplitudeScales = {
-            \"0\": 0.0,
-            \"1\": 0.1,
-            \"2\": 0.25,
-            \"3\": 0.5,
-            \"4\": 0.75,
-            \"5\": 1.0,
-            \"6\": 1.5,
-            \"7\": 2.0,
-            \"8\": 3.0,
-            \"9\": 4.0,
-            \"10\": 5.0
+            "0": 0.0,
+            "1": 0.1,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0,
+            "6": 1.5,
+            "7": 2.0,
+            "8": 3.0,
+            "9": 4.0,
+            "10": 5.0
           };
 
           document.getElementById('amplitude-scale').addEventListener('input', function(event) {
@@ -465,7 +469,7 @@ if (isset($_POST['formEpisode']))
             peaksInstance.views.getView('overview').setAmplitudeScale(scale);
           });
 
-          document.querySelector('button[data-action=\"resize\"]').addEventListener('click', function(event) {
+          document.querySelector('button[data-action="resize"]').addEventListener('click', function(event) {
             var zoomviewContainer = document.getElementById('zoomview-container');
             var overviewContainer = document.getElementById('overview-container');
 
@@ -486,7 +490,7 @@ if (isset($_POST['formEpisode']))
             }
           });
 
-          document.querySelector('button[data-action=\"toggle-overview\"]').addEventListener('click', function(event) {
+          document.querySelector('button[data-action="toggle-overview"]').addEventListener('click', function(event) {
             var container = document.getElementById('overview-container');
             var overview = peaksInstance.views.getView('overview');
 
@@ -553,13 +557,13 @@ if (isset($_POST['formEpisode']))
         });
       })(peaks);
     </script>
-    ";
-
-        }
-
-    }
-}
-?>
+    <?php
+    else: ?>
+<p>You didn't select an episode 🤔</p>
+<?php
+    endif; ?>
+<?php
+endif; ?>
 <iframe name="delete-segment" style="visibility: hidden; position: absolute; left: 0; top: 0; height:0; width:0; border: none;"></iframe>
 </body>
 </html>

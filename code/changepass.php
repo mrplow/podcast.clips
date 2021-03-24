@@ -97,7 +97,7 @@ else
 } ?>
 
 	<h1>Change Password for <?php echo $_SESSION['user_name']; ?></h1>
-	<span>or go <a href="index.php">back home</a></span>
+	<span>or go <a href="/">back home</a></span>
 <br /><h2>Don't forget your password, there is no email reset.</h2><br />
 	<form action="changepass.php" method="POST">
 		<input type="password" placeholder="old password" name="oldpassword">		
