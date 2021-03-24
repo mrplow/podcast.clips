@@ -257,8 +257,16 @@ while ($row = $episodes->fetch_assoc())
               '<td><input form="segment" class="segtime" name="EndTime" data-action="update-segment-end-time" type="number" value="' + segment.endTime + '" data-id="' + segment.id + '"/></td>' +
               '<td><a href="#' + segment.id + '" data-action="play-segment" data-id="' + segment.id + '">Play</a></td>' +
               '<td><a href="#' + segment.id + '" data-action="loop-segment" data-id="' + segment.id + '">Loop</a></td>' +
-              '<td><button form="segment" name="Save" value="' + segment.id + '"/>Save</button> <button form="segment" name="Delete" value="' + segment.id + '"/>Delete</button>' + '</td>' +
-              '<input type="hidden" form="segment" name="EpisodeRowid" value="<?php echo $aEpisode;?>"><input type="hidden" form="segment" name="UserRowid" value="' + segment.createdBy + '"></tr></form>';
+              '<td><button form="segment" name="Save" value="' + segment.id + '"/>Save</button>' +
+              '<div id="notsaved">' +
+              '  <button form="segment" name="Delete" value="' + segment.id + '"/>Delete</button>' +
+              '  <button form="segment" name="Export" value="' + segment.id + '"/>Export</button>' +
+              '</div></td>' +
+              '<input type="hidden" form="segment" name="EpisodeRowid" value="<?php echo $aEpisode;?>">' +
+              '<input type="hidden" form="segment" name="ExportStartTime" value="' + segment.startTime + '">' +
+              '<input type="hidden" form="segment" name="ExportEndTime" value="' + segment.endTime + '">' +
+              '<input type="hidden" form="segment" name="EpisodeFilename" value="<?php echo $ep_filename;?>">' +
+              '<input type="hidden" form="segment" name="UserRowid" value="' + segment.createdBy + '"></tr></form>';
 
             html += row;
           }

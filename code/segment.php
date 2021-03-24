@@ -54,8 +54,20 @@ if (isset($_POST['Delete']))
     $DelSegStm = $dbconnect->prepare('DELETE segments FROM segments WHERE sg_rowid = ? AND sg_cby = ?');
     $DelSegStm->bind_param('ii', $del_rowid, $upd_by);
     $DelSegStm->execute();
+    echo shell_exec("/bin/rm \"/var/www/clips/" . $del_rowid . ".mp3\" 2>&1");
 
 }
-#echo "<script type='text/javascript'>window.parent.location.reload()</script>";
+if (isset($_POST['Export']))
+{
+    $ep_filename = $_POST['EpisodeFilename'];
+    $sg_StartTime = $_POST['ExportStartTime'];
+    $sg_EndTime = $_POST['ExportEndTime'];
+    $sg_Comment = $_POST['Comment'];
+    echo shell_exec("/usr/bin/ffmpeg -y -i \"/var/www/podcasts/" . $ep_filename . ".mp3\" -ss " . $sg_StartTime . " -to " . $sg_EndTime . " -c copy \"/var/www/clips/" . $_POST['Export'] . ".mp3\"  -hide_banner -loglevel panic 2>&1");
+     header('Content-Disposition: attachment; filename="' . $ep_filename . ' - Clip ' . $sg_StartTime . 'sec - ' . $sg_Comment . '.mp3"');
+     readfile('/var/www/clips/' . $_POST['Export'] . '.mp3');
+
+}
+echo "<script type='text/javascript'>window.parent.location.reload()</script>";
 
 ?>

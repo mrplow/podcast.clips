@@ -5,8 +5,7 @@ networks:
 
 services:
     nginx:
-        build:
-          context: ./Dockerfile_nginx
+        image: nginx:stable-alpine
         restart: unless-stopped
         container_name: podcast_clips_nginx
         ports:
@@ -41,9 +40,11 @@ services:
           context: ./Dockerfile_php
         restart: unless-stopped
         container_name: podcast_clips_php
+        user: "1000:1000"
         volumes:
             - ./code:/var/www/code
             - ./podcasts:/var/www/podcasts
+            - ./clips:/var/www/clips
             - ./connect.php:/var/connect.php
         expose:
             - "9000"       
