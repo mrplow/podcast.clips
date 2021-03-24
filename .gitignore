@@ -3,11 +3,12 @@ connect.php
 .env_mariadb
 setupdb/01-create-database-and-user.sql
 
-#don't need to track the podcasts
+#don't need to track the podcasts or clips
 podcasts/*.dat
 podcasts/*.json
 podcasts/*.mp3
 podcasts/new
+clips/*.mp3
 
 #don't track the database
 database/
