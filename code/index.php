@@ -16,7 +16,7 @@ header("Location: /login.php");
       .hide {
         display: none;
       }
-      tr {
+      .segmentrow {
         line-height: 80px;
         min-height: 80px;
         height: 80px;
@@ -122,6 +122,7 @@ $selected_episode->close();
         <br>
       </div>
     </div>
+    <hr/>
     <div class="container">
       <div id='media-controls' class="form-row">
         <div class="col">
@@ -149,6 +150,7 @@ $selected_episode->close();
         </div>
       </div>
     </div>
+    <hr/>
     <div>
       <div class="hide container-flex table-responsive " id='segments'>
         <h2>Segments
@@ -158,7 +160,7 @@ $selected_episode->close();
             <tr>
               <th>Created by
               </th>
-              <th class="w-50 p-3">Comment
+              <th class="w-50">Comment
               </th>
               <th>Time (seconds)
               </th>
@@ -184,7 +186,7 @@ $selected_episode->close();
         var html = '';
         for (var i = 0; i < segments.length; i++) {
           var segment = segments[i];
-          var row = '<form action="segmenttest.php" id="segment" target="delete-segment" method="post"><tr>' +
+          var row = '<form action="segmenttest.php" id="segment" target="delete-segment" method="post"><tr class="segmentrow">' +
               '<td>' + segment.createdBy + '<br />' +
               '<button form="segment" class="btn btn-primary" name="Export" value="' + segment.id + '"/>Export</button></td>' +
               '<td><div class="form-group form-control-sm">' +
