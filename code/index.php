@@ -90,7 +90,7 @@ $ep_release_date = $release_date;
 }
 $selected_episode->close();
 ?>
-    <div class="container-flex" id='titles'>
+    <div class="container" id='titles'>
       <h1>Episode 
         <?php echo $ep_episode_num . ": " . $ep_title; ?>
       </h1>
@@ -101,7 +101,7 @@ $selected_episode->close();
         <?php echo $ep_description; ?>
       </h4>
     </div>
-    <div class="container-flex">
+    <div class="container">
       <div id='waveform-container'>
         <div id='zoomview-container'>
         </div>
@@ -152,7 +152,7 @@ $selected_episode->close();
     </div>
     <hr/>
     <div>
-      <div class="hide container-flex table-responsive " id='segments'>
+      <div class="hide container table-responsive " id='segments'>
         <h2>Segments
         </h2>
         <table class="table table-condensed table-sm table-hover table-striped">
