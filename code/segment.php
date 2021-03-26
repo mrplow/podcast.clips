@@ -64,6 +64,9 @@ if (isset($_POST['Export']))
     $sg_EndTime = $_POST['ExportEndTime'];
     $sg_Comment = $_POST['Comment'];
     echo shell_exec("/usr/bin/ffmpeg -y -i \"/var/www/podcasts/" . $ep_filename . ".mp3\" -ss " . $sg_StartTime . " -to " . $sg_EndTime . " -c copy \"/var/www/clips/" . $_POST['Export'] . ".mp3\"  -hide_banner -loglevel panic 2>&1");
+     header("Cache-Control: private");
+     header("Content-type: audio/mpeg3");
+     header("Content-Transfer-Encoding: binary");
      header('Content-Disposition: attachment; filename="' . $ep_filename . ' - Clip ' . $sg_StartTime . 'sec - ' . $sg_Comment . '.mp3"');
      readfile('/var/www/clips/' . $_POST['Export'] . '.mp3');
 
