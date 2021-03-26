@@ -186,9 +186,9 @@ $selected_episode->close();
         var html = '';
         for (var i = 0; i < segments.length; i++) {
           var segment = segments[i];
-          var row = '<form action="segmenttest.php" id="segment" target="delete-segment" method="post"><tr class="segmentrow">' +
+          var row = '<form action="segment.php" id="segment" target="delete-segment" method="post"><tr class="segmentrow">' +
               '<td>' + segment.createdBy + '<br />' +
-              '<button form="segment" class="btn btn-primary" name="Export" value="' + segment.id + '"/>Export</button></td>' +
+              '<button form="segment" class="btn btn-primary" name="Export" value="' + segment.id + '"/>Download</button></td>' +
               '<td><div class="form-group form-control-sm">' +
               '<textarea class="form-control" form="segment" name="Comment" rows="4" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + '</textarea></div></td>' +
               '<td><div class="form-group form-control-sm">' +
