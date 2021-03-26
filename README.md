@@ -57,6 +57,6 @@ start docker-compose
 
 `docker-compose up -d`
 
-login to the site http://localhost:8889
+Login to the site http://localhost:8889
 
 Optionally setup an HTTPS reverse proxy with nginx or apache (google it)
