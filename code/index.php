@@ -59,7 +59,7 @@ echo '
 }
 ?>
           </select> 
-          <input name='formEpisode' type='submit' value='Select'>
+          <input class="d-none" name='formEpisode' type='submit' value='Select'>
         </div>   
       </form>
       Logged in as 
