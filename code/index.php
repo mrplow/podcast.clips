@@ -207,7 +207,7 @@ $selected_episode->close();
               '            <a href="#' + segment.id + '" data-action="play-segment" class="btn btn-success btn-sm" data-id="' + segment.id + '">Play</a>' +
               '            <a href="#' + segment.id + '" data-action="loop-segment" class="btn btn-info btn-sm" data-id="' + segment.id + '">Loop</a>' +
               '            <button form="segment" class="btn btn-primary btn-sm" name="Save" value="' + segment.id + '"/>Save</button>' +
-              '            <button form="segment" class="btn btn-danger btn-sm" name="Delete" value="' + segment.id + '"/>Delete</button><button form="segment" class="btn btn-primary btn-sm" name="Export" value="' + segment.id + '"/>Download</button>' +
+              '            <button onclick="return confirm(\'Are you sure you want to delete the segment?\');" form="segment" class="btn btn-danger btn-sm" name="Delete" value="' + segment.id + '"/>Delete</button><button form="segment" class="btn btn-primary btn-sm" name="Export" value="' + segment.id + '"/>Download</button>' +
               '          </div>' +
               '        </td>' +
               '        <input type="hidden" form="segment" name="EpisodeRowid" value="<?php echo $aEpisode; ?>">' +
@@ -487,3 +487,4 @@ endif; ?>
   </script>
   </body>
 </html>
+
