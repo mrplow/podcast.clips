@@ -2,51 +2,51 @@
 session_start();
 if (!isset($_SESSION['user_id']))
 {
-header("Location: /login.php");
+    header("Location: /login.php");
 }
 include ('/var/connect.php');
 $dbconnect = mysqli_connect($GLOBALS["mysql_hostname"], $GLOBALS["mysql_username"], $GLOBALS["mysql_password"], $GLOBALS["mysql_database"]);
 if ($dbconnect->connect_error)
 {
-die("Database connection failed: " . $dbconnect->connect_error);
+    die("Database connection failed: " . $dbconnect->connect_error);
 }
 $message = '';
 if ($_POST['password'] != $_POST['confirm_password'])
 {
-echo "passwords do not match";
+    echo "passwords do not match";
 }
 else
 {
-if (!empty($_POST['oldpassword']) && !empty($_POST['password']))
-{
-unset($OldPassword);
-$OldPassword = $_POST['oldpassword'];
-$records = $dbconnect->prepare('SELECT us_rowid, us_password FROM users WHERE us_rowid = ?');
-$records->bind_param('i', $_SESSION['user_id']);
-$records->execute();
-$records->store_result();
-$records->bind_result($UserRowid, $HashedPassword);
-while ($records->fetch())
-{
-$ReturnedID = $UserRowid;
-$ReturnedPassword = $HashedPassword;
-}
-$records->close();
-$message = '';
-if (!empty($ReturnedID) && password_verify($_POST['oldpassword'], $ReturnedPassword))
-{
-$NewPassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
-$UpdatePass = $dbconnect->prepare('UPDATE users SET us_password = ?, us_mdate = NOW() WHERE us_rowid = ?');
-$UpdatePass->bind_param('si', $NewPassword, $_SESSION['user_id']);
-$UpdatePass->execute();
-$message = 'Password updated, redirecting back home...';
-header( "refresh:3; /" ); 
-}
-else
-{
-$message = 'Sorry, those credentials do not match';
-}
-}
+    if (!empty($_POST['oldpassword']) && !empty($_POST['password']))
+    {
+        unset($OldPassword);
+        $OldPassword = $_POST['oldpassword'];
+        $records = $dbconnect->prepare('SELECT us_rowid, us_password FROM users WHERE us_rowid = ?');
+        $records->bind_param('i', $_SESSION['user_id']);
+        $records->execute();
+        $records->store_result();
+        $records->bind_result($UserRowid, $HashedPassword);
+        while ($records->fetch())
+        {
+            $ReturnedID = $UserRowid;
+            $ReturnedPassword = $HashedPassword;
+        }
+        $records->close();
+        $message = '';
+        if (!empty($ReturnedID) && password_verify($_POST['oldpassword'], $ReturnedPassword))
+        {
+            $NewPassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
+            $UpdatePass = $dbconnect->prepare('UPDATE users SET us_password = ?, us_mdate = NOW() WHERE us_rowid = ?');
+            $UpdatePass->bind_param('si', $NewPassword, $_SESSION['user_id']);
+            $UpdatePass->execute();
+            $message = 'Password updated, redirecting back home...';
+            header("refresh:3; /");
+        }
+        else
+        {
+            $message = 'Sorry, those credentials do not match';
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
