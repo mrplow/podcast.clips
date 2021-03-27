@@ -20,8 +20,9 @@ if (isset($_POST['add']))
 {
 echo "    <div class=\"container\">";
     $allowedExts = "mp3";
-    $temp = explode(".", $_FILES["file"]["name"]);
-    $extension = end($temp);
+    $temp = pathinfo($_FILES["file"]["name"]);
+    $extension = $temp['extension'];
+    $filename = $temp['filename'];
     if ((($_FILES["file"]["type"] == "audio/mp3") || ($_FILES["file"]["type"] == "audio/mpeg")) && ($extension == $allowedExts))
     {
         if ($_FILES["file"]["error"] > 0)
@@ -31,8 +32,7 @@ echo "    <div class=\"container\">";
         else
         {
             echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-            echo "Type: " . $_FILES["file"]["type"] . "<br>";
-            echo "Size: " . ($_FILES["file"]["size"] / 1024 / 1024) . " MB<br>";
+            echo "Size: " . round(($_FILES["file"]["size"] / 1024 / 1024), 2) . " MB<br>";
             if (file_exists("/var/www/podcasts/" . $_FILES["file"]["name"]))
             {
                 echo $_FILES["file"]["name"] . " already exists. ";
@@ -41,7 +41,9 @@ echo "    <div class=\"container\">";
             {
                 move_uploaded_file($_FILES["file"]["tmp_name"],
                 "/var/www/podcasts/" . $_FILES["file"]["name"]);
-                echo "Stored in: " . "/podcasts/" . $_FILES["file"]["name"];
+                echo "Success! <br />";
+                echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" > /dev/null 2>&1");
+                echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" > /dev/null 2>&1");
             }
         }
     }
