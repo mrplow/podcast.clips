@@ -62,14 +62,16 @@ echo '
           <input class="d-none" name='formEpisode' type='submit' value='Select'>
         </div>   
       </form>
-      Logged in as 
-      <?php echo $_SESSION['user_name']; ?>
-      <br />
-      <a href="/logout.php">Logout
-      </a>
-      <br />
-      <a href="/changepass.php">Change Password
-      </a>
+      <div class="float-right">
+        Logged in as 
+        <?php echo $_SESSION['user_name']; ?>
+        <br />
+        <a href="/logout.php">Logout
+        </a>
+        <br />
+        <a href="/changepass.php">Change Password
+        </a>
+      </div>
     </div>
     <?php if (isset($_POST['formEpisode'])): ?>
     <?php $aEpisode = $_POST['id']; ?>
@@ -190,8 +192,7 @@ $selected_episode->close();
               '          </td>' +
               '        <td>' +
               '          <div class="form-group form-control-sm">' +
-              '            <textarea class="form-control" form="segment" name="Comment" rows="4" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + 
-              '              </textarea>' +
+              '            <textarea class="form-control" form="segment" name="Comment" rows="4" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + '</textarea>' +
               '            </div>' +
               '          </td>' +
               '        <td>' +
@@ -297,6 +298,7 @@ $selected_episode->close();
           json: 'podcasts/<?php echo $ep_filename; ?>.json'
         }
         ,
+        height: 100,
         keyboard: true,
         showPlayheadTime: true
       };
