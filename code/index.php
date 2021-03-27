@@ -329,7 +329,7 @@ while ($row = $episodes->fetch_assoc())
         document.querySelector('button[data-action="add-segment"]').addEventListener('click', function() {
           peaksInstance.segments.add({
             startTime: peaksInstance.player.getCurrentTime(),
-            endTime: peaksInstance.player.getCurrentTime() + 10,
+            endTime: peaksInstance.player.getCurrentTime() + 6,
             labelText: 'Segment ' + segmentCounter++,
             editable: true
           }
@@ -383,7 +383,8 @@ while ($row = $episodes->fetch_assoc())
                                  ON
                                  sg_mby = cby.us_rowid
                                  WHERE
-                                 sg_rowid_episode = $selected_ep_rowid") or die(mysqli_error($dbconnect));
+                                 sg_rowid_episode = $selected_ep_rowid
+                                 ORDER BY sg_starttime") or die(mysqli_error($dbconnect));
         while ($row = mysqli_fetch_array($segments))
         {
             unset($sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime);
@@ -392,7 +393,7 @@ while ($row = $episodes->fetch_assoc())
             $sg_cdate = $row['sg_cdate'];
             $mby = htmlspecialchars("" . $row['mby'] . "", ENT_QUOTES);
             $sg_mdate = $row['sg_mdate'];
-            $sg_comment = str_replace("\n", "&#010;", str_replace("\r", "&#010;", str_replace("\r\n", "&#010;", htmlspecialchars("" . $row['sg_comment'] . "", ENT_QUOTES))));
+            $sg_comment = str_replace("\n", "&#010;", str_replace("\r", "&#010;", str_replace("\r\n", "&#010;", htmlspecialchars($row['sg_comment'], ENT_QUOTES))));
             $sg_starttime = $row['sg_starttime'];
             $sg_endtime = $row['sg_endtime'];
             echo "peaksInstance.segments.add({
