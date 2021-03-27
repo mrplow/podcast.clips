@@ -21,6 +21,9 @@ header("Location: /login.php");
         min-height: 80px;
         height: 80px;
       }
+      audio {
+        width: 100%;
+      }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
