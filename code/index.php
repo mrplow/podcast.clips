@@ -126,9 +126,9 @@ $selected_episode->close();
     <div class="container">
       <div id='media-controls' class="form-row">
         <div class="col">
-          <button type="button" class="btn btn-secondary" data-action='zoom-in'>Zoom in
+          <button type="button" class="btn btn-secondary btn-sm" data-action='zoom-in'>Zoom in
           </button>
-          <button type="button" class="btn btn-secondary" data-action='zoom-out'>Zoom out
+          <button type="button" class="btn btn-secondary btn-sm" data-action='zoom-out'>Zoom out
           </button>
         </div>
         <div class="col">
@@ -140,7 +140,7 @@ $selected_episode->close();
       <div  id='media-controls' class="form-row">
         <div class="col">
           <input type='text' id='seek-time' value='0.0'>
-          <button type="button" class="btn btn-secondary" data-action='seek'>Jump to (sec)
+          <button type="button" class="btn btn-secondary btn-sm" data-action='seek'>Jump to (sec)
           </button>  
         </div>  
         <div class="col">
@@ -166,8 +166,6 @@ $selected_episode->close();
               </th>
               <th>
               </th>
-              <th>
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -186,26 +184,39 @@ $selected_episode->close();
         var html = '';
         for (var i = 0; i < segments.length; i++) {
           var segment = segments[i];
-          var row = '<form action="segment.php" id="segment" target="delete-segment" method="post"><tr class="segmentrow">' +
-              '<td>' + segment.createdBy + '<br />' +
-              '<button form="segment" class="btn btn-primary" name="Export" value="' + segment.id + '"/>Download</button></td>' +
-              '<td><div class="form-group form-control-sm">' +
-              '<textarea class="form-control" form="segment" name="Comment" rows="4" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + '</textarea></div></td>' +
-              '<td><div class="form-group form-control-sm">' +
-              '<label for="starttime">Start</label>' +
-              '<input id="starttime" class="form-control" form="segment" name="StartTime" data-action="update-segment-start-time" type="number" value="' + segment.startTime + '" data-id="' + segment.id + '"/>' +
-              '<label for="endtime">End</label>' +
-              '<input id="endtime" class="form-control" form="segment" name="EndTime" data-action="update-segment-end-time" type="number" value="' + segment.endTime + '" data-id="' + segment.id + '"/></div></td>' +
-              '<td><div class="btn-group-vertical"><a href="#' + segment.id + '" data-action="play-segment" class="btn btn-success" data-id="' + segment.id + '">Play</a>' +
-              '<a href="#' + segment.id + '" data-action="loop-segment" class="btn btn-info" data-id="' + segment.id + '">Loop</a></div></td>' +
-              '<td><div class="btn-group-vertical"><button form="segment" class="btn btn-primary" name="Save" value="' + segment.id + '"/>Save</button>' +
-              '  <button form="segment" class="btn btn-danger" name="Delete" value="' + segment.id + '"/>Delete</button>' +
-              '</div></td>' +
-              '<input type="hidden" form="segment" name="EpisodeRowid" value="<?php echo $aEpisode; ?>">' +
-              '<input type="hidden" form="segment" name="ExportStartTime" value="' + segment.startTime + '">' +
-              '<input type="hidden" form="segment" name="ExportEndTime" value="' + segment.endTime + '">' +
-              '<input type="hidden" form="segment" name="EpisodeFilename" value="<?php echo $ep_filename; ?>">' +
-              '<input type="hidden" form="segment" name="UserRowid" value="' + segment.createdBy + '"></tr></form>';
+          var row = '<form action="segment.php" id="segment" target="delete-segment" method="post">' +
+              '        <tr class="segmentrow">' +
+              '          <td>' + segment.createdBy + '<br />' +
+              '          </td>' +
+              '        <td>' +
+              '          <div class="form-group form-control-sm">' +
+              '            <textarea class="form-control" form="segment" name="Comment" rows="4" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + 
+              '              </textarea>' +
+              '            </div>' +
+              '          </td>' +
+              '        <td>' +
+              '          <div class="form-group form-control-sm">' +
+              '            <label for="starttime">Start</label>' +
+              '            <input id="starttime" class="form-control" form="segment" name="StartTime" data-action="update-segment-start-time" type="number" value="' + segment.startTime + '" data-id="' + segment.id + '"/>' +
+              '            <label for="endtime">End</label>' +
+              '            <input id="endtime" class="form-control" form="segment" name="EndTime" data-action="update-segment-end-time" type="number" value="' + segment.endTime + '" data-id="' + segment.id + '"/>' +
+              '          </div>' +
+              '        </td>' +
+              '        <td>' +
+              '          <div class="btn-group-vertical">' +
+              '            <a href="#' + segment.id + '" data-action="play-segment" class="btn btn-success btn-sm" data-id="' + segment.id + '">Play</a>' +
+              '            <a href="#' + segment.id + '" data-action="loop-segment" class="btn btn-info btn-sm" data-id="' + segment.id + '">Loop</a>' +
+              '            <button form="segment" class="btn btn-primary btn-sm" name="Save" value="' + segment.id + '"/>Save</button>' +
+              '            <button form="segment" class="btn btn-danger btn-sm" name="Delete" value="' + segment.id + '"/>Delete</button><button form="segment" class="btn btn-primary btn-sm" name="Export" value="' + segment.id + '"/>Download</button>' +
+              '          </div>' +
+              '        </td>' +
+              '        <input type="hidden" form="segment" name="EpisodeRowid" value="<?php echo $aEpisode; ?>">' +
+              '        <input type="hidden" form="segment" name="ExportStartTime" value="' + segment.startTime + '">' +
+              '        <input type="hidden" form="segment" name="ExportEndTime" value="' + segment.endTime + '">' +
+              '        <input type="hidden" form="segment" name="EpisodeFilename" value="<?php echo $ep_filename; ?>">' +
+              '        <input type="hidden" form="segment" name="UserRowid" value="' + segment.createdBy + '">' +
+              '      </tr>' +
+              '    </form>';
           html += row;
         }
         segmentsContainer.querySelector('tbody').innerHTML = html;
