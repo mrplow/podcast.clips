@@ -67,8 +67,15 @@ echo "    </div>";
       </div>
       <form action="?" method="post" enctype="multipart/form-data">
         <div class="form-group">
-          <input class="form-control" name="file" type="file" id="file">
-          <br />
+          <input class="form-control" name="file" type="file" id="file"><br />
+          <label for="episode_num">Episode Number</label>
+          <input class="form-control" type="number" id="episode_num" name="episode_num" min="0"><br />
+          <label for="episode_date">Dropped</label>
+          <input class="form-control" type="date" id="episode_date" name="episode_date"><br />
+          <label for="episode_title">Title</label>
+          <input class="form-control" type="text" id="episode_title" name="episode_title" maxlength="256"><br />
+          <label for="episode_description">Description</label>
+          <textarea class="form-control" id="episode_description" name="episode_description" maxlength="4000" rows="5"></textarea><br />
           <input class="form-control" type="submit" name="add" value="Add episode">
         </div>
       </form>
