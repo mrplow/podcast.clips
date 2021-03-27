@@ -74,14 +74,19 @@ echo '
         <br />
         <a href="/changepass.php">Change Password
         </a>
+        <?php if ($_SESSION['user_level'] == 1) {
+        echo "<br /><a href=\"/upload.php\">Upload episode</a>";
+        }
+        ?>
       </div>
     </div>
     <?php if (isset($_POST['formEpisode'])): ?>
-    <?php $aEpisode = $_POST['id']; ?>
-    <?php if (isset($aEpisode)): ?>
+    <?php $selected_ep_rowid = $_POST['id']; ?>
+    <?php if (isset($selected_ep_rowid)): ?>
     <?php
 $selected_episode = $dbconnect->prepare("SELECT ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?");
-$selected_episode->bind_param('i', $aEpisode);
+unset($ep_filename, $ep_title, $ep_description, $ep_episode_num, $ep_release_date);
+$selected_episode->bind_param('i', $selected_ep_rowid);
 $selected_episode->execute();
 $selected_episode->store_result();
 $selected_episode->bind_result($filename, $episode_num, $release_date, $title, $description);
@@ -137,7 +142,7 @@ $selected_episode->close();
           </button>
         </div>
         <div class="col">
-          <label for='amplitude-scale'>&nbsp; Amplitude scale
+          <label for='amplitude-scale'>Amplitude scale
           </label>
           <input type='range' id='amplitude-scale' min='0' max='10' step='1'>
         </div>
@@ -195,7 +200,7 @@ $selected_episode->close();
               '          </td>' +
               '        <td>' +
               '          <div class="form-group form-control-sm">' +
-              '            <textarea class="form-control" form="segment" name="Comment" rows="4" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + '</textarea>' +
+              '            <textarea class="form-control" form="segment" name="Comment" rows="5" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + '</textarea>' +
               '            </div>' +
               '          </td>' +
               '        <td>' +
@@ -214,7 +219,7 @@ $selected_episode->close();
               '            <button onclick="return confirm(\'Are you sure you want to delete the segment?\');" form="segment" class="btn btn-danger btn-sm" name="Delete" value="' + segment.id + '"/>Delete</button><button form="segment" class="btn btn-primary btn-sm" name="Export" value="' + segment.id + '"/>Download</button>' +
               '          </div>' +
               '        </td>' +
-              '        <input type="hidden" form="segment" name="EpisodeRowid" value="<?php echo $aEpisode; ?>">' +
+              '        <input type="hidden" form="segment" name="EpisodeRowid" value="<?php echo $selected_ep_rowid; ?>">' +
               '        <input type="hidden" form="segment" name="ExportStartTime" value="' + segment.startTime + '">' +
               '        <input type="hidden" form="segment" name="ExportEndTime" value="' + segment.endTime + '">' +
               '        <input type="hidden" form="segment" name="EpisodeFilename" value="<?php echo $ep_filename; ?>">' +
@@ -377,7 +382,7 @@ $selected_episode->close();
                                  ON
                                  sg_mby = cby.us_rowid
                                  WHERE
-                                 sg_rowid_episode = $aEpisode") or die(mysqli_error($dbconnect));
+                                 sg_rowid_episode = $selected_ep_rowid") or die(mysqli_error($dbconnect));
                                  while ($row = mysqli_fetch_array($segments))
         {
           unset($sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime);
