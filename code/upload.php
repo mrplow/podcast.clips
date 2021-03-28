@@ -64,11 +64,25 @@ echo "    <div class=\"container\">";
                 }
                 else
                 {
-                    move_uploaded_file($_FILES["file"]["tmp_name"],
-                    "/var/www/podcasts/" . $_FILES["file"]["name"]);
-                    echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" > /dev/null 2>&1");
-                    echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" > /dev/null 2>&1");
-                    echo "Success! <br />";
+                    if (($_POST['episode_date'] == '') || ($_POST['episode_num'] == '') || !isset($_POST['episode_date'], $_POST['episode_num']))
+                    {
+                        echo "Episode Number and Dropped date are required, nothing done.<br />";
+                    }
+                    else
+                    {
+                        move_uploaded_file($_FILES["file"]["tmp_name"], "/var/www/podcasts/" . $_FILES["file"]["name"]);
+                        echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" > /dev/null 2>&1");
+                        echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" > /dev/null 2>&1");
+                        $ep_filename = $filename;
+                        $ep_episode_num = $_POST['episode_num'];
+                        $ep_release_date = $_POST['episode_date'];
+                        $ep_title = htmlspecialchars($_POST['episode_title']);
+                        $ep_description = htmlspecialchars($_POST['episode_description']);
+                        $CrEpisode = $dbconnect->prepare("INSERT INTO episodes (ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description) VALUES( ?, ?, '$ep_release_date', ?, ?)");
+                        $CrEpisode->bind_param('siss', $ep_filename, $ep_episode_num, $ep_title, $ep_description);
+                        $CrEpisode->execute();
+                        echo "Success! <br />";
+                    }
                 }
             }
         }
@@ -85,6 +99,8 @@ echo "    </div>";
         Logged in as 
         <?php echo $_SESSION['user_name']; ?>
         <br />
+        <a href="/">Home</a>
+        <br />
         <a href="/logout.php">Logout
         </a>
         <br />
@@ -93,11 +109,11 @@ echo "    </div>";
       </div>
       <form id="upload" action="?" method="post" enctype="multipart/form-data">
         <div class="form-group">
-          <input form="upload" class="form-control" name="file" type="file" id="file"><br />
+          <input form="upload" class="form-control" name="file" type="file" id="file" required="true"><br />
           <label for="episode_num">Episode Number</label>
-          <input form="upload" class="form-control" type="number" id="episode_num" name="episode_num" min="0"><br />
+          <input form="upload" class="form-control" type="number" id="episode_num" name="episode_num" min="0" required="true"><br />
           <label for="episode_date">Dropped</label>
-          <input form="upload" class="form-control" type="date" id="episode_date" name="episode_date"><br />
+          <input form="upload" class="form-control" type="date" id="episode_date" name="episode_date" required="true"><br />
           <label for="episode_title">Title</label>
           <input form="upload" class="form-control" type="text" id="episode_title" name="episode_title" maxlength="256"><br />
           <label for="episode_description">Description</label>
