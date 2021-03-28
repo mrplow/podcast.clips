@@ -195,36 +195,36 @@ while ($row = $episodes->fetch_assoc())
         var html = '';
         for (var i = 0; i < segments.length; i++) {
           var segment = segments[i];
-          var row = '<form action="segment.php" id="segment" target="delete-segment" method="post">' +
+          var row = '<form action="segment.php" id="segment' + segment.id + '" target="delete-segment" method="post">' +
               '        <tr class="segmentrow">' +
               '          <td>' + segment.createdBy + '<br />' +
               '          </td>' +
               '        <td>' +
               '          <div class="form-group form-control-sm">' +
-              '            <textarea class="form-control" form="segment" name="Comment" rows="5" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + '</textarea>' +
+              '            <textarea class="form-control" form="segment' + segment.id + '" name="Comment" rows="5" cols="30" maxlength="256" data-action="update-segment-label" data-id="' + segment.id + '"/>' + segment.labelText + '</textarea>' +
               '            </div>' +
               '          </td>' +
               '        <td>' +
               '          <div class="form-group form-control-sm">' +
               '            <label for="starttime">Start</label>' +
-              '            <input id="starttime" class="form-control" form="segment" name="StartTime" data-action="update-segment-start-time" type="number" value="' + segment.startTime + '" data-id="' + segment.id + '"/>' +
+              '            <input id="starttime' + segment.id + '" class="form-control" form="segment' + segment.id + '" name="StartTime" data-action="update-segment-start-time" type="number" value="' + segment.startTime + '" data-id="' + segment.id + '"/>' +
               '            <label for="endtime">End</label>' +
-              '            <input id="endtime" class="form-control" form="segment" name="EndTime" data-action="update-segment-end-time" type="number" value="' + segment.endTime + '" data-id="' + segment.id + '"/>' +
+              '            <input id="endtime' + segment.id + '" class="form-control" form="segment' + segment.id + '" name="EndTime" data-action="update-segment-end-time" type="number" value="' + segment.endTime + '" data-id="' + segment.id + '"/>' +
               '          </div>' +
               '        </td>' +
               '        <td>' +
               '          <div class="btn-group-vertical">' +
               '            <a href="#' + segment.id + '" data-action="play-segment" class="btn btn-success btn-sm" data-id="' + segment.id + '">Play</a>' +
               '            <a href="#' + segment.id + '" data-action="loop-segment" class="btn btn-info btn-sm" data-id="' + segment.id + '">Loop</a>' +
-              '            <button form="segment" class="btn btn-primary btn-sm" name="Save" value="' + segment.id + '"/>Save</button>' +
-              '            <button onclick="return confirm(\'Are you sure you want to delete the segment?\');" form="segment" class="btn btn-danger btn-sm" name="Delete" value="' + segment.id + '"/>Delete</button><button form="segment" class="btn btn-primary btn-sm" name="Export" value="' + segment.id + '"/>Download</button>' +
+              '            <button form="segment' + segment.id + '" class="btn btn-primary btn-sm" name="Save" value="' + segment.id + '"/>Save</button>' +
+              '            <button onclick="return confirm(\'Are you sure you want to delete the segment?\');" form="segment' + segment.id + '" class="btn btn-danger btn-sm" name="Delete" value="' + segment.id + '"/>Delete</button><button form="segment' + segment.id + '" class="btn btn-primary btn-sm" name="Export" value="' + segment.id + '"/>Download</button>' +
               '          </div>' +
               '        </td>' +
-              '        <input type="hidden" form="segment" name="EpisodeRowid" value="<?php echo $selected_ep_rowid; ?>">' +
-              '        <input type="hidden" form="segment" name="ExportStartTime" value="' + segment.startTime + '">' +
-              '        <input type="hidden" form="segment" name="ExportEndTime" value="' + segment.endTime + '">' +
-              '        <input type="hidden" form="segment" name="EpisodeFilename" value="<?php echo $ep_filename; ?>">' +
-              '        <input type="hidden" form="segment" name="UserRowid" value="' + segment.createdBy + '">' +
+              '        <input type="hidden" form="segment' + segment.id + '" name="EpisodeRowid" value="<?php echo $selected_ep_rowid; ?>">' +
+              '        <input type="hidden" form="segment' + segment.id + '" name="ExportStartTime" value="' + segment.startTime + '">' +
+              '        <input type="hidden" form="segment' + segment.id + '" name="ExportEndTime" value="' + segment.endTime + '">' +
+              '        <input type="hidden" form="segment' + segment.id + '" name="EpisodeFilename" value="<?php echo $ep_filename; ?>">' +
+              '        <input type="hidden" form="segment' + segment.id + '" name="UserRowid" value="' + segment.createdBy + '">' +
               '      </tr>' +
               '    </form>';
           html += row;
