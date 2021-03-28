@@ -39,11 +39,37 @@ echo "    <div class=\"container\">";
             }
             else
             {
-                move_uploaded_file($_FILES["file"]["tmp_name"],
-                "/var/www/podcasts/" . $_FILES["file"]["name"]);
-                echo "Success! <br />";
-                echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" > /dev/null 2>&1");
-                echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" > /dev/null 2>&1");
+                include ('/var/connect.php');
+
+                $dbconnect = mysqli_connect($GLOBALS["mysql_hostname"], $GLOBALS["mysql_username"], $GLOBALS["mysql_password"], $GLOBALS["mysql_database"]);
+
+                if ($dbconnect->connect_error)
+                {
+                    die("Database connection failed: " . $dbconnect->connect_error);
+                }
+                unset($ResultEpisodeNum);
+                $CheckExist = $dbconnect->prepare('SELECT ep_episode_num FROM episodes WHERE ep_episode_num = ?');
+                $CheckExist->bind_param('i', $_POST['episode_num']);
+                $CheckExist->execute();
+                $CheckExist->store_result();
+                $CheckExist->bind_result($EpNum);
+                while ($CheckExist->fetch())
+                {
+                    $ResultEpisodeNum = $EpNum;
+                }
+                $CheckExist->close();
+                if (isset($ResultEpisodeNum))
+                {
+                    echo "Episode # " . $ResultEpisodeNum . " already exists, nothing done.<br />";
+                }
+                else
+                {
+                    move_uploaded_file($_FILES["file"]["tmp_name"],
+                    "/var/www/podcasts/" . $_FILES["file"]["name"]);
+                    echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" > /dev/null 2>&1");
+                    echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" > /dev/null 2>&1");
+                    echo "Success! <br />";
+                }
             }
         }
     }
@@ -65,18 +91,18 @@ echo "    </div>";
         <a href="/changepass.php">Change Password
         </a>
       </div>
-      <form action="?" method="post" enctype="multipart/form-data">
+      <form id="upload" action="?" method="post" enctype="multipart/form-data">
         <div class="form-group">
-          <input class="form-control" name="file" type="file" id="file"><br />
+          <input form="upload" class="form-control" name="file" type="file" id="file"><br />
           <label for="episode_num">Episode Number</label>
-          <input class="form-control" type="number" id="episode_num" name="episode_num" min="0"><br />
+          <input form="upload" class="form-control" type="number" id="episode_num" name="episode_num" min="0"><br />
           <label for="episode_date">Dropped</label>
-          <input class="form-control" type="date" id="episode_date" name="episode_date"><br />
+          <input form="upload" class="form-control" type="date" id="episode_date" name="episode_date"><br />
           <label for="episode_title">Title</label>
-          <input class="form-control" type="text" id="episode_title" name="episode_title" maxlength="256"><br />
+          <input form="upload" class="form-control" type="text" id="episode_title" name="episode_title" maxlength="256"><br />
           <label for="episode_description">Description</label>
-          <textarea class="form-control" id="episode_description" name="episode_description" maxlength="4000" rows="5"></textarea><br />
-          <input class="form-control" type="submit" name="add" value="Add episode">
+          <textarea form="upload" class="form-control" id="episode_description" name="episode_description" maxlength="4000" rows="5"></textarea><br />
+          <input form="upload" class="form-control" type="submit" name="add" value="Add episode">
         </div>
       </form>
     </div>
