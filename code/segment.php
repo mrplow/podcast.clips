@@ -38,7 +38,7 @@ if (isset($_POST['Save']))
     else
     {
         $cr_eprowid = $_POST['EpisodeRowid'];
-        $cr_by = 1;
+        $cr_by = $_SESSION['user_id'];
         $cr_comment = htmlspecialchars($_POST['Comment']);
         $cr_start = $_POST['StartTime'];
         $cr_end = $_POST['EndTime'];
