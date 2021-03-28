@@ -381,7 +381,7 @@ while ($row = $episodes->fetch_assoc())
                                  sg_cby = cby.us_rowid
                                  LEFT JOIN users AS mby
                                  ON
-                                 sg_mby = cby.us_rowid
+                                 sg_mby = mby.us_rowid
                                  WHERE
                                  sg_rowid_episode = $selected_ep_rowid
                                  ORDER BY sg_starttime") or die(mysqli_error($dbconnect));
