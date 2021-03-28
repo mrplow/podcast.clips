@@ -11,9 +11,11 @@ A simple web interface for podcast listeners to stream/download episodes and sav
   - [x] episodes
   - [x] segments
   - [x] users
+  - [x] user levels (owner, moderator, normal)
   - [ ] tags
   - [ ] segment voting, thumbs up/down or star
 - [x] Figuring how how to implement a php submit form within a javascript loop
+- [x] Uploading episodes (owner ownly)
 - [ ] Searching and filtering of segments
 - [x] Exporting clips
   - [ ] possibly appending clips together
@@ -58,5 +60,7 @@ start docker-compose
 `docker-compose up -d`
 
 Login to the site http://localhost:8889
+
+The first user to create an account will be set as the owner
 
 Optionally setup an HTTPS reverse proxy with nginx or apache (google it)
