@@ -71,8 +71,8 @@ echo "    <div class=\"container\">";
                     else
                     {
                         move_uploaded_file($_FILES["file"]["tmp_name"], "/var/www/podcasts/" . $_FILES["file"]["name"]);
-                        echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" > /dev/null 2>&1");
-                        echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" > /dev/null 2>&1");
+                        echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" -z 20000 -b 8 > /dev/null 2>&1");
+                        echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" -z 512 -b 8 > /dev/null 2>&1");
                         $ep_filename = $filename;
                         $ep_episode_num = $_POST['episode_num'];
                         $ep_release_date = $_POST['episode_date'];
