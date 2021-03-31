@@ -67,7 +67,7 @@ if (isset($_POST['Export']))
     header("Cache-Control: private");
     header("Content-type: audio/mpeg3");
     header("Content-Transfer-Encoding: binary");
-    header('Content-Disposition: attachment; filename="' . $ep_filename . ' - Clip ' . $sg_StartTime . 'sec - ' . $sg_Comment . '.mp3"');
+    header('Content-Disposition: attachment; filename="' . $ep_filename . ' - Clip ' . round($sg_StartTime, 2) . 'sec - ' . str_replace(array("\r", "\n"), ' ', $sg_Comment) . '.mp3"');
     readfile('/var/www/clips/' . $_POST['Export'] . '.mp3');
 
 }
