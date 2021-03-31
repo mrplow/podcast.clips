@@ -69,7 +69,7 @@ while ($row = $episodes->fetch_assoc())
           <input class="d-none" name='formEpisode' type='submit' value='Select'>
         </div>   
       </form>
-      <div class="float-right">
+      <div class="text-right">
         Logged in as 
         <?php echo $_SESSION['user_name']; ?>
         <br />
@@ -78,8 +78,8 @@ while ($row = $episodes->fetch_assoc())
         <br />
         <a href="/changepass.php">Change Password
         </a>
-        <br />
-        <br />
+      </div>
+      <div class="float-right text-right">
         <a href="/">Home</a>
         <br />
         <a href="/search.php">Search</a>

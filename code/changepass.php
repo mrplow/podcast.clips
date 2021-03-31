@@ -68,7 +68,7 @@ else
     <?php
 } ?>
     <div class="container">
-      <div class="float-right">
+      <div class="text-right">
         Logged in as 
         <?php echo $_SESSION['user_name']; ?>
         <br />
@@ -77,8 +77,8 @@ else
         <br />
         <a href="/changepass.php">Change Password
         </a>
-        <br />
-        <br />
+      </div>
+      <div class="float-right text-right">
         <a href="/">Home</a>
         <br />
         <a href="/search.php">Search</a>

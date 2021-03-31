@@ -99,17 +99,25 @@ echo "    </div>";
 }
 ?>
     <div class="container">
-      <div class="float-right">
+      <div class="text-right">
         Logged in as 
         <?php echo $_SESSION['user_name']; ?>
-        <br />
-        <a href="/">Home</a>
         <br />
         <a href="/logout.php">Logout
         </a>
         <br />
         <a href="/changepass.php">Change Password
         </a>
+      </div>
+      <div class="float-right text-right">
+        <a href="/">Home</a>
+        <br />
+        <a href="/search.php">Search</a>
+        <?php if ($_SESSION['user_level'] == 1)
+{
+    echo "<br /><a href=\"/upload.php\">Upload episode</a>";
+}
+?>
       </div>
       <form id="upload" action="?" method="post" enctype="multipart/form-data">
         <div class="form-group">
