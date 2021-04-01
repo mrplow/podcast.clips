@@ -12,16 +12,6 @@ if (!isset($_SESSION['user_id']))
     <title>AD Demo Page
     </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <style>
-      audio {
-        width: 150px;
-      }
-      .segmentrow {
-        line-height: 80px;
-        min-height: 80px;
-        height: 80px;
-      }
-    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
   </script>
@@ -31,8 +21,8 @@ if (!isset($_SESSION['user_id']))
   <body>
 <div class="container">
       <div class="text-right">
-        Logged in as 
-        <?php echo $_SESSION['user_name']; ?>
+        Logged in as
+        <?php echo " " . $_SESSION['user_name']; ?>
         <br />
         <a href="/logout.php">Logout
         </a>
@@ -53,10 +43,12 @@ if (!isset($_SESSION['user_id']))
 </div>
 <div class="container">
   <h2>Segments</h2>
-  <p>Type something to filter the segments</p>  
+  <p>Type something to filter the segments</p>
   <input class="form-control" id="search" type="text" placeholder="Search..">
-  <br>
-  <table class="table table-bordered table-striped">
+  <br />
+
+
+  <table class="table table-condensed table-sm table-hover table-striped">
     <thead>
       <tr>
         <th>Episode #</th>
@@ -99,7 +91,7 @@ while ($row = $episodes->fetch_assoc())
         <audio id='" . $sg_rowid . "' src='/clips/" . $sg_rowid . ".mp3' type='audio/mpeg'></audio>
         <div class=\"btn-group-vertical\">
           <button class=\"btn btn-success btn-sm\" onclick=\"document.getElementById('" . $sg_rowid . "').play()\">Play</button>
-          <a class=\"btn btn-primary btn-sm\" href=\"/clips/" . $sg_rowid . ".mp3\" download=\"" . $ep_filename . " - Clip " . round($sg_starttime, 2) . "sec - " . str_replace(array('\r', '\n'), ' ', $sg_comment) . ".mp3\">Download</a>
+          <a class=\"btn btn-primary btn-sm\" href=\"/clips/" . $sg_rowid . ".mp3\" download=\"" . $ep_filename . " - Clip " . round($sg_starttime, 2) . "sec - " . strtok($sg_comment, "\r") . ".mp3\">Download</a>
         </div>
         </td>
       </tr>";
@@ -108,7 +100,6 @@ while ($row = $episodes->fetch_assoc())
     </tbody>
   </table>
 </div>
-
 <script>
 $(document).ready(function(){
   $("#search").on("keyup", function() {
