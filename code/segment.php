@@ -71,6 +71,5 @@ if (isset($_POST['Export']))
     readfile('/var/www/clips/' . $_POST['Export'] . '.mp3');
 
 }
-echo "<script type='text/javascript'>window.parent.location.reload()</script>";
-
+echo "<script type='text/javascript'>window.parent.location.href = \"/index.php?episode=" . $_POST['EpisodeRowid'] . "\"</script>";
 ?>

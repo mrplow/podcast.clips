@@ -90,9 +90,13 @@ while ($row = $episodes->fetch_assoc())
 ?>
       </div>
     </div>
-    <?php if (isset($_POST['formEpisode'])): ?>
-    <?php $selected_ep_rowid = $_POST['id']; ?>
-    <?php if (isset($selected_ep_rowid)): ?>
+    <?php if (isset($_GET['episode'])) {
+              $selected_ep_rowid=$_GET['episode'];
+          }
+          if (isset($_POST['formEpisode'])) {
+              $selected_ep_rowid = $_POST['id'];
+          }
+          if (isset($selected_ep_rowid)): ?>
     <?php
         $selected_episode = $dbconnect->prepare("SELECT ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?");
         unset($ep_filename, $ep_title, $ep_description, $ep_episode_num, $ep_release_date);
@@ -492,12 +496,6 @@ while ($row = $episodes->fetch_assoc())
     }
     )(peaks);
   </script>
-  <?php
-    else: ?>
-  <p>You didn't select an episode 🤔
-  </p>
-  <?php
-    endif; ?>
   <?php
 endif; ?>
   <iframe name="delete-segment" style="visibility: hidden; position: absolute; left: 0; top: 0; height:0; width:0; border: none;">
