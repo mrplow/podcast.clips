@@ -85,7 +85,7 @@ while ($row = $episodes->fetch_assoc())
         <td>" . $ep_episode_num . "</td>
         <td>" . $ep_title . "</td>
         <td>" . $us_username . "</td>
-        <td>" . $sg_comment . "</td>
+        <td>" . nl2br($sg_comment) . "</td>
         <td>" . $sg_length. "</td>
         <td>
         <audio id='" . $sg_rowid . "' src='/clips/" . $sg_rowid . ".mp3' type='audio/mpeg'></audio>
