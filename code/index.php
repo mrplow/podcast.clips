@@ -90,8 +90,8 @@ while ($row = $episodes->fetch_assoc())
 ?>
       </div>
     </div>
-    <?php if (isset($_GET['episode'])) {
-              $selected_ep_rowid=$_GET['episode'];
+    <?php if (isset($_GET['epid'])) {
+              $selected_ep_rowid=$_GET['epid'];
           }
           if (isset($_POST['formEpisode'])) {
               $selected_ep_rowid = $_POST['id'];

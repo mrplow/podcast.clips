@@ -68,10 +68,11 @@ if ($dbconnect->connect_error)
 {
     die("Database connection failed: " . $dbconnect->connect_error);
 }
-$episodes = mysqli_query($dbconnect, "SELECT ep_episode_num, ep_filename, sg_starttime, ep_title, sg_rowid, us_username, sg_comment, ROUND(sg_endtime - sg_starttime, 2) AS sg_length FROM episodes JOIN segments ON ep_rowid = sg_rowid_episode JOIN users ON sg_cby = us_rowid ORDER BY ep_episode_num, sg_starttime") or die(mysqli_error($dbconnect));
+$episodes = mysqli_query($dbconnect, "SELECT ep_rowid, ep_episode_num, ep_filename, sg_starttime, ep_title, sg_rowid, us_username, sg_comment, ROUND(sg_endtime - sg_starttime, 2) AS sg_length FROM episodes JOIN segments ON ep_rowid = sg_rowid_episode JOIN users ON sg_cby = us_rowid ORDER BY ep_episode_num, sg_starttime") or die(mysqli_error($dbconnect));
 while ($row = $episodes->fetch_assoc())
 {
-    unset($ep_episode_num, $ep_filename, $sg_starttime, $ep_title, $sg_rowid, $us_username, $sg_comment, $sg_length);
+    unset($ep_rowid, $ep_episode_num, $ep_filename, $sg_starttime, $ep_title, $sg_rowid, $us_username, $sg_comment, $sg_length);
+    $ep_rowid = $row['ep_rowid'];
     $ep_episode_num = $row['ep_episode_num'];
     $ep_filename = $row['ep_filename'];
     $sg_starttime = $row['sg_starttime'];
@@ -83,7 +84,7 @@ while ($row = $episodes->fetch_assoc())
     echo "
       <tr>
         <td>" . $ep_episode_num . "</td>
-        <td>" . $ep_title . "</td>
+        <td><a href=\"/index.php?epid=" . $ep_rowid . "\">" . $ep_title . "</a></td>
         <td>" . $us_username . "</td>
         <td>" . nl2br($sg_comment) . "</td>
         <td>" . $sg_length. "</td>
