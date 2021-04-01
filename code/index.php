@@ -124,6 +124,12 @@ while ($row = $episodes->fetch_assoc())
       <h4>
         <?php echo $ep_description; ?>
       </h4>
+<?php 
+if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
+{
+    echo "<img class='img-fluid' src=/podcasts/" . $ep_filename . ".jpg>";
+}
+?>
     </div>
     <div class="container">
       <div id='waveform-container'>
