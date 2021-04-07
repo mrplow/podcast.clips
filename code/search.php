@@ -4,6 +4,22 @@ if (!isset($_SESSION['user_id']))
 {
     header("Location: /login.php");
 }
+
+if (isset($_SESSION['user_validated']))
+{
+    $LastValidated  = new DateTime($_SESSION['user_validated']);
+    $CurrentTime    = new DateTime('now');
+    $SinceValidated = $LastValidated->diff($CurrentTime);
+    $DaysSince = $SinceValidated->format('%a');
+    if ($DaysSince > 32)
+    {
+        header("Location: /validate.php");
+    }
+}
+else
+{
+    header("Location: /validate.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

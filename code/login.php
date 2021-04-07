@@ -15,17 +15,18 @@ if (!empty($_POST['username']) && !empty($_POST['password']))
     unset($Username, $Password);
     $Username = $_POST['username'];
     $Password = $_POST['password'];
-    $records = $dbconnect->prepare('SELECT us_rowid, us_username, us_password, ul_level FROM users JOIN userlevel ON us_rowid_userlevel = ul_rowid WHERE us_username = ?');
+    $records = $dbconnect->prepare('SELECT us_rowid, us_username, us_password, ul_level, us_validated FROM users JOIN userlevel ON us_rowid_userlevel = ul_rowid WHERE us_username = ?');
     $records->bind_param('s', $Username);
     $records->execute();
     $records->store_result();
-    $records->bind_result($ID, $Username, $Password, $Userlevel);
+    $records->bind_result($ID, $Username, $Password, $Userlevel, $Validated);
     while ($records->fetch())
     {
         $ReturnedID = $ID;
         $ReturnedUsername = $Username;
         $ReturnedPassword = $Password;
         $ReturnedUserlevel = $Userlevel;
+        $ReturnedValidated = $Validated;
     }
     $records->close();
     $message = '';
@@ -34,6 +35,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']))
         $_SESSION['user_id'] = $ReturnedID;
         $_SESSION['user_name'] = $ReturnedUsername;
         $_SESSION['user_level'] = $ReturnedUserlevel;
+        $_SESSION['user_validated'] = $ReturnedValidated;
         header("Location: /");
     }
     else
