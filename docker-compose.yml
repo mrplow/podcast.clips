@@ -15,6 +15,8 @@ services:
             - ./podcasts:/var/www/podcasts
             - ./clips:/var/www/clips
             - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        environment:
+            TZ: America/Vancouver
         depends_on:
             - php
         networks:
@@ -27,13 +29,15 @@ services:
         volumes:
             - ./database:/var/lib/mysql:rw
             - ./setupdb:/docker-entrypoint-initdb.d
+        environment:
+            TZ: America/Vancouver
         depends_on:
             - nginx
         #root password is stored in .env_mariadb, change it to a secure password
         env_file:
             - .env_mariadb
         networks:
-            - podcast_clips    
+            - podcast_clips
 
     php:
         build:
@@ -46,8 +50,10 @@ services:
             - ./podcasts:/var/www/podcasts
             - ./clips:/var/www/clips
             - ./connect.php:/var/connect.php
+        environment:
+            TZ: America/Vancouver
         expose:
-            - "9000"       
+            - "9000"
         networks:
             - podcast_clips
 
@@ -57,7 +63,8 @@ services:
         container_name: podcast_clips_phpMyAdmin
         ports:
             - "8183:80"
-        environment:        
+        environment:
+            TZ: America/Vancouver
             PMA_ARBITRARY: 1
         depends_on:
             - mariaDB
