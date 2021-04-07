@@ -24,6 +24,7 @@ CREATE TABLE `podcast_clips`.`users`(
     `us_password` CHAR(60) NOT NULL,
     `us_cdate` DATETIME NOT NULL,
     `us_mdate` DATETIME NULL,
+    `us_validated` DATETIME NULL,
     PRIMARY KEY(`us_rowid`),
     UNIQUE KEY `us_username`(`us_username`),
     FOREIGN KEY(us_rowid_userlevel) REFERENCES userlevel(ul_rowid)
