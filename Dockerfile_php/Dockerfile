@@ -39,3 +39,6 @@ RUN sed -ri 's/^(upload_max_filesize = )[0-9]+(M.*)$/\1'${upload_max_filesize}'\
 RUN sed -ri 's/^(post_max_size = )[0-9]+(M.*)$/\1'${post_max_size}'\2/' "$PHP_INI_DIR/php.ini-production"
 RUN sed -ri 's/^(memory_limit = )[0-9]+(M.*)$/\1'${memory_limit}'\2/' "$PHP_INI_DIR/php.ini-production"
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+# Install Autosub
+RUN apk add py-pip git --no-cache && pip install pip install git+https://github.com/agermanidis/autosub.git

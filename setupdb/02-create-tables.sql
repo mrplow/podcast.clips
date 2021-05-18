@@ -49,4 +49,13 @@ CREATE TABLE `podcast_clips`.`segments`(
     FOREIGN KEY(sg_mby) REFERENCES users(us_rowid)
 ) ENGINE = INNODB AUTO_INCREMENT = 1;
 
+CREATE TABLE `podcast_clips`.`transcriptions`(
+    `tr_rowid` INT NOT NULL AUTO_INCREMENT,
+    `tr_rowid_episode` INT NOT NULL,
+    `tr_time` DECIMAL(32, 28) NOT NULL,
+    `tr_text` VARCHAR(1024) NOT NULL,
+    PRIMARY KEY(`tr_rowid`),
+    FOREIGN KEY(tr_rowid_episode) REFERENCES episodes(ep_rowid)
+) ENGINE = INNODB AUTO_INCREMENT = 1;
+
 FLUSH PRIVILEGES;

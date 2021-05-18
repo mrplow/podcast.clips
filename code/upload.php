@@ -85,7 +85,20 @@ echo "    <div class=\"container\">";
                         $CrEpisode = $dbconnect->prepare("INSERT INTO episodes (ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description) VALUES( ?, ?, '$ep_release_date', ?, ?)");
                         $CrEpisode->bind_param('siss', $ep_filename, $ep_episode_num, $ep_title, $ep_description);
                         $CrEpisode->execute();
+                        $new_rowid = $CrEpisode->insert_id;
                         echo "Success! <br />";
+                        echo shell_exec("/usr/bin/autosub -F json -o /tmp/\"" . $filename . ".json\" /var/www/podcasts/\"" . $filename . ".mp3\" > /dev/null 2>&1");
+                        $jsondata = file_get_contents("/tmp/" . $filename . ".json");
+                        $array = json_decode($jsondata, true);
+
+                        foreach($array as $item) {
+	                        $timestamp = $item['start'];
+	                        $text = $item['content'];
+
+                            $CrTranscription = $dbconnect->prepare("INSERT INTO transcriptions (tr_rowid_episode, tr_time, tr_text) VALUES(?, ?, ?)");
+                            $CrTranscription->bind_param('ids', $new_rowid, $timestamp, $text);
+                            $CrTranscription->execute();
+                        }
                     }
                 }
             }
