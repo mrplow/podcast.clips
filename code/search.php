@@ -100,7 +100,7 @@ while ($row = $episodes->fetch_assoc())
     echo "
       <tr>
         <td>" . $ep_episode_num . "</td>
-        <td><a href=\"/index.php?epid=" . $ep_rowid . "\">" . $ep_title . "</a></td>
+        <td><a href=\"/index.php?epid=" . $ep_rowid . "&timestamp=" . $sg_starttime . "\">" . $ep_title . "</a></td>
         <td>" . $us_username . "</td>
         <td>" . nl2br($sg_comment) . "</td>
         <td>" . $sg_length. "</td>
