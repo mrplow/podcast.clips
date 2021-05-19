@@ -1,7 +1,7 @@
 FROM php:7-fpm-alpine
 
 # Enable mysqli
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli
 
 # Install ffmpeg for mp3 edits
 RUN apk update && apk add --no-cache ffmpeg

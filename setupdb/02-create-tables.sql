@@ -58,4 +58,19 @@ CREATE TABLE `podcast_clips`.`transcriptions`(
     FOREIGN KEY(tr_rowid_episode) REFERENCES episodes(ep_rowid)
 ) ENGINE = INNODB AUTO_INCREMENT = 1;
 
+CREATE VIEW `podcast_clips`.`episode_transcriptions` AS SELECT
+    `tr_rowid`,
+    `ep_rowid`,
+    `ep_episode_num`,
+    `ep_title`,
+    SEC_TO_TIME(ROUND(`tr_time`, 2)) AS `hhmmss`,
+    `tr_text`
+FROM
+    `episodes`
+JOIN `transcriptions` ON `ep_rowid` = `tr_rowid_episode`
+ORDER BY
+    ep_episode_num ASC,
+    tr_time ASC;
+
+
 FLUSH PRIVILEGES;
