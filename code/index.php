@@ -107,13 +107,16 @@ while ($row = $episodes->fetch_assoc())
       </div>
     </div>
     <?php if (isset($_GET['epid'])) {
-              $selected_ep_rowid=$_GET['epid'];
+              $selected_ep_rowid = $_GET['epid'];
           }
           if (isset($_POST['formEpisode'])) {
               $selected_ep_rowid = $_POST['id'];
           }
           if (isset($selected_ep_rowid)): ?>
     <?php
+        if (isset($_GET['timestamp'])) {
+            $timestamp = $_GET['timestamp'];
+        }
         $selected_episode = $dbconnect->prepare("SELECT ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?");
         unset($ep_filename, $ep_title, $ep_description, $ep_episode_num, $ep_release_date);
         $selected_episode->bind_param('i', $selected_ep_rowid);
@@ -158,7 +161,7 @@ if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
     <div class="container">
       <div id='media-controls'>
         <audio id='audio' controls='controls'>
-          <source src='/podcasts/<?php echo $ep_filename; ?>.mp3' type='audio/mpeg'>
+          <source src='/podcasts/<?php echo $ep_filename . ".mp3#t=" . $timestamp; ?>' type='audio/mpeg'>
           Your browser does not support the audio element.
         </audio>
       </div>
