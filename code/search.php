@@ -49,7 +49,7 @@ else
       <div class="float-right text-right">
         <a href="/">Home</a>
         <br />
-        <a href="/search.php">Search</a>
+        <a href="/search.php">Search Clips</a>
         <?php if ($_SESSION['user_level'] == 1)
 {
     echo "<br /><a href=\"/upload.php\">Upload episode</a>";
