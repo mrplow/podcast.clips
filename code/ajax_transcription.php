@@ -6,10 +6,12 @@ $table = 'episode_transcriptions';
 $primaryKey = 'tr_rowid';
  
 $columns = array(
-    array( 'db' => 'ep_episode_num', 'dt' => 0 ),
-    array( 'db' => 'ep_title',       'dt' => 1 ),
-    array( 'db' => 'hhmmss',         'dt' => 2 ),
-    array( 'db' => 'tr_text',        'dt' => 3 )
+    array( 'db' => 'ep_rowid',        'dt' => 0 ),
+    array( 'db' => 'ep_episode_num',  'dt' => 1 ),
+    array( 'db' => 'ep_title',        'dt' => 2 ),
+    array( 'db' => 'ep_release_date', 'dt' => 3 ),
+    array( 'db' => 'hhmmss',          'dt' => 4 ),
+    array( 'db' => 'tr_text',         'dt' => 5 )
 );
  
 $sql_details = array(

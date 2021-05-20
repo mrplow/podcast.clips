@@ -69,16 +69,20 @@ error_reporting(E_ALL);
             <table id="TranscriptionTable" class="display" style="width:100%">
                 <thead>
                     <tr>
+                        <th>rowid</th>
                         <th>Episode #</th>
                         <th>Title</th>
+                        <th>Release Date</th>
                         <th>Timestamp</th>
                         <th>Transcription</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
+                        <th>rowid</th>
                         <th>Episode #</th>
                         <th>Title</th>
+                        <th>Release Date</th>
                         <th>Timestamp</th>
                         <th>Transcription</th>
                     </tr>
@@ -91,7 +95,38 @@ error_reporting(E_ALL);
                 $('#TranscriptionTable').DataTable( {
                     "processing": true,
                     "serverSide": true,
-                    "ajax": "ajax_transcription.php"
+                    "ajax": "ajax_transcription.php",
+                    "columnDefs": [
+                        {
+                            "targets": [ 0 ],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [ 1 ],
+                            "searchable": false
+                        },
+                        {
+                            "targets": [ 2 ],
+                            "searchable": false
+                        },
+                        {
+                            "targets": [ 3 ],
+                            "searchable": false
+                        },
+                        {
+                            "targets": [ 4 ],
+                            "searchable": false,
+                            "render": function( data, type, row )
+                                {
+                                    return '<a href="/index.php?epid='+ row[0] +'&timestamp='+data+'" target="_blank">'+data+'</a>'
+                                }
+                        },
+                        {
+                            "targets": [ 5 ],
+                            "searchable": true
+                        }
+                    ]
                 } );
             } );
         </script>

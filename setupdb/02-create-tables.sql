@@ -63,6 +63,7 @@ CREATE VIEW `podcast_clips`.`episode_transcriptions` AS SELECT
     `ep_rowid`,
     `ep_episode_num`,
     `ep_title`,
+    `ep_release_date`,
     SEC_TO_TIME(ROUND(`tr_time`, 2)) AS `hhmmss`,
     `tr_text`
 FROM
