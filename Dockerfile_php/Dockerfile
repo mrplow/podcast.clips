@@ -42,3 +42,14 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # Install Autosub
 RUN apk add py-pip git --no-cache && pip install pip install git+https://github.com/agermanidis/autosub.git
+
+# Install mail server
+RUN apk add ssmtp --no-cache
+COPY gmail.conf /etc/ssmtp/ssmtp.conf
+# Here is the gmail configuration (or change it to your private smtp server)
+RUN echo "mailhub=smtp.gmail.com:587" >> /etc/ssmtp/ssmtp.conf
+RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
+RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
+RUN echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf
+# Set up php sendmail config
+RUN echo "sendmail_path=sendmail -i -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini
