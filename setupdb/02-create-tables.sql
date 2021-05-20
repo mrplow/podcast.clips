@@ -22,6 +22,8 @@ CREATE TABLE `podcast_clips`.`users`(
     `us_rowid_userlevel` INT NOT NULL,
     `us_username` VARCHAR(128) NOT NULL,
     `us_password` CHAR(60) NOT NULL,
+    `us_email_addr` VARCHAR(128) NULL,
+    `us_email_validated` TINYINT(1) NOT NULL DEFAULT 0,
     `us_cdate` DATETIME NOT NULL,
     `us_mdate` DATETIME NULL,
     `us_validated` DATETIME NULL,
