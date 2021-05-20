@@ -1,7 +1,9 @@
 # podcast.clips
 
 ## Overview
-A simple web interface for podcast listeners to stream/download episodes and save timestamped segments with comments.
+A simple web interface for podcast listeners to stream/download episodes and save timestamped segments with comments as well as search transcriptions of episodes.
+
+Automatic transcription is powered by autosubs upon upload of new content.
 
 ---
 
