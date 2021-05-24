@@ -166,7 +166,26 @@ if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
           <source src='/podcasts/<?php echo $ep_filename . ".mp3#t=" . $timestamp; ?>' type='audio/mpeg'>
           Your browser does not support the audio element.
         </audio>
+      <div class="row align-items-center flex-nowrap no-gutters">
+        <div class="col-1 text-center">
+          <label for="slider" class="form-label">Speed</label>
+        </div>
+        <div class="col-10 text-center">
+          <input class="form-range" type="range" min="0.5" max="2.0" step=".01" value="1" id="slider" oninput="outputUpdate(value)" onchange="outputSpeed(value)" style="width: 80%;">
+        </div>
+        <div class="col-1 text-center">
+          <output for="slider" id="playbackrate">1.0</output>x</div>
+        </div>
       </div>
+      <script>
+      function outputUpdate(speedDisplay) {
+      document.querySelector('#playbackrate').value = speedDisplay;
+      }
+      myAudio = document.getElementById("audio")
+      function outputSpeed() { 
+              myAudio.playbackRate = document.querySelector('#playbackrate').value;
+      }
+      </script>
       <div id='media-controls'>
         <button type="button" class="btn btn-primary btn-lg btn-block" data-action='add-segment'>Add a Segment at current time
         </button>
