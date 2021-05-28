@@ -100,7 +100,7 @@ else
       <br />
       <form action="changepass.php" method="POST">
         <div class="form-group">
-          <input class="form-control" type="password" placeholder="old password" name="oldpassword">		
+          <input class="form-control" type="password" placeholder="old password" name="oldpassword">
           <input class="form-control" type="password" placeholder="new password" name="password">
           <input class="form-control" type="password" placeholder="confirm new password" name="confirm_password">
           <input class="form-control" type="submit">
