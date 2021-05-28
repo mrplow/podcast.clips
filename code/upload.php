@@ -74,30 +74,49 @@ echo "    <div class=\"container\">";
                     }
                     else
                     {
-                        move_uploaded_file($_FILES["file"]["tmp_name"], "/var/www/podcasts/" . $_FILES["file"]["name"]);
-                        echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" -z 20000 -b 8 > /dev/null 2>&1");
-                        echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" -z 512 -b 8 > /dev/null 2>&1");
-                        $ep_filename = $filename;
-                        $ep_episode_num = $_POST['episode_num'];
-                        $ep_release_date = $_POST['episode_date'];
-                        $ep_title = htmlspecialchars($_POST['episode_title']);
-                        $ep_description = htmlspecialchars($_POST['episode_description']);
-                        $CrEpisode = $dbconnect->prepare("INSERT INTO episodes (ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description) VALUES( ?, ?, '$ep_release_date', ?, ?)");
-                        $CrEpisode->bind_param('siss', $ep_filename, $ep_episode_num, $ep_title, $ep_description);
-                        $CrEpisode->execute();
-                        $new_rowid = $CrEpisode->insert_id;
-                        echo "Success! <br />";
-                        echo shell_exec("/usr/bin/autosub -F json -o /tmp/\"" . $filename . ".json\" /var/www/podcasts/\"" . $filename . ".mp3\" > /dev/null 2>&1");
-                        $jsondata = file_get_contents("/tmp/" . $filename . ".json");
-                        $array = json_decode($jsondata, true);
+                        $SHA1Upload = sha1_file($_FILES["file"]["tmp_name"]);
+                        unset($ResultEpisodeHash);
+                        $CheckHashExist = $dbconnect->prepare('SELECT ep_file_sha1 FROM episodes WHERE ep_file_sha1 = ?');
+                        $CheckHashExist->bind_param('s', $SHA1Upload);
+                        $CheckHashExist->execute();
+                        $CheckHashExist->store_result();
+                        $CheckHashExist->bind_result($EpHash);
+                        while ($CheckHashExist->fetch())
+                        {
+                            $ResultEpisodeHash = $EpHash;
+                        }
+                        $CheckHashExist->close();
+                        if (isset($ResultEpisodeHash))
+                        {
+                            echo "Episode hash " . $ResultEpisodeHash . " already exists, nothing done.<br />";
+                        }
+                        else
+                        {
+                            move_uploaded_file($_FILES["file"]["tmp_name"], "/var/www/podcasts/" . $_FILES["file"]["name"]);
+                            echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" -z 20000 -b 8 > /dev/null 2>&1");
+                            echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" -z 512 -b 8 > /dev/null 2>&1");
+                            $ep_filename = $filename;
+                            $ep_episode_num = $_POST['episode_num'];
+                            $ep_release_date = $_POST['episode_date'];
+                            $ep_title = htmlspecialchars($_POST['episode_title']);
+                            $ep_description = htmlspecialchars($_POST['episode_description']);
+                            $CrEpisode = $dbconnect->prepare("INSERT INTO episodes (ep_filename, ep_file_sha1, ep_episode_num, ep_release_date, ep_title, ep_description) VALUES( ?, ?, ?, ?, ?, ?)");
+                            $CrEpisode->bind_param('ssisss', $ep_filename, $SHA1Upload, $ep_episode_num, $ep_release_date, $ep_title, $ep_description);
+                            $CrEpisode->execute();
+                            $new_rowid = $CrEpisode->insert_id;
+                            echo "Success!<br />";
+                            echo shell_exec("/usr/bin/autosub -F json -o /tmp/\"" . $filename . ".json\" /var/www/podcasts/\"" . $filename . ".mp3\" > /dev/null 2>&1");
+                            $jsondata = file_get_contents("/tmp/" . $filename . ".json");
+                            $array = json_decode($jsondata, true);
 
-                        foreach($array as $item) {
-	                        $timestamp = $item['start'];
-	                        $text = $item['content'];
+                            foreach($array as $item) {
+                                $timestamp = $item['start'];
+                                $text = $item['content'];
 
-                            $CrTranscription = $dbconnect->prepare("INSERT INTO transcriptions (tr_rowid_episode, tr_time, tr_text) VALUES(?, ?, ?)");
-                            $CrTranscription->bind_param('ids', $new_rowid, $timestamp, $text);
-                            $CrTranscription->execute();
+                                $CrTranscription = $dbconnect->prepare("INSERT INTO transcriptions (tr_rowid_episode, tr_time, tr_text) VALUES(?, ?, ?)");
+                                $CrTranscription->bind_param('ids', $new_rowid, $timestamp, $text);
+                                $CrTranscription->execute();
+                            }
                         }
                     }
                 }
