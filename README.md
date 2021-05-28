@@ -19,6 +19,7 @@ Automatic transcription is powered by autosubs upon upload of new content.
 - [x] Figuring how how to implement a php submit form within a javascript loop
 - [x] Uploading episodes (owner ownly)
 - [x] Searching and filtering of segments
+- [x] Searching transcriptions with links to episode/timestamp
 - [x] Exporting clips
   - [ ] possibly appending clips together
 - [x] User management (kinda)
