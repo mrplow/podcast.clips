@@ -92,31 +92,19 @@ echo "    <div class=\"container\">";
                         }
                         else
                         {
-                            move_uploaded_file($_FILES["file"]["tmp_name"], "/var/www/podcasts/" . $_FILES["file"]["name"]);
-                            echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".json\" -z 20000 -b 8 > /dev/null 2>&1");
-                            echo shell_exec("/usr/local/bin/audiowaveform -i \"/var/www/podcasts/" . $_FILES["file"]["name"] . "\" -o \"/var/www/podcasts/" . $filename . ".dat\" -z 512 -b 8 > /dev/null 2>&1");
-                            $ep_filename = $filename;
+                            $tmp_name = $_FILES["file"]["tmp_name"];
+                            $uploaded_file_name = $_FILES["file"]["name"];
                             $ep_episode_num = $_POST['episode_num'];
                             $ep_release_date = $_POST['episode_date'];
                             $ep_title = htmlspecialchars($_POST['episode_title']);
                             $ep_description = htmlspecialchars($_POST['episode_description']);
+                            move_uploaded_file($tmp_name, "/var/www/podcasts/" . $uploaded_file_name);
                             $CrEpisode = $dbconnect->prepare("INSERT INTO episodes (ep_filename, ep_file_sha1, ep_episode_num, ep_release_date, ep_title, ep_description) VALUES( ?, ?, ?, ?, ?, ?)");
-                            $CrEpisode->bind_param('ssisss', $ep_filename, $SHA1Upload, $ep_episode_num, $ep_release_date, $ep_title, $ep_description);
+                            $CrEpisode->bind_param('ssisss', $filename, $SHA1Upload, $ep_episode_num, $ep_release_date, $ep_title, $ep_description);
                             $CrEpisode->execute();
                             $new_rowid = $CrEpisode->insert_id;
                             echo "Success!<br />";
-                            echo shell_exec("/usr/bin/autosub -F json -o /tmp/\"" . $filename . ".json\" /var/www/podcasts/\"" . $filename . ".mp3\" > /dev/null 2>&1");
-                            $jsondata = file_get_contents("/tmp/" . $filename . ".json");
-                            $array = json_decode($jsondata, true);
-
-                            foreach($array as $item) {
-                                $timestamp = $item['start'];
-                                $text = $item['content'];
-
-                                $CrTranscription = $dbconnect->prepare("INSERT INTO transcriptions (tr_rowid_episode, tr_time, tr_text) VALUES(?, ?, ?)");
-                                $CrTranscription->bind_param('ids', $new_rowid, $timestamp, $text);
-                                $CrTranscription->execute();
-                            }
+                            echo shell_exec("nohup php /var/www/code/process_upload.php \"".$uploaded_file_name."\" \"".$filename."\" ".$new_rowid." > /dev/null &");
                         }
                     }
                 }
