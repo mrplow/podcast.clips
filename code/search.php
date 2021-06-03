@@ -86,7 +86,7 @@ if ($dbconnect->connect_error)
 {
     die("Database connection failed: " . $dbconnect->connect_error);
 }
-$episodes = mysqli_query($dbconnect, "SELECT ep_rowid, ep_episode_num, ep_filename, sg_starttime, ep_title, sg_rowid, us_username, sg_comment, ROUND(sg_endtime - sg_starttime, 2) AS sg_length FROM episodes JOIN segments ON ep_rowid = sg_rowid_episode JOIN users ON sg_cby = us_rowid ORDER BY ep_episode_num, sg_starttime") or die(mysqli_error($dbconnect));
+$episodes = mysqli_query($dbconnect, "SELECT ep_rowid, CAST(ep_episode_num AS FLOAT) AS ep_episode_num, ep_filename, sg_starttime, ep_title, sg_rowid, us_username, sg_comment, ROUND(sg_endtime - sg_starttime, 2) AS sg_length FROM episodes JOIN segments ON ep_rowid = sg_rowid_episode JOIN users ON sg_cby = us_rowid ORDER BY ep_episode_num, sg_starttime") or die(mysqli_error($dbconnect));
 while ($row = $episodes->fetch_assoc())
 {
     unset($ep_rowid, $ep_episode_num, $ep_filename, $sg_starttime, $ep_title, $sg_rowid, $us_username, $sg_comment, $sg_length);

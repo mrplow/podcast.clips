@@ -65,7 +65,7 @@ if ($dbconnect->connect_error)
 }
 $episodes = mysqli_query($dbconnect, "SELECT
 ep_rowid,
-CONCAT(ep_episode_num, ' - ', ep_title) AS ep_title
+CONCAT(CAST(ep_episode_num AS FLOAT), ' - ', ep_title) AS ep_title
 FROM
 episodes
 ORDER BY
@@ -119,7 +119,7 @@ while ($row = $episodes->fetch_assoc())
         if (isset($_GET['timestamp'])) {
             $timestamp = $_GET['timestamp'];
         }
-        $selected_episode = $dbconnect->prepare("SELECT ep_filename, ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?");
+        $selected_episode = $dbconnect->prepare("SELECT ep_filename, CAST(ep_episode_num AS FLOAT) AS ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?");
         unset($ep_filename, $ep_title, $ep_description, $ep_episode_num, $ep_release_date);
         $selected_episode->bind_param('i', $selected_ep_rowid);
         $selected_episode->execute();

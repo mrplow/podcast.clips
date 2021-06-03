@@ -53,7 +53,7 @@ echo "    <div class=\"container\">";
                 }
                 unset($ResultEpisodeNum);
                 $CheckExist = $dbconnect->prepare('SELECT ep_episode_num FROM episodes WHERE ep_episode_num = ?');
-                $CheckExist->bind_param('i', $_POST['episode_num']);
+                $CheckExist->bind_param('d', $_POST['episode_num']);
                 $CheckExist->execute();
                 $CheckExist->store_result();
                 $CheckExist->bind_result($EpNum);
@@ -100,7 +100,7 @@ echo "    <div class=\"container\">";
                             $ep_description = htmlspecialchars($_POST['episode_description']);
                             move_uploaded_file($tmp_name, "/var/www/podcasts/" . $uploaded_file_name);
                             $CrEpisode = $dbconnect->prepare("INSERT INTO episodes (ep_filename, ep_file_sha1, ep_episode_num, ep_release_date, ep_title, ep_description) VALUES( ?, ?, ?, ?, ?, ?)");
-                            $CrEpisode->bind_param('ssisss', $filename, $SHA1Upload, $ep_episode_num, $ep_release_date, $ep_title, $ep_description);
+                            $CrEpisode->bind_param('ssdsss', $filename, $SHA1Upload, $ep_episode_num, $ep_release_date, $ep_title, $ep_description);
                             $CrEpisode->execute();
                             $new_rowid = $CrEpisode->insert_id;
                             echo "Success!<br />";
@@ -145,7 +145,7 @@ echo "    </div>";
         <div class="form-group">
           <input form="upload" class="form-control" name="file" type="file" id="file" required="true"><br />
           <label for="episode_num">Episode Number</label>
-          <input form="upload" class="form-control" type="number" id="episode_num" name="episode_num" min="0" required="true"><br />
+          <input form="upload" class="form-control" type="number" id="episode_num" name="episode_num" min="0" step=".1" required="true"><br />
           <label for="episode_date">Dropped</label>
           <input form="upload" class="form-control" type="date" id="episode_date" name="episode_date" required="true"><br />
           <label for="episode_title">Title</label>

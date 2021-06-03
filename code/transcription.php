@@ -104,7 +104,11 @@ error_reporting(E_ALL);
                         },
                         {
                             "targets": [ 1 ],
-                            "searchable": false
+                            "searchable": false,
+                            "render": function( data, type, row )
+                                {
+                                    return row[1].replace(".0", "")
+                                }
                         },
                         {
                             "targets": [ 2 ],
