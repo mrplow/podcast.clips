@@ -40,8 +40,8 @@ RUN sed -ri 's/^(post_max_size = )[0-9]+(M.*)$/\1'${post_max_size}'\2/' "$PHP_IN
 RUN sed -ri 's/^(memory_limit = )[0-9]+(M.*)$/\1'${memory_limit}'\2/' "$PHP_INI_DIR/php.ini-production"
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# Install Autosub
-RUN apk add py-pip git --no-cache && pip install pip install git+https://github.com/agermanidis/autosub.git
+# Install Autosub and mp3hash
+RUN apk add py-pip git --no-cache && pip install pip install git+https://github.com/agermanidis/autosub.git && pip install mp3hash
 
 # Install mail server
 RUN apk add ssmtp --no-cache

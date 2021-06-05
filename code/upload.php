@@ -74,7 +74,7 @@ echo "    <div class=\"container\">";
                     }
                     else
                     {
-                        $SHA1Upload = sha1_file($_FILES["file"]["tmp_name"]);
+                        $SHA1Upload = exec("mp3hash -q ".$_FILES["file"]["tmp_name"]);
                         unset($ResultEpisodeHash);
                         $CheckHashExist = $dbconnect->prepare('SELECT ep_file_sha1 FROM episodes WHERE ep_file_sha1 = ?');
                         $CheckHashExist->bind_param('s', $SHA1Upload);
