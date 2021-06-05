@@ -1,7 +1,7 @@
 CREATE TABLE `podcast_clips`.`episodes`(
     `ep_rowid` INT NOT NULL AUTO_INCREMENT,
     `ep_filename` VARCHAR(256) NOT NULL,
-    `ep_file_sha1` CHAR(40) NOT NULL,
+    `ep_file_sha1` TEXT NOT NULL,
     `ep_episode_num` DECIMAL(11,1) NOT NULL,
     `ep_release_date` DATE NULL,
     `ep_title` VARCHAR(256) NULL,

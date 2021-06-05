@@ -53,3 +53,6 @@ RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf
 # Set up php sendmail config
 RUN echo "sendmail_path=sendmail -i -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini
+
+# install fpcalc
+RUN apk add chromaprint --no-cache
