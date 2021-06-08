@@ -71,7 +71,7 @@ if (!empty($message))
 echo $message;
 }
 ?>
-    <h4>Get the code from <a href="https://www.patreon.com/posts/49728941">Patreon</a></h4>
+    <h4>Get the code from <a href="https://www.patreon.com/posts/49728941" target="_blank">Patreon</a></h4>
     </div>
   </body>
 </html>
