@@ -60,10 +60,10 @@ if (isset($_POST['Delete']))
 if (isset($_POST['Export']))
 {
     $ep_filename = $_POST['EpisodeFilename'];
-    $sg_StartTime = $_POST['ExportStartTime'];
-    $sg_EndTime = $_POST['ExportEndTime'];
+    $sg_StartTime = FLOOR($_POST['ExportStartTime'] / 60.0) . "." . ROUND(((($_POST['ExportStartTime'] / 60.0) - FLOOR($_POST['ExportStartTime'] / 60.0)) * 60), 2);
+    $sg_EndTime = FLOOR($_POST['ExportEndTime'] / 60.0) . "." . ROUND(((($_POST['ExportEndTime'] / 60.0) - FLOOR($_POST['ExportEndTime'] / 60.0)) * 60), 2);
     $sg_Comment = $_POST['Comment'];
-    echo shell_exec("/usr/bin/ffmpeg -y -i \"/var/www/podcasts/" . $ep_filename . ".mp3\" -ss " . $sg_StartTime . " -to " . $sg_EndTime . " -c copy \"/var/www/clips/" . $_POST['Export'] . ".mp3\"  -hide_banner -loglevel panic 2>&1");
+    echo shell_exec("/usr/bin/mp3splt -Q -o ../clips/" . $_POST['Export'] . " \"/var/www/podcasts/" . $ep_filename . ".mp3\" " . $sg_StartTime . " " . $sg_EndTime . " 2>&1");
     header("Cache-Control: private");
     header("Content-type: audio/mpeg3");
     header("Content-Transfer-Encoding: binary");

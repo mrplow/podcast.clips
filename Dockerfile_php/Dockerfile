@@ -56,3 +56,6 @@ RUN echo "sendmail_path=sendmail -i -t" >> /usr/local/etc/php/conf.d/php-sendmai
 
 # install fpcalc
 RUN apk add chromaprint --no-cache
+
+#install mp3splt
+RUN apk add mp3splt --no-cache
