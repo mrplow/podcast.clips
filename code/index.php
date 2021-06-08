@@ -276,7 +276,8 @@ if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
               '            <a href="#' + segment.id + '" data-action="play-segment" class="btn btn-success btn-sm" data-id="' + segment.id + '">Play</a>' +
               '            <a href="#' + segment.id + '" data-action="loop-segment" class="btn btn-info btn-sm" data-id="' + segment.id + '">Loop</a>' +
               '            <button form="segment' + segment.id + '" class="btn btn-primary btn-sm" name="Save" value="' + segment.id + '"/>Save</button>' +
-              '            <button onclick="return confirm(\'Are you sure you want to delete the segment?\');" form="segment' + segment.id + '" class="btn btn-danger btn-sm" name="Delete" value="' + segment.id + '"/>Delete</button><button form="segment' + segment.id + '" class="btn btn-primary btn-sm" name="Export" value="' + segment.id + '"/>Download</button>' +
+              '            <button onclick="return confirm(\'Are you sure you want to delete the segment?\');" form="segment' + segment.id + '" class="btn btn-danger btn-sm" name="Delete" value="' + segment.id + '"/>Delete</button>' +
+              '            <button form="segment' + segment.id + '" class="btn btn-primary btn-sm" name="Export" value="' + segment.id + '"/>Download</button>' +
               '          </div>' +
               '        </td>' +
               '        <input type="hidden" form="segment' + segment.id + '" name="EpisodeRowid" value="<?php echo $selected_ep_rowid; ?>">' +
