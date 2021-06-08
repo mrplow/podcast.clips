@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ((!isset($_SESSION['user_id'])) || ($_SESSION['user_level'] > 1))
+if ((!isset($_SESSION['user_id'])) || ($_SESSION['user_level'] > 10))
 {
     header("Location: /login.php");
 }
@@ -135,7 +135,7 @@ echo "    </div>";
         <a href="/search.php">Search Clips</a>
         <br />
         <a href="/transcription.php">Search Transcriptions</a>
-        <?php if ($_SESSION['user_level'] == 1)
+        <?php if ($_SESSION['user_level'] <= 10)
 {
     echo "<br /><a href=\"/upload.php\">Upload episode</a>";
 }
