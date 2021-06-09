@@ -1,33 +1,4 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.peaks = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
-(function() {
-  var colors = {
-    aqua:    '#7fdbff',
-    blue:    '#0074d9',
-    lime:    '#01ff70',
-    navy:    '#001f3f',
-    teal:    '#39cccc',
-    olive:   '#3d9970',
-    green:   '#2ecc40',
-    red:     '#ff4136',
-    maroon:  '#85144b',
-    orange:  '#ff851b',
-    purple:  '#b10dc9',
-    yellow:  '#ffdc00',
-    fuchsia: '#f012be',
-    gray:    '#aaaaaa',
-    white:   '#ffffff',
-    black:   '#111111',
-    silver:  '#dddddd'
-  };
-
-  if(typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = colors;
-  } else {
-    window.colors = colors;
-  }
-})();
-
-},{}],2:[function(_dereq_,module,exports){
 'use strict';
 
 var has = Object.prototype.hasOwnProperty
@@ -365,7 +336,7 @@ if ('undefined' !== typeof module) {
   module.exports = EventEmitter;
 }
 
-},{}],3:[function(_dereq_,module,exports){
+},{}],2:[function(_dereq_,module,exports){
 (function (global){(function (){
 var WORKER_ENABLED = !!(global === global.window && global.URL && global.Blob && global.Worker);
 
@@ -409,7 +380,7 @@ module.exports = InlineWorker;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],4:[function(_dereq_,module,exports){
+},{}],3:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Animation = void 0;
@@ -556,7 +527,7 @@ var Animation = (function () {
 }());
 exports.Animation = Animation;
 
-},{"./Global":11}],5:[function(_dereq_,module,exports){
+},{"./Global":10}],4:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -693,7 +664,7 @@ var HitCanvas = (function (_super) {
 }(Canvas));
 exports.HitCanvas = HitCanvas;
 
-},{"./Context":7,"./Factory":9,"./Global":11,"./Util":19,"./Validators":20}],6:[function(_dereq_,module,exports){
+},{"./Context":6,"./Factory":8,"./Global":10,"./Util":18,"./Validators":19}],5:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1033,7 +1004,7 @@ Factory_1.Factory.addGetterSetter(Container, 'clipHeight', undefined, Validators
 Factory_1.Factory.addGetterSetter(Container, 'clipFunc');
 Util_1.Collection.mapMethods(Container);
 
-},{"./Factory":9,"./Node":14,"./Util":19,"./Validators":20}],7:[function(_dereq_,module,exports){
+},{"./Factory":8,"./Node":13,"./Util":18,"./Validators":19}],6:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1563,7 +1534,7 @@ var HitContext = (function (_super) {
 }(Context));
 exports.HitContext = HitContext;
 
-},{"./Global":11,"./Util":19}],8:[function(_dereq_,module,exports){
+},{"./Global":10,"./Util":18}],7:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DD = void 0;
@@ -1670,7 +1641,7 @@ if (Global_1.Konva.isBrowser) {
     window.addEventListener('touchend', exports.DD._endDragAfter, false);
 }
 
-},{"./Global":11,"./Util":19}],9:[function(_dereq_,module,exports){
+},{"./Global":10,"./Util":18}],8:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Factory = void 0;
@@ -1792,7 +1763,7 @@ exports.Factory = {
     },
 };
 
-},{"./Util":19,"./Validators":20}],10:[function(_dereq_,module,exports){
+},{"./Util":18,"./Validators":19}],9:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1827,7 +1798,7 @@ FastLayer.prototype.nodeType = 'FastLayer';
 Global_1._registerNode(FastLayer);
 Util_1.Collection.mapMethods(FastLayer);
 
-},{"./Global":11,"./Layer":13,"./Util":19}],11:[function(_dereq_,module,exports){
+},{"./Global":10,"./Layer":12,"./Util":18}],10:[function(_dereq_,module,exports){
 (function (global){(function (){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1920,7 +1891,7 @@ exports._registerNode = _registerNode;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],12:[function(_dereq_,module,exports){
+},{}],11:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1958,7 +1929,7 @@ Group.prototype.nodeType = 'Group';
 Global_1._registerNode(Group);
 Util_1.Collection.mapMethods(Group);
 
-},{"./Container":6,"./Global":11,"./Util":19}],13:[function(_dereq_,module,exports){
+},{"./Container":5,"./Global":10,"./Util":18}],12:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -2279,7 +2250,7 @@ Factory_1.Factory.addGetterSetter(Layer, 'clearBeforeDraw', true);
 Factory_1.Factory.addGetterSetter(Layer, 'hitGraphEnabled', true, Validators_1.getBooleanValidator());
 Util_1.Collection.mapMethods(Layer);
 
-},{"./Canvas":5,"./Container":6,"./Factory":9,"./Global":11,"./Node":14,"./Shape":16,"./Util":19,"./Validators":20}],14:[function(_dereq_,module,exports){
+},{"./Canvas":4,"./Container":5,"./Factory":8,"./Global":10,"./Node":13,"./Shape":15,"./Util":18,"./Validators":19}],13:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Node = exports._removeName = exports._addName = exports._removeId = exports.names = exports.ids = void 0;
@@ -3738,7 +3709,7 @@ Factory_1.Factory.backCompat(Node, {
 });
 Util_1.Collection.mapMethods(Node);
 
-},{"./Canvas":5,"./DragAndDrop":8,"./Factory":9,"./Global":11,"./Util":19,"./Validators":20}],15:[function(_dereq_,module,exports){
+},{"./Canvas":4,"./DragAndDrop":7,"./Factory":8,"./Global":10,"./Util":18,"./Validators":19}],14:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.releaseCapture = exports.setPointerCapture = exports.hasPointerCapture = exports.createEvent = exports.getCapturedShape = void 0;
@@ -3785,7 +3756,7 @@ function releaseCapture(pointerId, target) {
 }
 exports.releaseCapture = releaseCapture;
 
-},{"./Global":11}],16:[function(_dereq_,module,exports){
+},{"./Global":10}],15:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -4321,7 +4292,7 @@ Factory_1.Factory.backCompat(Shape, {
 });
 Util_1.Collection.mapMethods(Shape);
 
-},{"./Factory":9,"./Global":11,"./Node":14,"./PointerEvents":15,"./Util":19,"./Validators":20}],17:[function(_dereq_,module,exports){
+},{"./Factory":8,"./Global":10,"./Node":13,"./PointerEvents":14,"./Util":18,"./Validators":19}],16:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5104,7 +5075,7 @@ Stage.prototype.nodeType = STAGE;
 Global_2._registerNode(Stage);
 Factory_1.Factory.addGetterSetter(Stage, 'container');
 
-},{"./Canvas":5,"./Container":6,"./DragAndDrop":8,"./Factory":9,"./Global":11,"./PointerEvents":15,"./Util":19}],18:[function(_dereq_,module,exports){
+},{"./Canvas":4,"./Container":5,"./DragAndDrop":7,"./Factory":8,"./Global":10,"./PointerEvents":14,"./Util":18}],17:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Easings = exports.Tween = void 0;
@@ -5629,7 +5600,7 @@ exports.Easings = {
     },
 };
 
-},{"./Animation":4,"./Global":11,"./Node":14,"./Util":19}],19:[function(_dereq_,module,exports){
+},{"./Animation":3,"./Global":10,"./Node":13,"./Util":18}],18:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Util = exports.Transform = exports.Collection = void 0;
@@ -6466,7 +6437,7 @@ exports.Util = {
     },
 };
 
-},{"./Global":11}],20:[function(_dereq_,module,exports){
+},{"./Global":10}],19:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getComponentValidator = exports.getBooleanValidator = exports.getNumberArrayValidator = exports.getFunctionValidator = exports.getStringOrGradientValidator = exports.getStringValidator = exports.getNumberOrAutoValidator = exports.getNumberOrArrayOfNumbersValidator = exports.getNumberValidator = exports.alphaComponent = exports.RGBComponent = void 0;
@@ -6650,7 +6621,7 @@ function getComponentValidator(components) {
 }
 exports.getComponentValidator = getComponentValidator;
 
-},{"./Global":11,"./Util":19}],21:[function(_dereq_,module,exports){
+},{"./Global":10,"./Util":18}],20:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Konva = void 0;
@@ -6691,7 +6662,7 @@ exports.Konva = Util_1.Util._assign(Global_1.Konva, {
     Canvas: Canvas_1.Canvas
 });
 
-},{"./Animation":4,"./Canvas":5,"./Container":6,"./Context":7,"./DragAndDrop":8,"./FastLayer":10,"./Global":11,"./Group":12,"./Layer":13,"./Node":14,"./Shape":16,"./Stage":17,"./Tween":18,"./Util":19}],22:[function(_dereq_,module,exports){
+},{"./Animation":3,"./Canvas":4,"./Container":5,"./Context":6,"./DragAndDrop":7,"./FastLayer":9,"./Global":10,"./Group":11,"./Layer":12,"./Node":13,"./Shape":15,"./Stage":16,"./Tween":17,"./Util":18}],21:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Konva = void 0;
@@ -6774,7 +6745,7 @@ exports.Konva = _CoreInternals_1.Konva.Util._assign(_CoreInternals_1.Konva, {
     },
 });
 
-},{"./_CoreInternals":21,"./filters/Blur":23,"./filters/Brighten":24,"./filters/Contrast":25,"./filters/Emboss":26,"./filters/Enhance":27,"./filters/Grayscale":28,"./filters/HSL":29,"./filters/HSV":30,"./filters/Invert":31,"./filters/Kaleidoscope":32,"./filters/Mask":33,"./filters/Noise":34,"./filters/Pixelate":35,"./filters/Posterize":36,"./filters/RGB":37,"./filters/RGBA":38,"./filters/Sepia":39,"./filters/Solarize":40,"./filters/Threshold":41,"./shapes/Arc":43,"./shapes/Arrow":44,"./shapes/Circle":45,"./shapes/Ellipse":46,"./shapes/Image":47,"./shapes/Label":48,"./shapes/Line":49,"./shapes/Path":50,"./shapes/Rect":51,"./shapes/RegularPolygon":52,"./shapes/Ring":53,"./shapes/Sprite":54,"./shapes/Star":55,"./shapes/Text":56,"./shapes/TextPath":57,"./shapes/Transformer":58,"./shapes/Wedge":59}],23:[function(_dereq_,module,exports){
+},{"./_CoreInternals":20,"./filters/Blur":22,"./filters/Brighten":23,"./filters/Contrast":24,"./filters/Emboss":25,"./filters/Enhance":26,"./filters/Grayscale":27,"./filters/HSL":28,"./filters/HSV":29,"./filters/Invert":30,"./filters/Kaleidoscope":31,"./filters/Mask":32,"./filters/Noise":33,"./filters/Pixelate":34,"./filters/Posterize":35,"./filters/RGB":36,"./filters/RGBA":37,"./filters/Sepia":38,"./filters/Solarize":39,"./filters/Threshold":40,"./shapes/Arc":42,"./shapes/Arrow":43,"./shapes/Circle":44,"./shapes/Ellipse":45,"./shapes/Image":46,"./shapes/Label":47,"./shapes/Line":48,"./shapes/Path":49,"./shapes/Rect":50,"./shapes/RegularPolygon":51,"./shapes/Ring":52,"./shapes/Sprite":53,"./shapes/Star":54,"./shapes/Text":55,"./shapes/TextPath":56,"./shapes/Transformer":57,"./shapes/Wedge":58}],22:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Blur = void 0;
@@ -7477,7 +7448,7 @@ var Blur = function Blur(imageData) {
 exports.Blur = Blur;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'blurRadius', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],24:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],23:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Brighten = void 0;
@@ -7495,7 +7466,7 @@ var Brighten = function (imageData) {
 exports.Brighten = Brighten;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'brightness', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],25:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],24:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Contrast = void 0;
@@ -7535,7 +7506,7 @@ var Contrast = function (imageData) {
 exports.Contrast = Contrast;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'contrast', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],26:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],25:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Emboss = void 0;
@@ -7643,7 +7614,7 @@ Factory_1.Factory.addGetterSetter(Node_1.Node, 'embossWhiteLevel', 0.5, Validato
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'embossDirection', 'top-left', null, Factory_1.Factory.afterSetFilter);
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'embossBlend', false, null, Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Util":19,"../Validators":20}],27:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Util":18,"../Validators":19}],26:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Enhance = void 0;
@@ -7732,7 +7703,7 @@ var Enhance = function (imageData) {
 exports.Enhance = Enhance;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'enhance', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],28:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],27:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Grayscale = void 0;
@@ -7747,7 +7718,7 @@ var Grayscale = function (imageData) {
 };
 exports.Grayscale = Grayscale;
 
-},{}],29:[function(_dereq_,module,exports){
+},{}],28:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HSL = void 0;
@@ -7777,7 +7748,7 @@ var HSL = function (imageData) {
 };
 exports.HSL = HSL;
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],30:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],29:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HSV = void 0;
@@ -7807,7 +7778,7 @@ Factory_1.Factory.addGetterSetter(Node_1.Node, 'hue', 0, Validators_1.getNumberV
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'saturation', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'value', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],31:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],30:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Invert = void 0;
@@ -7821,7 +7792,7 @@ var Invert = function (imageData) {
 };
 exports.Invert = Invert;
 
-},{}],32:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Kaleidoscope = void 0;
@@ -7959,7 +7930,7 @@ exports.Kaleidoscope = Kaleidoscope;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'kaleidoscopePower', 2, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'kaleidoscopeAngle', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Util":19,"../Validators":20}],33:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Util":18,"../Validators":19}],32:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mask = void 0;
@@ -8105,7 +8076,7 @@ var Mask = function (imageData) {
 exports.Mask = Mask;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'threshold', 0, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],34:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],33:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Noise = void 0;
@@ -8123,7 +8094,7 @@ var Noise = function (imageData) {
 exports.Noise = Noise;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'noise', 0.2, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],35:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],34:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pixelate = void 0;
@@ -8189,7 +8160,7 @@ var Pixelate = function (imageData) {
 exports.Pixelate = Pixelate;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'pixelSize', 8, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Util":19,"../Validators":20}],36:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Util":18,"../Validators":19}],35:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Posterize = void 0;
@@ -8205,7 +8176,7 @@ var Posterize = function (imageData) {
 exports.Posterize = Posterize;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'levels', 0.5, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],37:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],36:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RGB = void 0;
@@ -8250,7 +8221,7 @@ Factory_1.Factory.addGetterSetter(Node_1.Node, 'green', 0, function (val) {
 });
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'blue', 0, Validators_1.RGBComponent, Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],38:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],37:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RGBA = void 0;
@@ -8305,7 +8276,7 @@ Factory_1.Factory.addGetterSetter(Node_1.Node, 'alpha', 1, function (val) {
     }
 });
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],39:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],38:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sepia = void 0;
@@ -8322,7 +8293,7 @@ var Sepia = function (imageData) {
 };
 exports.Sepia = Sepia;
 
-},{}],40:[function(_dereq_,module,exports){
+},{}],39:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Solarize = void 0;
@@ -8353,7 +8324,7 @@ var Solarize = function (imageData) {
 };
 exports.Solarize = Solarize;
 
-},{}],41:[function(_dereq_,module,exports){
+},{}],40:[function(_dereq_,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Threshold = void 0;
@@ -8369,13 +8340,13 @@ var Threshold = function (imageData) {
 exports.Threshold = Threshold;
 Factory_1.Factory.addGetterSetter(Node_1.Node, 'threshold', 0.5, Validators_1.getNumberValidator(), Factory_1.Factory.afterSetFilter);
 
-},{"../Factory":9,"../Node":14,"../Validators":20}],42:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Node":13,"../Validators":19}],41:[function(_dereq_,module,exports){
 var Konva = _dereq_('./_FullInternals').Konva;
 Konva._injectGlobal(Konva);
 exports['default'] = Konva;
 module.exports = exports['default'];
 
-},{"./_FullInternals":22}],43:[function(_dereq_,module,exports){
+},{"./_FullInternals":21}],42:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8436,7 +8407,7 @@ Factory_1.Factory.addGetterSetter(Arc, 'angle', 0, Validators_1.getNumberValidat
 Factory_1.Factory.addGetterSetter(Arc, 'clockwise', false, Validators_1.getBooleanValidator());
 Util_1.Collection.mapMethods(Arc);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],44:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],43:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8542,7 +8513,7 @@ Factory_1.Factory.addGetterSetter(Arrow, 'pointerWidth', 10, Validators_1.getNum
 Factory_1.Factory.addGetterSetter(Arrow, 'pointerAtBeginning', false);
 Util_1.Collection.mapMethods(Arrow);
 
-},{"../Factory":9,"../Global":11,"../Util":19,"../Validators":20,"./Line":49}],45:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Util":18,"../Validators":19,"./Line":48}],44:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8601,7 +8572,7 @@ Global_1._registerNode(Circle);
 Factory_1.Factory.addGetterSetter(Circle, 'radius', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Circle);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],46:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],45:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8664,7 +8635,7 @@ Factory_1.Factory.addGetterSetter(Ellipse, 'radiusX', 0, Validators_1.getNumberV
 Factory_1.Factory.addGetterSetter(Ellipse, 'radiusY', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Ellipse);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],47:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],46:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8768,7 +8739,7 @@ Factory_1.Factory.addGetterSetter(Image, 'cropWidth', 0, Validators_1.getNumberV
 Factory_1.Factory.addGetterSetter(Image, 'cropHeight', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Image);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],48:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],47:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8965,7 +8936,7 @@ Factory_1.Factory.addGetterSetter(Tag, 'pointerHeight', 0, Validators_1.getNumbe
 Factory_1.Factory.addGetterSetter(Tag, 'cornerRadius', 0, Validators_1.getNumberOrArrayOfNumbersValidator(4));
 Util_1.Collection.mapMethods(Tag);
 
-},{"../Factory":9,"../Global":11,"../Group":12,"../Shape":16,"../Util":19,"../Validators":20}],49:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Group":11,"../Shape":15,"../Util":18,"../Validators":19}],48:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9131,7 +9102,7 @@ Factory_1.Factory.addGetterSetter(Line, 'tension', 0, Validators_1.getNumberVali
 Factory_1.Factory.addGetterSetter(Line, 'points', [], Validators_1.getNumberArrayValidator());
 Util_1.Collection.mapMethods(Line);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],50:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],49:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9778,7 +9749,7 @@ Global_1._registerNode(Path);
 Factory_1.Factory.addGetterSetter(Path, 'data');
 Util_1.Collection.mapMethods(Path);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19}],51:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18}],50:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9846,7 +9817,7 @@ Global_1._registerNode(Rect);
 Factory_1.Factory.addGetterSetter(Rect, 'cornerRadius', 0, Validators_1.getNumberOrArrayOfNumbersValidator(4));
 Util_1.Collection.mapMethods(Rect);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],52:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],51:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9937,7 +9908,7 @@ Factory_1.Factory.addGetterSetter(RegularPolygon, 'radius', 0, Validators_1.getN
 Factory_1.Factory.addGetterSetter(RegularPolygon, 'sides', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(RegularPolygon);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],53:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],52:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9996,7 +9967,7 @@ Factory_1.Factory.addGetterSetter(Ring, 'innerRadius', 0, Validators_1.getNumber
 Factory_1.Factory.addGetterSetter(Ring, 'outerRadius', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Ring);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],54:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],53:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -10128,7 +10099,7 @@ Factory_1.Factory.backCompat(Sprite, {
 });
 Util_1.Collection.mapMethods(Sprite);
 
-},{"../Animation":4,"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],55:[function(_dereq_,module,exports){
+},{"../Animation":3,"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],54:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -10192,7 +10163,7 @@ Factory_1.Factory.addGetterSetter(Star, 'innerRadius', 0, Validators_1.getNumber
 Factory_1.Factory.addGetterSetter(Star, 'outerRadius', 0, Validators_1.getNumberValidator());
 Util_1.Collection.mapMethods(Star);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],56:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],55:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -10571,7 +10542,7 @@ Factory_1.Factory.addGetterSetter(Text, 'text', '', Validators_1.getStringValida
 Factory_1.Factory.addGetterSetter(Text, 'textDecoration', '');
 Util_1.Collection.mapMethods(Text);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],57:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],56:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -10941,7 +10912,7 @@ Factory_1.Factory.addGetterSetter(TextPath, 'textDecoration', null);
 Factory_1.Factory.addGetterSetter(TextPath, 'kerningFunc', null);
 Util_1.Collection.mapMethods(TextPath);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20,"./Path":50,"./Text":56}],58:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19,"./Path":49,"./Text":55}],57:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -11917,7 +11888,7 @@ Factory_1.Factory.backCompat(Transformer, {
 });
 Util_1.Collection.mapMethods(Transformer);
 
-},{"../Factory":9,"../Global":11,"../Group":12,"../Node":14,"../Shape":16,"../Util":19,"../Validators":20,"./Rect":51}],59:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Group":11,"../Node":13,"../Shape":15,"../Util":18,"../Validators":19,"./Rect":50}],58:[function(_dereq_,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -11981,21 +11952,11 @@ Factory_1.Factory.backCompat(Wedge, {
 });
 Util_1.Collection.mapMethods(Wedge);
 
-},{"../Factory":9,"../Global":11,"../Shape":16,"../Util":19,"../Validators":20}],60:[function(_dereq_,module,exports){
+},{"../Factory":8,"../Global":10,"../Shape":15,"../Util":18,"../Validators":19}],59:[function(_dereq_,module,exports){
 "use strict";
 
 /**
  * ArrayBuffer adapter consumes binary waveform data.
- * It is used as a data abstraction layer by `WaveformData`.
- *
- * This is supposed to be the fastest adapter ever:
- * * **Pros**: working directly in memory, everything is done by reference
- *   (including the offsetting)
- * * **Cons**: binary data are hardly readable without data format knowledge
- *   (and this is why this adapter exists).
- *
- * @param {ArrayBuffer} buffer
- * @constructor
  */
 
 function WaveformDataArrayBufferAdapter(buffer) {
@@ -12005,11 +11966,6 @@ function WaveformDataArrayBufferAdapter(buffer) {
 
 /**
  * Detects if a set of data is suitable for the ArrayBuffer adapter.
- * It is used internally by `WaveformData.create` so you should not bother using it.
- *
- * @static
- * @param {Mixed} data
- * @returns {boolean}
  */
 
 WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
@@ -12027,15 +11983,10 @@ WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
   return isCompatible;
 };
 
-/**
- * @namespace WaveformDataArrayBufferAdapter
- */
-
  WaveformDataArrayBufferAdapter.prototype = {
+
   /**
    * Returns the data format version number.
-   *
-   * @return {Integer} Version number of the consumed data format.
    */
 
   get version() {
@@ -12054,8 +12005,6 @@ WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
 
   /**
    * Returns the number of channels.
-   *
-   * @return {Integer} Number of channels.
    */
 
   get channels() {
@@ -12069,8 +12018,6 @@ WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
 
   /**
    * Returns the number of samples per second.
-   *
-   * @return {Integer} Number of samples per second.
    */
 
   get sample_rate() {
@@ -12079,8 +12026,6 @@ WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
 
   /**
    * Returns the scale (number of samples per pixel).
-   *
-   * @return {Integer} Number of samples per pixel.
    */
 
   get scale() {
@@ -12089,8 +12034,6 @@ WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
 
   /**
    * Returns the length of the waveform data (number of data points).
-   *
-   * @return {Integer} Length of the waveform data.
    */
 
   get length() {
@@ -12098,10 +12041,7 @@ WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
   },
 
   /**
-   * Returns a value at a specific offset.
-   *
-   * @param {Integer} index
-   * @return {Integer} waveform value
+   * Returns a waveform data value at a specific offset.
    */
 
   at: function at_sample(index) {
@@ -12111,9 +12051,6 @@ WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
   /**
    * Returns a new ArrayBuffer with the concatenated waveform.
    * All waveforms must have identical metadata (version, channels, etc)
-   *
-   * @param {...WaveformDataArrayBufferAdapter} otherAdapters One or more adapters to concatenate
-   * @return {ArrayBuffer} concatenated ArrayBuffer
    */
 
   concatBuffers: function() {
@@ -12160,7 +12097,7 @@ WaveformDataArrayBufferAdapter.isCompatible = function isCompatible(data) {
 
 module.exports = WaveformDataArrayBufferAdapter;
 
-},{}],61:[function(_dereq_,module,exports){
+},{}],60:[function(_dereq_,module,exports){
 "use strict";
 
 /**
@@ -12203,10 +12140,9 @@ WaveformDataObjectAdapter.isCompatible = function isCompatible(data) {
  */
 
 WaveformDataObjectAdapter.prototype = {
+
   /**
    * Returns the data format version number.
-   *
-   * @return {Integer} Version number of the consumed data format.
    */
 
   get version() {
@@ -12223,8 +12159,6 @@ WaveformDataObjectAdapter.prototype = {
 
   /**
    * Returns the number of channels.
-   *
-   * @return {Integer} Number of channels.
    */
 
   get channels() {
@@ -12233,8 +12167,6 @@ WaveformDataObjectAdapter.prototype = {
 
   /**
    * Returns the number of samples per second.
-   *
-   * @return {Integer} Number of samples per second.
    */
 
   get sample_rate() {
@@ -12243,8 +12175,6 @@ WaveformDataObjectAdapter.prototype = {
 
   /**
    * Returns the scale (number of samples per pixel).
-   *
-   * @return {Integer} Number of samples per pixel.
    */
 
   get scale() {
@@ -12253,8 +12183,6 @@ WaveformDataObjectAdapter.prototype = {
 
   /**
    * Returns the length of the waveform data (number of data points).
-   *
-   * @return {Integer} Length of the waveform data.
    */
 
   get length() {
@@ -12262,10 +12190,7 @@ WaveformDataObjectAdapter.prototype = {
   },
 
   /**
-   * Returns a value at a specific offset.
-   *
-   * @param {Integer} index
-   * @return {number} waveform value
+   * Returns a waveform data value at a specific offset.
    */
 
   at: function at_sample(index) {
@@ -12282,9 +12207,6 @@ WaveformDataObjectAdapter.prototype = {
   /**
    * Returns a new data object with the concatenated waveform.
    * Both waveforms must have identical metadata (version, channels, etc)
-   *
-   * @param {...WaveformDataObjectAdapter} otherAdapters One or more adapters
-   * @return {Mixed} combined waveform data
    */
 
   concatBuffers: function() {
@@ -12304,14 +12226,17 @@ WaveformDataObjectAdapter.prototype = {
 
 module.exports = WaveformDataObjectAdapter;
 
-},{}],62:[function(_dereq_,module,exports){
+},{}],61:[function(_dereq_,module,exports){
 "use strict";
 
 var WaveformData = _dereq_("../core");
 var InlineWorker = _dereq_("inline-worker");
+var MainThreadWorker = _dereq_("../util/main-thread-worker");
 
 function processWorker(workerArgs, callback) {
-  var worker = new InlineWorker(function() {
+  var WaveformWorker = workerArgs.disable_worker ? MainThreadWorker : InlineWorker;
+
+  var worker = new WaveformWorker(function() {
     var INT8_MAX = 127;
     var INT8_MIN = -128;
 
@@ -12328,6 +12253,10 @@ function processWorker(workerArgs, callback) {
     }
 
     this.addEventListener("message", function listener(evt) {
+      if (!evt.data.audio_buffer) {
+        return;
+      }
+
       var scale = evt.data.scale;
       var amplitude_scale = evt.data.amplitude_scale;
       var split_channels = evt.data.split_channels;
@@ -12439,7 +12368,12 @@ function processWorker(workerArgs, callback) {
   });
 
   worker.addEventListener("message", function listener(evt) {
+    if (evt.data.audio_buffer) {
+      return;
+    }
+
     callback(evt.data);
+
     // We're only sending a single message to each listener, so
     // remove the callback afterwards to avoid leaks.
     worker.removeEventListener("message", listener);
@@ -12449,24 +12383,10 @@ function processWorker(workerArgs, callback) {
 }
 
 /**
- * This callback is executed once the audio has been decoded by the browser and
- * resampled by waveform-data.
- *
- * @callback onAudioResampled
- * @param {Error?}
- * @param {WaveformData} waveform_data Waveform instance of the browser decoded audio
- * @param {AudioBuffer} audio_buffer Decoded audio buffer
- */
-
-/**
  * AudioBuffer-based WaveformData generator
  *
  * Adapted from BlockFile::CalcSummary in Audacity, with permission.
- * @see https://code.google.com/p/audacity/source/browse/audacity-src/trunk/src/BlockFile.cpp
- *
- * @param {Object.<{scale: Number, amplitude_scale: Number, split_channels: Boolean}>} options
- * @param {onAudioResampled} callback
- * @returns {Function.<AudioBuffer>}
+ * See https://code.google.com/p/audacity/source/browse/audacity-src/trunk/src/BlockFile.cpp
  */
 
 function getAudioDecoder(options, callback) {
@@ -12488,7 +12408,8 @@ function getAudioDecoder(options, callback) {
       scale: options.scale,
       amplitude_scale: options.amplitude_scale,
       split_channels: options.split_channels,
-      audio_buffer: audio_buffer_obj
+      audio_buffer: audio_buffer_obj,
+      disable_worker: options.disable_worker
     };
 
     processWorker(worker_args, function(data_object) {
@@ -12499,24 +12420,22 @@ function getAudioDecoder(options, callback) {
 
 module.exports = getAudioDecoder;
 
-},{"../core":66,"inline-worker":3}],63:[function(_dereq_,module,exports){
+},{"../core":65,"../util/main-thread-worker":66,"inline-worker":2}],62:[function(_dereq_,module,exports){
 "use strict";
 
 var defaultOptions = {
   scale: 512,
   amplitude_scale: 1.0,
-  split_channels: false
+  split_channels: false,
+  disable_worker: false
 };
 
 function getOptions(options) {
-  if (Object.prototype.hasOwnProperty.call(options, "scale_adjuster")) {
-    throw new Error("Please rename the 'scale_adjuster' option to 'amplitude_scale'");
-  }
-
   var opts = {
     scale: options.scale || defaultOptions.scale,
     amplitude_scale: options.amplitude_scale || defaultOptions.amplitude_scale,
-    split_channels: options.split_channels || defaultOptions.split_channels
+    split_channels: options.split_channels || defaultOptions.split_channels,
+    disable_worker: options.disable_worker || defaultOptions.disable_worker
   };
 
   return opts;
@@ -12524,7 +12443,7 @@ function getOptions(options) {
 
 module.exports = getOptions;
 
-},{}],64:[function(_dereq_,module,exports){
+},{}],63:[function(_dereq_,module,exports){
 "use strict";
 
 var getAudioDecoder = _dereq_("./audiodecoder");
@@ -12558,39 +12477,7 @@ function createFromAudioBuffer(audioBuffer, options, callback) {
 }
 
 /**
- * Creates a working WaveformData based on binary audio data.
- *
- * This is still quite experimental and the result will mostly depend on the
- * level of browser support.
- *
- * ```javascript
- * const xhr = new XMLHttpRequest();
- * const audioContext = new AudioContext();
- *
- * // URL of a CORS MP3/Ogg file
- * xhr.open('GET', 'https://example.com/audio/track.ogg');
- * xhr.responseType = 'arraybuffer';
- *
- * xhr.addEventListener('load', function(progressEvent) {
- *   WaveformData.createFromAudio(audioContext, progressEvent.target.response,
- *     function(err, waveform) {
- *     if (err) {
- *       console.error(err);
- *       return;
- *     }
- *
- *     console.log(waveform.duration);
- *   });
- * });
- *
- * xhr.send();
- * ```
- *
- * @todo Use `SourceBuffer.appendBuffer` and `ProgressEvent` to stream the decoding?
- * @param {AudioContext|webkitAudioContext} audio_context
- * @param {ArrayBuffer} audio_data
- * @param {callback} what to do once the decoding is done
- * @constructor
+ * Creates a WaveformData instance from audio.
  */
 
 function createFromAudio(options, callback) {
@@ -12603,21 +12490,20 @@ function createFromAudio(options, callback) {
     return createFromAudioBuffer(options.audio_buffer, opts, callback);
   }
   else {
-    throw new TypeError("Please pass either an AudioContext and ArrayBuffer, or an AudioBuffer object");
+    throw new TypeError(
+      // eslint-disable-next-line
+      "WaveformData.createFromAudio(): Pass either an AudioContext and ArrayBuffer, or an AudioBuffer object"
+    );
   }
 }
 
 module.exports = createFromAudio;
 
-},{"./audiodecoder":62,"./options":63}],65:[function(_dereq_,module,exports){
+},{"./audiodecoder":61,"./options":62}],64:[function(_dereq_,module,exports){
 "use strict";
 
 /**
  * Provides access to the waveform data for a single audio channel.
- *
- * @param {WaveformData} waveformData Waveform data.
- * @param {Number} channelIndex Channel number.
- * @constructor
  */
 
 function WaveformDataChannel(waveformData, channelIndex) {
@@ -12626,18 +12512,7 @@ function WaveformDataChannel(waveformData, channelIndex) {
 }
 
 /**
- * Returns a min value for a specific offset.
- *
- * ```javascript
- * var waveform = WaveformData.create({ ... });
- * var channel = waveform.channel(0);
- *
- * console.log(channel.min_sample(10)); // -> -12
- * ```
- *
- * @api
- * @param {Integer} offset
- * @return {Number} Offset min value
+ * Returns the waveform minimum at the given index position.
  */
 
 WaveformDataChannel.prototype.min_sample = function(index) {
@@ -12647,18 +12522,7 @@ WaveformDataChannel.prototype.min_sample = function(index) {
 };
 
 /**
- * Returns a max value for a specific offset.
- *
- * ```javascript
- * var waveform = WaveformData.create({ ... });
- * var channel = waveform.channel(0);
- *
- * console.log(channel.max_sample(10)); // -> 12
- * ```
- *
- * @api
- * @param {Integer} offset
- * @return {Number} Offset max value
+ * Returns the waveform maximum at the given index position.
  */
 
 WaveformDataChannel.prototype.max_sample = function(index) {
@@ -12668,16 +12532,7 @@ WaveformDataChannel.prototype.max_sample = function(index) {
 };
 
 /**
- * Returns all the min values within the current offset.
- *
- * ```javascript
- * var waveform = WaveformData.create({ ... });
- * var channel = waveform.channel(0);
- *
- * console.log(channel.min_array()); // -> [-7, -5, -10]
- * ```
- *
- * @return {Array.<Integer>} Min values contained in the offset.
+ * Returns all the waveform minimum values as an array.
  */
 
 WaveformDataChannel.prototype.min_array = function() {
@@ -12689,16 +12544,7 @@ WaveformDataChannel.prototype.min_array = function() {
 };
 
 /**
- * Returns all the max values within the current offset.
- *
- * ```javascript
- * var waveform = WaveformData.create({ ... });
- * var channel = waveform.channel(0);
- *
- * console.log(channel.max_array()); // -> [9, 6, 11]
- * ```
- *
- * @return {Array.<Integer>} Max values contained in the offset.
+ * Returns all the waveform maximum values as an array.
  */
 
 WaveformDataChannel.prototype.max_array = function() {
@@ -12711,7 +12557,7 @@ WaveformDataChannel.prototype.max_array = function() {
 
 module.exports = WaveformDataChannel;
 
-},{}],66:[function(_dereq_,module,exports){
+},{}],65:[function(_dereq_,module,exports){
 "use strict";
 
 var WaveformDataChannel = _dereq_("./channel");
@@ -12724,32 +12570,7 @@ var adapters = [
 ];
 
 /**
- * Facade to iterate on audio waveform response.
- *
- * ```javascript
- * var waveform = new WaveformData({ ... });
- *
- * var json_waveform = new WaveformData(xhr.responseText);
- *
- * var arraybuff_waveform = new WaveformData(
- *   getArrayBufferData()
- * );
- * ```
- *
- * ## Offsets
- *
- * An **offset** is a non-destructive way to iterate on a subset of data.
- *
- * It is the easiest way to **navigate** through data without having to deal
- * with complex calculations. Simply iterate over the data to display them.
- *
- * *Notice*: the default offset is the entire set of data.
- *
- * @param {String|ArrayBuffer|Object} data Waveform data,
- * to be consumed by the related adapter.
- * @param {WaveformData.adapter|Function} adapter Backend adapter used to manage
- * access to the data.
- * @constructor
+ * Provides access to waveform data.
  */
 
 function WaveformData(data) {
@@ -12765,38 +12586,12 @@ function WaveformData(data) {
 }
 
 /**
- * Creates an instance of WaveformData by guessing the adapter from the
- * data type. It can also accept an XMLHttpRequest response.
- *
- * ```javascript
- * var xhr = new XMLHttpRequest();
- * xhr.open("GET", "http://example.com/waveforms/track.dat");
- * xhr.responseType = "arraybuffer";
- *
- * xhr.addEventListener("load", function onResponse(progressEvent) {
- *   var waveform = WaveformData.create(progressEvent.target);
- *
- *   console.log(waveform.duration);
- * });
- *
- * xhr.send();
- * ```
- *
- * @static
- * @throws TypeError
- * @param {Object} data
- * @return {WaveformData}
+ * Creates and returns a WaveformData instance from the given waveform data.
  */
 
 WaveformData.create = function create(data) {
   return new WaveformData(data);
 };
-
-/**
- * Public API for the Waveform Data manager.
- *
- * @namespace WaveformData
- */
 
 WaveformData.prototype = {
 
@@ -12811,47 +12606,23 @@ WaveformData.prototype = {
     });
 
     if (Adapter === null) {
-      throw new TypeError("Could not detect a WaveformData adapter from the input.");
+      throw new TypeError(
+        "WaveformData.create(): Could not detect a WaveformData adapter from the input"
+      );
     }
 
     return Adapter;
   },
 
   /**
-   * Creates a new WaveformData object with resampled data.
-   * Returns a rescaled waveform, to either fit the waveform to a specific
-   * width, or to a specific zoom level.
-   *
-   * **Note**: You may specify either the *width* or the *scale*, but not both.
-   * The `scale` will be deduced from the `width` you want to fit the data into.
+   * Creates and returns a new WaveformData object with resampled data.
+   * Use this method to create waveform data at different zoom levels.
    *
    * Adapted from Sequence::GetWaveDisplay in Audacity, with permission.
-   *
-   * ```javascript
-   * var waveform = WaveformData.create({ ... });
-   * // ...
-   *
-   * // fitting the data in a 500px wide canvas
-   * var resampled_waveform = waveform.resample({ width: 500 });
-   *
-   * console.log(resampled_waveform.min.length);   // -> 500
-   *
-   * // zooming out on a 3 times less precise scale
-   * var resampled_waveform = waveform.resample({ scale: waveform.scale * 3 });
-   * ```
-   *
-   * @see https://code.google.com/p/audacity/source/browse/audacity-src/trunk/src/Sequence.cpp
-   * @param {{ width: Number } | { scale: Number }} options Either a width (in pixels) or a zoom level (in samples per pixel)
-   * @return {WaveformData} New resampled object
+   * https://code.google.com/p/audacity/source/browse/audacity-src/trunk/src/Sequence.cpp
    */
 
   resample: function(options) {
-    if (typeof options === "number") {
-      options = {
-        width: options
-      };
-    }
-
     options.input_index = typeof options.input_index === "number" ? options.input_index : null;
     options.output_index = typeof options.output_index === "number" ? options.output_index : null;
     options.scale = typeof options.scale === "number" ? options.scale : null;
@@ -12860,41 +12631,54 @@ WaveformData.prototype = {
     var is_partial_resampling = Boolean(options.input_index) || Boolean(options.output_index);
 
     if (options.input_index != null && (options.input_index < 0)) {
-      throw new RangeError("options.input_index should be a positive integer value. [" + options.input_index + "]");
+      throw new RangeError(
+        "WaveformData.resample(): input_index should be a positive integer value"
+      );
     }
 
     if (options.output_index != null && (options.output_index < 0)) {
-      throw new RangeError("options.output_index should be a positive integer value. [" + options.output_index + "]");
+      throw new RangeError(
+        "WaveformData.resample(): output_index should be a positive integer value"
+      );
     }
 
     if (options.width != null && (options.width <= 0)) {
-      throw new RangeError("options.width should be a strictly positive integer value. [" + options.width + "]");
+      throw new RangeError("WaveformData.resample(): width should be a positive integer value");
     }
 
     if (options.scale != null && (options.scale <= 0)) {
-      throw new RangeError("options.scale should be a strictly positive integer value. [" + options.scale + "]");
+      throw new RangeError("WaveformData.resample(): scale should be a positive integer value");
     }
 
     if (!options.scale && !options.width) {
-      throw new RangeError("You should provide either a resampling scale or a width in pixel the data should fit in.");
+      throw new Error("WaveformData.resample(): Missing scale or width option");
     }
 
-    var definedPartialOptionsCount = ["width", "scale", "output_index", "input_index"].reduce(function(count, key) {
-      return count + (options[key] === null ? 0 : 1);
-    }, 0);
-
-    if (is_partial_resampling && definedPartialOptionsCount !== 4) {
-      throw new Error("Some partial resampling options are missing. You provided " + definedPartialOptionsCount + " of them over 4.");
+    if (is_partial_resampling) {
+      if (options.width === null ||
+          options.scale === null ||
+          options.input_index === null ||
+          options.output_index === null) {
+        throw new Error(
+          "WaveformData.resample(): Missing width, scale, input_index, or output_index option"
+        );
+      }
     }
 
     var output_data = [];
-    var samples_per_pixel = options.scale || Math.floor(this.duration * this.sample_rate / options.width); // scale we want to reach
+    // Scale we want to reach
+    var samples_per_pixel = options.scale ||
+      Math.floor(this.duration * this.sample_rate / options.width);
     var scale = this.scale; // scale we are coming from
     var channel_count = 2 * this.channels;
 
-    var input_buffer_size = this.length; // the amount of data we want to resample i.e. final zoom want to resample all data but for intermediate zoom we want to resample subset
-    var input_index = options.input_index || 0; // is this start point? or is this the index at current scale
-    var output_index = options.output_index || 0; // is this end point? or is this the index at scale we want to be?
+    // The amount of data we want to resample i.e. final zoom want to resample
+    // all data but for intermediate zoom we want to resample subset
+    var input_buffer_size = this.length;
+    // Is this start point? or is this the index at current scale?
+    var input_index = options.input_index || 0;
+    // Is this end point? or is this the index at scale we want to be?
+    var output_index = options.output_index || 0;
 
     var channels = this.channels;
 
@@ -12918,7 +12702,9 @@ WaveformData.prototype = {
     var max_value = 127;
 
     if (samples_per_pixel < scale) {
-      throw new Error("Zoom level " + samples_per_pixel + " too low, minimum: " + scale);
+      throw new Error(
+        "WaveformData.resample(): Zoom level " + samples_per_pixel + " too low, minimum: " + scale
+      );
     }
 
     var where, prev_where, stop, value, last_input_index;
@@ -12927,15 +12713,11 @@ WaveformData.prototype = {
       return Math.floor(x * samples_per_pixel);
     }
 
-    function add_sample(min, max) {
-      output_data.push(min, max);
-    }
-
     while (input_index < input_buffer_size) {
       while (Math.floor(sample_at_pixel(output_index) / scale) <= input_index) {
         if (output_index > 0) {
           for (channel = 0; channel < channels; ++channel) {
-            add_sample(min[channel], max[channel]);
+            output_data.push(min[channel], max[channel]);
           }
         }
 
@@ -12988,13 +12770,13 @@ WaveformData.prototype = {
       if ((output_data.length / channel_count) > options.width &&
           input_index !== last_input_index) {
           for (channel = 0; channel < channels; ++channel) {
-            add_sample(min[channel], max[channel]);
+            output_data.push(min[channel], max[channel]);
           }
       }
     }
     else if (input_index !== last_input_index) {
       for (channel = 0; channel < channels; ++channel) {
-        add_sample(min[channel], max[channel]);
+        output_data.push(min[channel], max[channel]);
       }
     }
 
@@ -13010,11 +12792,9 @@ WaveformData.prototype = {
   },
 
   /**
-   * Return a new WaveformData instance with the concatenated result of multiple waveforms.
-   *
-   * @param {...WaveformData} otherWaveforms One or more waveform instances to concatenate
-   * @return {WaveformData} New concatenated object
+   * Concatenates with one or more other waveforms, returning a new WaveformData object.
    */
+
   concat: function() {
     var self = this;
     var otherWaveforms = Array.prototype.slice.call(arguments);
@@ -13026,7 +12806,7 @@ WaveformData.prototype = {
         self.scale !== otherWaveform.scale ||
         Object.getPrototypeOf(self._adapter) !== Object.getPrototypeOf(otherWaveform._adapter) ||
         self._adapter.version !== otherWaveform._adapter.version) {
-        throw new Error("Waveforms are incompatible");
+        throw new Error("WaveformData.concat(): Waveforms are incompatible");
       }
     });
 
@@ -13041,12 +12821,6 @@ WaveformData.prototype = {
 
   /**
    * Return the unpacked values for a particular offset.
-   *
-   * @param {Integer} start
-   * @param {Integer} length
-   * @param {Integer} correction The step to skip for each iteration
-   * (as the response body is [min, max, min, max...])
-   * @return {Array.<Integer>}
    */
 
   _offsetValues: function getOffsetValues(start, length, correction) {
@@ -13065,14 +12839,6 @@ WaveformData.prototype = {
 
   /**
    * Returns the length of the waveform, in pixels.
-   *
-   * ```javascript
-   * var waveform = WaveformData.create({ ... });
-   * console.log(waveform.length); // -> 600
-   * ```
-   *
-   * @api
-   * @return {Integer} Length of the waveform, in pixels.
    */
 
   get length() {
@@ -13089,14 +12855,6 @@ WaveformData.prototype = {
 
   /**
    * Returns the (approximate) duration of the audio file, in seconds.
-   *
-   * ```javascript
-   * var waveform = WaveformData.create({ ... });
-   * console.log(waveform.duration); // -> 10.33333333333
-   * ```
-   *
-   * @api
-   * @return {number} Duration of the audio waveform, in seconds.
    */
 
   get duration() {
@@ -13104,16 +12862,7 @@ WaveformData.prototype = {
   },
 
   /**
-   * Return the number of pixels per second.
-   *
-   * ```javascript
-   * var waveform = WaveformData.create({ ... });
-   *
-   * console.log(waveform.pixels_per_second); // -> 93.75
-   * ```
-   *
-   * @api
-   * @return {number} Number of pixels per second.
+   * Returns the number of pixels per second.
    */
 
   get pixels_per_second() {
@@ -13121,15 +12870,7 @@ WaveformData.prototype = {
   },
 
   /**
-   * Return the amount of time represented by a single pixel.
-   *
-   * ```javascript
-   * var waveform = WaveformData.create({ ... });
-   *
-   * console.log(waveform.seconds_per_pixel);       // -> 0.010666666666666666
-   * ```
-   *
-   * @return {number} Amount of time (in seconds) contained in a pixel.
+   * Returns the amount of time represented by a single pixel, in seconds.
    */
 
   get seconds_per_pixel() {
@@ -13138,14 +12879,6 @@ WaveformData.prototype = {
 
   /**
    * Returns the number of waveform channels.
-   *
-   * ```javascript
-   * var waveform = WaveformData.create({ ... });
-   * console.log(waveform.channels);    // -> 1
-   * ```
-   *
-   * @api
-   * @return {number} Number of channels.
    */
 
   get channels() {
@@ -13154,16 +12887,6 @@ WaveformData.prototype = {
 
   /**
    * Returns a waveform channel.
-   *
-   * ```javascript
-   * var waveform = WaveformData.create({ ... });
-   * var channel = waveform.channel(0);
-   * console.log(channel.min_sample(0)); // -> 1
-   * ```
-   *
-   * @api
-   * @param {Number} Channel index.
-   * @return {WaveformDataChannel} Waveform channel.
    */
 
   channel: function(index) {
@@ -13176,9 +12899,7 @@ WaveformData.prototype = {
   },
 
   /**
-   * Returns the number of samples per second.
-   *
-   * @return {Integer} Number of samples per second.
+   * Returns the number of audio samples per second.
    */
 
   get sample_rate() {
@@ -13186,9 +12907,7 @@ WaveformData.prototype = {
   },
 
   /**
-   * Returns the scale (number of samples per pixel).
-   *
-   * @return {Integer} Number of samples per pixel.
+   * Returns the number of audio samples per pixel.
    */
 
   get scale() {
@@ -13196,10 +12915,7 @@ WaveformData.prototype = {
   },
 
   /**
-   * Returns the pixel location for a given time.
-   *
-   * @param {number} time
-   * @return {integer} Index location for a specific time.
+   * Returns the waveform data index position for a given time.
    */
 
   at_time: function at_time(time) {
@@ -13207,20 +12923,117 @@ WaveformData.prototype = {
   },
 
   /**
-   * Returns the time in seconds for a given index
-   *
-   * @param {Integer} index
-   * @return {number}
+   * Returns the time in seconds for a given index.
    */
 
   time: function time(index) {
     return index * this.scale / this.sample_rate;
+  },
+
+  /**
+   * Returns an object containing the waveform data.
+   */
+
+  toJSON: function() {
+    const waveform = {
+      version: 2,
+      channels: this.channels,
+      sample_rate: this.sample_rate,
+      samples_per_pixel: this.scale,
+      bits: this.bits,
+      length: this.length,
+      data: []
+    };
+
+    for (var i = 0; i < this.length; i++) {
+      for (var channel = 0; channel < this.channels; channel++) {
+        waveform.data.push(this.channel(channel).min_sample(i));
+        waveform.data.push(this.channel(channel).max_sample(i));
+      }
+    }
+
+    return waveform;
+  },
+
+  /**
+   * Returns the waveform data in binary format as an ArrayBuffer.
+   */
+
+  toArrayBuffer: function() {
+    if (this._adapter instanceof WaveformDataArrayBufferAdapter) {
+      return this._adapter._data.buffer;
+    }
+    else {
+      var header_size = 24; // version 2
+      var total_size = header_size + this.length * 2 * this.channels;
+      var array_buffer = new ArrayBuffer(total_size);
+      var data_object = new DataView(array_buffer);
+
+      data_object.setInt32(0, 2, true); // Version
+      data_object.setUint32(4, 1, true); // Is 8 bit?
+      data_object.setInt32(8, this.sample_rate, true);
+      data_object.setInt32(12, this.scale, true);
+      data_object.setInt32(16, this.length, true);
+      data_object.setInt32(20, this.channels, true);
+
+      var index = 24;
+
+      for (var i = 0; i < this.length; i++) {
+        for (var channel = 0; channel < this.channels; channel++) {
+          data_object.setInt8(index++, this.channel(channel).min_sample(i), true);
+          data_object.setInt8(index++, this.channel(channel).max_sample(i), true);
+        }
+      }
+
+      return array_buffer;
+    }
   }
 };
 
 module.exports = WaveformData;
 
-},{"./adapters/arraybuffer":60,"./adapters/object":61,"./channel":65}],67:[function(_dereq_,module,exports){
+},{"./adapters/arraybuffer":59,"./adapters/object":60,"./channel":64}],66:[function(_dereq_,module,exports){
+"use strict";
+
+function MainThreadWorker(func) {
+  this._listeners = {};
+
+  func.call(this);
+}
+
+MainThreadWorker.prototype.addEventListener = function(event, listener) {
+  if (!this._listeners[event]) {
+    this._listeners[event] = [];
+  }
+
+  this._listeners[event].push(listener);
+};
+
+MainThreadWorker.prototype.removeEventListener = function(event, listener) {
+  if (this._listeners[event]) {
+    this._listeners[event] = this._listeners[event].filter(function(item) {
+      return item !== listener;
+    });
+  }
+};
+
+MainThreadWorker.prototype.postMessage = function(data) {
+  var event = { data: data };
+
+  var listeners = this._listeners.message;
+
+  for (var i = 0; i < listeners.length; i++) {
+    listeners[i].call(this, event);
+  }
+};
+
+MainThreadWorker.prototype.close = function() {
+  this._listeners = {};
+};
+
+module.exports = MainThreadWorker;
+
+},{}],67:[function(_dereq_,module,exports){
 "use strict";
 
 var WaveformData = _dereq_("./lib/core");
@@ -13229,7 +13042,7 @@ WaveformData.createFromAudio = _dereq_("./lib/builders/webaudio");
 
 module.exports = WaveformData;
 
-},{"./lib/builders/webaudio":64,"./lib/core":66}],68:[function(_dereq_,module,exports){
+},{"./lib/builders/webaudio":63,"./lib/core":65}],68:[function(_dereq_,module,exports){
 module.exports = function (Cue, Utils) {
     'use strict';
     var isHeadless = /HeadlessChrome/.test(navigator.userAgent);
@@ -13274,7 +13087,7 @@ module.exports = function (Cue, Utils) {
         this._peaks = peaks;
         this._previousTime = -1;
         this._updateCues = this._updateCues.bind(this);
-        this._onPlay = this.onPlay.bind(this);
+        this._onPlaying = this.onPlaying.bind(this);
         this._onSeeked = this.onSeeked.bind(this);
         this._onTimeUpdate = this.onTimeUpdate.bind(this);
         this._onAnimationFrame = this.onAnimationFrame.bind(this);
@@ -13348,7 +13161,7 @@ module.exports = function (Cue, Utils) {
             this._rAFHandle = requestAnimationFrame(this._onAnimationFrame);
         }
     };
-    CueEmitter.prototype.onPlay = function () {
+    CueEmitter.prototype.onPlaying = function () {
         this._previousTime = this._peaks.player.getCurrentTime();
         this._rAFHandle = requestAnimationFrame(this._onAnimationFrame);
     };
@@ -13383,7 +13196,7 @@ module.exports = function (Cue, Utils) {
     var triggerUpdateOn = Array('points.update', 'points.dragmove', 'points.add', 'points.remove', 'points.remove_all', 'segments.update', 'segments.dragged', 'segments.add', 'segments.remove', 'segments.remove_all');
     CueEmitter.prototype._attachEventHandlers = function () {
         this._peaks.on('player.timeupdate', this._onTimeUpdate);
-        this._peaks.on('player.play', this._onPlay);
+        this._peaks.on('player.playing', this._onPlaying);
         this._peaks.on('player.seeked', this._onSeeked);
         for (var i = 0; i < triggerUpdateOn.length; i++) {
             this._peaks.on(triggerUpdateOn[i], this._updateCues);
@@ -13392,7 +13205,7 @@ module.exports = function (Cue, Utils) {
     };
     CueEmitter.prototype._detachEventHandlers = function () {
         this._peaks.off('player.timeupdate', this._onTimeUpdate);
-        this._peaks.off('player.play', this._onPlay);
+        this._peaks.off('player.playing', this._onPlaying);
         this._peaks.off('player.seeked', this._onSeeked);
         for (var i = 0; i < triggerUpdateOn.length; i++) {
             this._peaks.off(triggerUpdateOn[i], this._updateCues);
@@ -13535,7 +13348,7 @@ module.exports = function (Konva) {
     };
     return DefaultPointMarker;
 }(_dereq_('konva'));
-},{"konva":42}],71:[function(_dereq_,module,exports){
+},{"konva":41}],71:[function(_dereq_,module,exports){
 module.exports = function (Konva) {
     'use strict';
     function DefaultSegmentMarker(options) {
@@ -13623,14 +13436,14 @@ module.exports = function (Konva) {
     };
     return DefaultSegmentMarker;
 }(_dereq_('konva'));
-},{"konva":42}],72:[function(_dereq_,module,exports){
+},{"konva":41}],72:[function(_dereq_,module,exports){
 module.exports = function (Utils, Konva) {
     'use strict';
     function HighlightLayer(view, offset, color) {
         this._view = view;
         this._offset = offset;
         this._color = color;
-        this._layer = new Konva.FastLayer();
+        this._layer = new Konva.Layer({ listening: false });
         this._highlightRect = null;
         this._startTime = null;
         this._endTime = null;
@@ -13698,7 +13511,7 @@ module.exports = function (Utils, Konva) {
     };
     return HighlightLayer;
 }(_dereq_('./utils'), _dereq_('konva'));
-},{"./utils":87,"konva":42}],73:[function(_dereq_,module,exports){
+},{"./utils":87,"konva":41}],73:[function(_dereq_,module,exports){
 module.exports = function () {
     'use strict';
     var nodes = [
@@ -13764,15 +13577,8 @@ module.exports = function () {
     return KeyboardHandler;
 }();
 },{}],74:[function(_dereq_,module,exports){
-module.exports = function (Colors, EventEmitter, CueEmitter, WaveformPoints, WaveformSegments, KeyboardHandler, MediaElementPlayer, Player, MarkerFactories, ViewController, ZoomController, WaveformBuilder, Utils) {
+module.exports = function (EventEmitter, CueEmitter, WaveformPoints, WaveformSegments, KeyboardHandler, MediaElementPlayer, Player, MarkerFactories, ViewController, ZoomController, WaveformBuilder, Utils) {
     'use strict';
-    function buildUi(container) {
-        return {
-            player: container.querySelector('.waveform'),
-            zoomview: container.querySelector('.zoom-container'),
-            overview: container.querySelector('.overview-container')
-        };
-    }
     function Peaks() {
         EventEmitter.call(this);
         this.options = {
@@ -13787,31 +13593,23 @@ module.exports = function (Colors, EventEmitter, CueEmitter, WaveformPoints, Wav
             withCredentials: false,
             waveformData: null,
             logger: null,
-            deprecationLogger: console.log.bind(console),
             keyboard: false,
             nudgeIncrement: 1,
-            segmentStartMarkerColor: Colors.gray,
-            segmentEndMarkerColor: Colors.gray,
+            segmentStartMarkerColor: '#aaaaaa',
+            segmentEndMarkerColor: '#aaaaaa',
             zoomWaveformColor: 'rgba(0, 225, 128, 1)',
             overviewWaveformColor: 'rgba(0,0,0,0.2)',
-            overviewHighlightColor: 'grey',
+            overviewHighlightColor: '#aaaaaa',
             overviewHighlightOffset: 11,
             randomizeSegmentColor: true,
-            height: 200,
-            segmentColor: Colors.orange,
-            playheadColor: Colors.black,
-            playheadTextColor: Colors.gray,
+            segmentColor: '#ff851b',
+            playheadColor: '#111111',
+            playheadTextColor: '#aaaaaa',
             timeLabelPrecision: 2,
             showPlayheadTime: false,
-            axisGridlineColor: '#ccc',
-            axisLabelColor: Colors.gray,
-            template: [
-                '<div class="waveform">',
-                '<div class="zoom-container"></div>',
-                '<div class="overview-container"></div>',
-                '</div>'
-            ].join(''),
-            pointMarkerColor: Colors.teal,
+            axisGridlineColor: '#cccccc',
+            axisLabelColor: '#aaaaaa',
+            pointMarkerColor: '#39cccc',
             webAudio: null,
             zoomAdapter: 'static',
             emitCueEvents: false,
@@ -13831,25 +13629,12 @@ module.exports = function (Colors, EventEmitter, CueEmitter, WaveformPoints, Wav
             callback(err);
             return;
         }
-        var containers = null;
-        if (typeof instance.options.template === 'string') {
-            opts.container.innerHTML = instance.options.template;
-            containers = buildUi(instance.options.container);
-        } else if (Utils.isHTMLElement(instance.options.template)) {
-            this.container.appendChild(instance.options.template);
-            containers = buildUi(instance.options.container);
-        } else if (instance.options.containers) {
-            containers = instance.options.containers;
-        } else {
-            callback(new TypeError('Peaks.init(): The template option must be a valid HTML string or a DOM object'));
-            return;
-        }
-        var zoomviewContainer = containers.zoomview || containers.zoom;
-        if (!Utils.isHTMLElement(zoomviewContainer) && !Utils.isHTMLElement(containers.overview)) {
+        var containers = instance.options.containers;
+        if (!Utils.isHTMLElement(containers.zoomview) && !Utils.isHTMLElement(containers.overview)) {
             callback(new TypeError('Peaks.init(): The containers.zoomview and/or containers.overview options must be valid HTML elements'));
             return;
         }
-        if (zoomviewContainer && zoomviewContainer.clientWidth <= 0) {
+        if (containers.zoomview && containers.zoomview.clientWidth <= 0) {
             callback(new TypeError('Peaks.init(): Please ensure that the zoomview container is visible and has non-zero width'));
             return;
         }
@@ -13878,8 +13663,8 @@ module.exports = function (Colors, EventEmitter, CueEmitter, WaveformPoints, Wav
             if (containers.overview) {
                 instance.views.createOverview(containers.overview);
             }
-            if (zoomviewContainer) {
-                instance.views.createZoomview(zoomviewContainer);
+            if (containers.zoomview) {
+                instance.views.createZoomview(containers.zoomview);
             }
             instance._addWindowResizeHandler();
             if (instance.options.segments) {
@@ -13898,26 +13683,8 @@ module.exports = function (Colors, EventEmitter, CueEmitter, WaveformPoints, Wav
                 callback(null, instance);
             }
         });
-        return instance;
     };
     Peaks.prototype._setOptions = function (opts) {
-        opts.deprecationLogger = opts.deprecationLogger || console.log.bind(console);
-        if (opts.audioElement) {
-            opts.mediaElement = opts.audioElement;
-            opts.deprecationLogger('Peaks.init(): The audioElement option is deprecated, please use mediaElement instead');
-        }
-        if (opts.overviewHighlightRectangleColor) {
-            opts.overviewHighlightColor = opts.overviewHighlightRectangleColor;
-            opts.deprecationLogger('Peaks.init(): The overviewHighlightRectangleColor option is deprecated, please use overviewHighlightColor instead');
-        }
-        if (opts.inMarkerColor) {
-            opts.segmentStartMarkerColor = opts.inMarkerColor;
-            opts.deprecationLogger('Peaks.init(): The inMarkerColor option is deprecated, please use segmentStartMarkerColor instead');
-        }
-        if (opts.outMarkerColor) {
-            opts.segmentEndMarkerColor = opts.outMarkerColor;
-            opts.deprecationLogger('Peaks.init(): The outMarkerColor option is deprecated, please use segmentEndMarkerColor instead');
-        }
         if (!opts.player) {
             if (!opts.mediaElement) {
                 return new Error('Peaks.init(): Missing mediaElement option');
@@ -13926,16 +13693,11 @@ module.exports = function (Colors, EventEmitter, CueEmitter, WaveformPoints, Wav
                 return new TypeError('Peaks.init(): The mediaElement option should be an HTMLMediaElement');
             }
         }
-        if (!opts.container && !opts.containers) {
-            return new Error('Peaks.init(): Please specify either a container or containers option');
-        } else if (Boolean(opts.container) === Boolean(opts.containers)) {
-            return new Error('Peaks.init(): Please specify either a container or containers option, but not both');
+        if (opts.container) {
+            return new Error('Peaks.init(): The container option has been removed, please use containers instead');
         }
-        if (opts.template && opts.containers) {
-            return new Error('Peaks.init(): Please specify either a template or a containers option, but not both');
-        }
-        if (opts.containers) {
-            opts.template = null;
+        if (!opts.containers) {
+            return new Error('Peaks.init(): Missing containers option');
         }
         if (opts.logger && !Utils.isFunction(opts.logger)) {
             return new TypeError('Peaks.init(): The logger option should be a function');
@@ -13959,7 +13721,6 @@ module.exports = function (Colors, EventEmitter, CueEmitter, WaveformPoints, Wav
         if (opts.logger) {
             this.logger = opts.logger;
         }
-        return null;
     };
     Peaks.prototype.setSource = function (options, callback) {
         var self = this;
@@ -14037,8 +13798,8 @@ module.exports = function (Colors, EventEmitter, CueEmitter, WaveformPoints, Wav
         }
     };
     return Peaks;
-}(_dereq_('colors.css'), _dereq_('eventemitter3'), _dereq_('./cue-emitter'), _dereq_('./waveform-points'), _dereq_('./waveform-segments'), _dereq_('./keyboard-handler'), _dereq_('./mediaelement-player'), _dereq_('./player'), _dereq_('./marker-factories'), _dereq_('./view-controller'), _dereq_('./zoom-controller'), _dereq_('./waveform-builder'), _dereq_('./utils'));
-},{"./cue-emitter":68,"./keyboard-handler":73,"./marker-factories":75,"./mediaelement-player":76,"./player":78,"./utils":87,"./view-controller":88,"./waveform-builder":90,"./waveform-points":92,"./waveform-segments":93,"./zoom-controller":96,"colors.css":1,"eventemitter3":2}],75:[function(_dereq_,module,exports){
+}(_dereq_('eventemitter3'), _dereq_('./cue-emitter'), _dereq_('./waveform-points'), _dereq_('./waveform-segments'), _dereq_('./keyboard-handler'), _dereq_('./mediaelement-player'), _dereq_('./player'), _dereq_('./marker-factories'), _dereq_('./view-controller'), _dereq_('./zoom-controller'), _dereq_('./waveform-builder'), _dereq_('./utils'));
+},{"./cue-emitter":68,"./keyboard-handler":73,"./marker-factories":75,"./mediaelement-player":76,"./player":78,"./utils":87,"./view-controller":88,"./waveform-builder":90,"./waveform-points":92,"./waveform-segments":93,"./zoom-controller":96,"eventemitter3":1}],75:[function(_dereq_,module,exports){
 module.exports = function (DefaultPointMarker, DefaultSegmentMarker, Konva) {
     'use strict';
     function createSegmentMarker(options) {
@@ -14068,7 +13829,7 @@ module.exports = function (DefaultPointMarker, DefaultSegmentMarker, Konva) {
         createPointMarker: createPointMarker
     };
 }(_dereq_('./default-point-marker'), _dereq_('./default-segment-marker'), _dereq_('konva'));
-},{"./default-point-marker":70,"./default-segment-marker":71,"konva":42}],76:[function(_dereq_,module,exports){
+},{"./default-point-marker":70,"./default-segment-marker":71,"konva":41}],76:[function(_dereq_,module,exports){
 module.exports = function () {
     'use strict';
     function MediaElementPlayer(peaks, mediaElement) {
@@ -14177,11 +13938,7 @@ module.exports = function (Konva) {
         if (marker && marker.attrs.draggable) {
             return;
         }
-        if (event.type === 'touchstart') {
-            this._mouseDownClientX = Math.floor(event.evt.touches[0].clientX);
-        } else {
-            this._mouseDownClientX = event.evt.clientX;
-        }
+        this._mouseDownClientX = Math.floor(event.type === 'touchstart' ? event.evt.touches[0].clientX : event.evt.clientX);
         if (this._handlers.onMouseDown) {
             var mouseDownPosX = this._getMousePosX(this._mouseDownClientX);
             this._handlers.onMouseDown(mouseDownPosX);
@@ -14193,12 +13950,7 @@ module.exports = function (Konva) {
         window.addEventListener('blur', this._mouseUp, false);
     };
     MouseDragHandler.prototype._mouseMove = function (event) {
-        var clientX = null;
-        if (event.type === 'touchmove') {
-            clientX = Math.floor(event.changedTouches[0].clientX);
-        } else {
-            clientX = event.clientX;
-        }
+        var clientX = Math.floor(event.type === 'touchmove' ? event.changedTouches[0].clientX : event.clientX);
         if (clientX === this._mouseDownClientX) {
             return;
         }
@@ -14209,14 +13961,14 @@ module.exports = function (Konva) {
         }
     };
     MouseDragHandler.prototype._mouseUp = function (event) {
-        var clientX = null;
+        var clientX;
         if (event.type === 'touchend') {
             clientX = Math.floor(event.changedTouches[0].clientX);
             if (event.cancelable) {
                 event.preventDefault();
             }
         } else {
-            clientX = event.clientX;
+            clientX = Math.floor(event.clientX);
         }
         if (this._handlers.onMouseUp) {
             var mousePosX = this._getMousePosX(clientX);
@@ -14238,7 +13990,7 @@ module.exports = function (Konva) {
     };
     return MouseDragHandler;
 }(_dereq_('konva'));
-},{"konva":42}],78:[function(_dereq_,module,exports){
+},{"konva":41}],78:[function(_dereq_,module,exports){
 module.exports = function (Utils) {
     'use strict';
     function getAllPropertiesFrom(adapter) {
@@ -14445,15 +14197,15 @@ module.exports = function (Konva) {
                 this._playheadVisible = true;
                 this._playheadGroup.show();
             }
-            this._playheadGroup.setAttr('x', playheadX);
+            this._playheadGroup.setX(playheadX);
             if (this._playheadText) {
                 var text = this._view.formatTime(time);
                 var playheadTextWidth = this._playheadText.getTextWidth();
                 this._playheadText.setText(text);
                 if (playheadTextWidth + playheadX > width - 2) {
-                    this._playheadText.setAttr('x', -playheadTextWidth - 2);
+                    this._playheadText.setX(-playheadTextWidth - 2);
                 } else if (playheadTextWidth + playheadX < width) {
-                    this._playheadText.setAttr('x', 2);
+                    this._playheadText.setX(2);
                 }
             }
             this._playheadLayer.draw();
@@ -14534,7 +14286,7 @@ module.exports = function (Konva) {
     };
     return PlayheadLayer;
 }(_dereq_('konva'));
-},{"konva":42}],80:[function(_dereq_,module,exports){
+},{"konva":41}],80:[function(_dereq_,module,exports){
 module.exports = function (Konva) {
     'use strict';
     function PointMarker(options) {
@@ -14614,7 +14366,7 @@ module.exports = function (Konva) {
     };
     return PointMarker;
 }(_dereq_('konva'));
-},{"konva":42}],81:[function(_dereq_,module,exports){
+},{"konva":41}],81:[function(_dereq_,module,exports){
 module.exports = function (Utils) {
     'use strict';
     var pointOptions = [
@@ -14918,7 +14670,7 @@ module.exports = function (PointMarker, Utils, Konva) {
     };
     return PointsLayer;
 }(_dereq_('./point-marker'), _dereq_('./utils'), _dereq_('konva'));
-},{"./point-marker":80,"./utils":87,"konva":42}],83:[function(_dereq_,module,exports){
+},{"./point-marker":80,"./utils":87,"konva":41}],83:[function(_dereq_,module,exports){
 module.exports = function (Konva) {
     'use strict';
     function SegmentMarker(options) {
@@ -15009,7 +14761,7 @@ module.exports = function (Konva) {
     };
     return SegmentMarker;
 }(_dereq_('konva'));
-},{"konva":42}],84:[function(_dereq_,module,exports){
+},{"konva":41}],84:[function(_dereq_,module,exports){
 module.exports = function (SegmentMarker, WaveformShape) {
     'use strict';
     var defaultFontFamily = 'sans-serif';
@@ -15052,6 +14804,21 @@ module.exports = function (SegmentMarker, WaveformShape) {
         }
         this._createMarkers();
     }
+    SegmentShape.prototype.updatePosition = function () {
+        var segmentStartOffset = this._view.timeToPixels(this._segment.startTime);
+        var segmentEndOffset = this._view.timeToPixels(this._segment.endTime);
+        var frameStartOffset = this._view.getFrameOffset();
+        var startPixel = segmentStartOffset - frameStartOffset;
+        var endPixel = segmentEndOffset - frameStartOffset;
+        var marker = this.getStartMarker();
+        if (marker) {
+            marker.setX(startPixel - marker.getWidth());
+        }
+        marker = this.getEndMarker();
+        if (marker) {
+            marker.setX(endPixel);
+        }
+    };
     SegmentShape.prototype.getSegment = function () {
         return this._segment;
     };
@@ -15416,19 +15183,7 @@ module.exports = function (SegmentShape, Utils, Konva) {
     };
     SegmentsLayer.prototype._updateSegment = function (segment) {
         var segmentShape = this._findOrAddSegmentShape(segment);
-        var segmentStartOffset = this._view.timeToPixels(segment.startTime);
-        var segmentEndOffset = this._view.timeToPixels(segment.endTime);
-        var frameStartOffset = this._view.getFrameOffset();
-        var startPixel = segmentStartOffset - frameStartOffset;
-        var endPixel = segmentEndOffset - frameStartOffset;
-        var marker = segmentShape.getStartMarker();
-        if (marker) {
-            marker.setX(startPixel - marker.getWidth());
-        }
-        marker = segmentShape.getEndMarker();
-        if (marker) {
-            marker.setX(endPixel);
-        }
+        segmentShape.updatePosition();
     };
     SegmentsLayer.prototype._findOrAddSegmentShape = function (segment) {
         var segmentShape = this._segmentShapes[segment.id];
@@ -15486,7 +15241,7 @@ module.exports = function (SegmentShape, Utils, Konva) {
     };
     return SegmentsLayer;
 }(_dereq_('./segment-shape'), _dereq_('./utils'), _dereq_('konva'));
-},{"./segment-shape":84,"./utils":87,"konva":42}],87:[function(_dereq_,module,exports){
+},{"./segment-shape":84,"./utils":87,"konva":41}],87:[function(_dereq_,module,exports){
 module.exports = function () {
     'use strict';
     if (typeof Number.isFinite !== 'function') {
@@ -15786,7 +15541,7 @@ module.exports = function (Utils, Konva) {
     };
     return WaveformAxis;
 }(_dereq_('./utils'), _dereq_('konva'));
-},{"./utils":87,"konva":42}],90:[function(_dereq_,module,exports){
+},{"./utils":87,"konva":41}],90:[function(_dereq_,module,exports){
 module.exports = function (WaveformData, Utils) {
     'use strict';
     var isXhr2 = 'withCredentials' in new XMLHttpRequest();
@@ -15799,7 +15554,7 @@ module.exports = function (WaveformData, Utils) {
             return;
         }
         if (options.audioContext) {
-            this._peaks.options.deprecationLogger('Peaks.init(): The audioContext option is deprecated, please pass a webAudio object instead');
+            this._peaks.logger('Peaks.init(): The audioContext option is deprecated, please pass a webAudio object instead');
             options.webAudio = { audioContext: options.audioContext };
         }
         if (options.dataUri) {
@@ -15976,6 +15731,7 @@ module.exports = function (HighlightLayer, MouseDragHandler, PlayheadLayer, Poin
         self._originalWaveformData = waveformData;
         self._container = container;
         self._peaks = peaks;
+        self._options = peaks.options;
         self._onTimeUpdate = self._onTimeUpdate.bind(this);
         self._onPlay = self._onPlay.bind(this);
         self._onPause = self._onPause.bind(this);
@@ -15988,9 +15744,8 @@ module.exports = function (HighlightLayer, MouseDragHandler, PlayheadLayer, Poin
         peaks.on('window_resize', self._onWindowResize);
         self._amplitudeScale = 1;
         self._timeLabelPrecision = peaks.options.timeLabelPrecision;
-        self._options = peaks.options;
         self._width = container.clientWidth;
-        self._height = container.clientHeight || self._options.height;
+        self._height = container.clientHeight;
         self._data = waveformData;
         if (self._width !== 0) {
             try {
@@ -16005,7 +15760,7 @@ module.exports = function (HighlightLayer, MouseDragHandler, PlayheadLayer, Poin
             width: self._width,
             height: self._height
         });
-        self._waveformLayer = new Konva.FastLayer();
+        self._waveformLayer = new Konva.Layer({ listening: false });
         self._createWaveform();
         self._segmentsLayer = new SegmentsLayer(peaks, self, false);
         self._segmentsLayer.addToStage(self._stage);
@@ -16140,7 +15895,7 @@ module.exports = function (HighlightLayer, MouseDragHandler, PlayheadLayer, Poin
         this._stage.add(this._waveformLayer);
     };
     WaveformOverview.prototype._createAxisLabels = function () {
-        this._axisLayer = new Konva.FastLayer();
+        this._axisLayer = new Konva.Layer({ listening: false });
         this._axis = new WaveformAxis(this, {
             axisGridlineColor: this._options.axisGridlineColor,
             axisLabelColor: this._options.axisLabelColor,
@@ -16231,7 +15986,7 @@ module.exports = function (HighlightLayer, MouseDragHandler, PlayheadLayer, Poin
     };
     return WaveformOverview;
 }(_dereq_('./highlight-layer'), _dereq_('./mouse-drag-handler'), _dereq_('./playhead-layer'), _dereq_('./points-layer'), _dereq_('./segments-layer'), _dereq_('./waveform-axis'), _dereq_('./waveform-shape'), _dereq_('./utils'), _dereq_('konva'));
-},{"./highlight-layer":72,"./mouse-drag-handler":77,"./playhead-layer":79,"./points-layer":82,"./segments-layer":86,"./utils":87,"./waveform-axis":89,"./waveform-shape":94,"konva":42}],92:[function(_dereq_,module,exports){
+},{"./highlight-layer":72,"./mouse-drag-handler":77,"./playhead-layer":79,"./points-layer":82,"./segments-layer":86,"./utils":87,"./waveform-axis":89,"./waveform-shape":94,"konva":41}],92:[function(_dereq_,module,exports){
 module.exports = function (Point, Utils) {
     'use strict';
     function WaveformPoints(peaks) {
@@ -16335,7 +16090,7 @@ module.exports = function (Point, Utils) {
     return WaveformPoints;
 }(_dereq_('./point'), _dereq_('./utils'));
 },{"./point":81,"./utils":87}],93:[function(_dereq_,module,exports){
-module.exports = function (Colors, Segment, Utils) {
+module.exports = function (Segment, Utils) {
     'use strict';
     function WaveformSegments(peaks) {
         this._peaks = peaks;
@@ -16348,16 +16103,16 @@ module.exports = function (Colors, Segment, Utils) {
         return 'peaks.segment.' + this._segmentIdCounter++;
     };
     var colors = [
-        Colors.navy,
-        Colors.blue,
-        Colors.aqua,
-        Colors.teal,
-        Colors.yellow,
-        Colors.orange,
-        Colors.red,
-        Colors.maroon,
-        Colors.fuchsia,
-        Colors.purple
+        '#001f3f',
+        '#0074d9',
+        '#7fdbff',
+        '#39cccc',
+        '#ffdc00',
+        '#ff851b',
+        '#ff4136',
+        '#85144b',
+        '#f012be',
+        '#b10dc9'
     ];
     WaveformSegments.prototype._getSegmentColor = function () {
         if (this._peaks.options.randomizeSegmentColor) {
@@ -16479,8 +16234,8 @@ module.exports = function (Colors, Segment, Utils) {
         this._peaks.emit('segments.remove_all');
     };
     return WaveformSegments;
-}(_dereq_('colors.css'), _dereq_('./segment'), _dereq_('./utils'));
-},{"./segment":85,"./utils":87,"colors.css":1}],94:[function(_dereq_,module,exports){
+}(_dereq_('./segment'), _dereq_('./utils'));
+},{"./segment":85,"./utils":87}],94:[function(_dereq_,module,exports){
 module.exports = function (Utils, Konva) {
     'use strict';
     function WaveformShape(options) {
@@ -16488,10 +16243,7 @@ module.exports = function (Utils, Konva) {
         var shapeOptions = {};
         if (Utils.isString(options.color)) {
             shapeOptions.fill = options.color;
-        } else if (Utils.isObject(options.color)) {
-            if (!Utils.isLinearGradientColor(options.color)) {
-                throw new TypeError('Not a valid linear gradient color object');
-            }
+        } else if (Utils.isLinearGradientColor(options.color)) {
             var startY = options.view._height * (options.color.linearGradientStart / 100);
             var endY = options.view._height * (options.color.linearGradientEnd / 100);
             shapeOptions.fillLinearGradientStartPointY = startY;
@@ -16515,7 +16267,11 @@ module.exports = function (Utils, Konva) {
     WaveformShape.prototype.setWaveformColor = function (color) {
         if (Utils.isString(color)) {
             this.fill(color);
+            this.fillLinearGradientStartPointY(null);
+            this.fillLinearGradientEndPointY(null);
+            this.fillLinearGradientColorStops(null);
         } else if (Utils.isLinearGradientColor(color)) {
+            this.fill(null);
             var startY = this._view._height * (color.linearGradientStart / 100);
             var endY = this._view._height * (color.linearGradientEnd / 100);
             this.fillLinearGradientStartPointY(startY);
@@ -16615,7 +16371,7 @@ module.exports = function (Utils, Konva) {
     };
     return WaveformShape;
 }(_dereq_('./utils'), _dereq_('konva'));
-},{"./utils":87,"konva":42}],95:[function(_dereq_,module,exports){
+},{"./utils":87,"konva":41}],95:[function(_dereq_,module,exports){
 module.exports = function (MouseDragHandler, PlayheadLayer, PointsLayer, SegmentsLayer, WaveformAxis, WaveformShape, Utils, Konva) {
     'use strict';
     function WaveformZoomView(waveformData, container, peaks) {
@@ -16623,6 +16379,7 @@ module.exports = function (MouseDragHandler, PlayheadLayer, PointsLayer, Segment
         self._originalWaveformData = waveformData;
         self._container = container;
         self._peaks = peaks;
+        self._options = peaks.options;
         self._onTimeUpdate = self._onTimeUpdate.bind(self);
         self._onPlay = self._onPlay.bind(self);
         self._onPause = self._onPause.bind(self);
@@ -16641,24 +16398,23 @@ module.exports = function (MouseDragHandler, PlayheadLayer, PointsLayer, Segment
         self._peaks.on('keyboard.shift_right', self._onKeyboardShiftRight);
         self._enableAutoScroll = true;
         self._amplitudeScale = 1;
-        self._timeLabelPrecision = peaks.options.timeLabelPrecision;
-        self._options = peaks.options;
+        self._timeLabelPrecision = self._options.timeLabelPrecision;
         self._data = null;
         self._pixelLength = 0;
-        var initialZoomLevel = self._options.zoomLevels[peaks.zoom.getZoom()];
+        var initialZoomLevel = peaks.zoom.getZoomLevel();
         self._zoomLevelAuto = false;
         self._zoomLevelSeconds = null;
         self._resizeTimeoutId = null;
         self._resampleData({ scale: initialZoomLevel });
         self._width = container.clientWidth;
-        self._height = container.clientHeight || self._options.height;
+        self._height = container.clientHeight;
         self._frameOffset = 0;
         self._stage = new Konva.Stage({
             container: container,
             width: self._width,
             height: self._height
         });
-        self._waveformLayer = new Konva.FastLayer();
+        self._waveformLayer = new Konva.Layer({ listening: false });
         self._createWaveform();
         self._segmentsLayer = new SegmentsLayer(peaks, self, true);
         self._segmentsLayer.addToStage(self._stage);
@@ -16827,7 +16583,7 @@ module.exports = function (MouseDragHandler, PlayheadLayer, PointsLayer, Segment
         if (playheadOffsetPixels >= 0 && playheadOffsetPixels < this._width) {
             apexTime = currentTime;
         } else {
-            playheadOffsetPixels = this._width / 2;
+            playheadOffsetPixels = Math.floor(this._width / 2);
             apexTime = this.pixelsToTime(this._frameOffset + playheadOffsetPixels);
         }
         var prevScale = this._scale;
@@ -16902,7 +16658,7 @@ module.exports = function (MouseDragHandler, PlayheadLayer, PointsLayer, Segment
         this._peaks.emit('zoomview.displaying', 0, this.pixelsToTime(this._width));
     };
     WaveformZoomView.prototype._createAxisLabels = function () {
-        this._axisLayer = new Konva.FastLayer();
+        this._axisLayer = new Konva.Layer({ listening: false });
         this._axis = new WaveformAxis(this, {
             axisGridlineColor: this._options.axisGridlineColor,
             axisLabelColor: this._options.axisLabelColor,
@@ -17013,7 +16769,7 @@ module.exports = function (MouseDragHandler, PlayheadLayer, PointsLayer, Segment
     };
     return WaveformZoomView;
 }(_dereq_('./mouse-drag-handler'), _dereq_('./playhead-layer'), _dereq_('./points-layer'), _dereq_('./segments-layer'), _dereq_('./waveform-axis'), _dereq_('./waveform-shape'), _dereq_('./utils'), _dereq_('konva'));
-},{"./mouse-drag-handler":77,"./playhead-layer":79,"./points-layer":82,"./segments-layer":86,"./utils":87,"./waveform-axis":89,"./waveform-shape":94,"konva":42}],96:[function(_dereq_,module,exports){
+},{"./mouse-drag-handler":77,"./playhead-layer":79,"./points-layer":82,"./segments-layer":86,"./utils":87,"./waveform-axis":89,"./waveform-shape":94,"konva":41}],96:[function(_dereq_,module,exports){
 module.exports = function () {
     'use strict';
     function ZoomController(peaks, zoomLevels) {

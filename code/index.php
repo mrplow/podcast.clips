@@ -40,6 +40,12 @@ else
       audio {
         width: 100%;
       }
+      #zoomview-container {
+        height: 100px;
+      }
+      #overview-container {
+        height: 100px;
+      }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
@@ -367,7 +373,6 @@ if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
           json: 'podcasts/<?php echo $ep_filename; ?>.json'
         }
         ,
-        height: 100,
         keyboard: true,
         showPlayheadTime: true
       };
