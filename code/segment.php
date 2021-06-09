@@ -34,6 +34,10 @@ if (isset($_POST['Save']))
         $UpdSegStm = $dbconnect->prepare('UPDATE segments SET sg_mby = ?, sg_mdate = NOW(), sg_comment = ?, sg_starttime = ?, sg_endtime = ? WHERE sg_rowid = ? AND sg_cby = ?');
         $UpdSegStm->bind_param('isddii', $upd_by, $upd_comment, $upd_start, $upd_end, $upd_rowid, $upd_by);
         $UpdSegStm->execute();
+        $sg_StartTime = FLOOR($upd_start / 60.0) . "." . ROUND(((($upd_start / 60.0) - FLOOR($upd_start / 60.0)) * 60), 2);
+        $sg_EndTime = FLOOR($upd_end / 60.0) . "." . ROUND(((($upd_end / 60.0) - FLOOR($upd_end / 60.0)) * 60), 2);
+        $ep_filename = $_POST['EpisodeFilename'];
+        echo shell_exec("/usr/bin/mp3splt -Q -o ../clips/" . $upd_rowid . " \"/var/www/podcasts/" . $ep_filename . ".mp3\" " . $sg_StartTime . " " . $sg_EndTime . " 2>&1");
     }
     else
     {
@@ -45,6 +49,11 @@ if (isset($_POST['Save']))
         $CrSegStm = $dbconnect->prepare('INSERT INTO segments (sg_rowid_episode, sg_cby, sg_cdate, sg_comment, sg_starttime, sg_endtime) VALUES( ?, ?, NOW(), ?, ?, ? )');
         $CrSegStm->bind_param('iisdd', $cr_eprowid, $cr_by, $cr_comment, $cr_start, $cr_end);
         $CrSegStm->execute();
+        $new_rowid = $CrSegStm->insert_id;
+        $sg_StartTime = FLOOR($cr_start / 60.0) . "." . ROUND(((($cr_start / 60.0) - FLOOR($cr_start / 60.0)) * 60), 2);
+        $sg_EndTime = FLOOR($cr_end / 60.0) . "." . ROUND(((($cr_end / 60.0) - FLOOR($cr_end / 60.0)) * 60), 2);
+        $ep_filename = $_POST['EpisodeFilename'];
+        echo shell_exec("/usr/bin/mp3splt -Q -o ../clips/" . $new_rowid . " \"/var/www/podcasts/" . $ep_filename . ".mp3\" " . $sg_StartTime . " " . $sg_EndTime . " 2>&1");
     }
 }
 if (isset($_POST['Delete']))
