@@ -1,189 +1,192 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id']))
-{
-    header("Location: /login.php");
+session_start ();
+if (! isset ( $_SESSION ['user_id'] )) {
+	header ( "Location: /login.php" );
 }
 
-if (isset($_SESSION['user_validated']))
-{
-    $LastValidated  = new DateTime($_SESSION['user_validated']);
-    $CurrentTime    = new DateTime('now');
-    $SinceValidated = $LastValidated->diff($CurrentTime);
-    $DaysSince = $SinceValidated->format('%a');
-    if ($DaysSince > 32)
-    {
-        header("Location: /validate.php");
-    }
-}
-else
-{
-    header("Location: /validate.php");
+if (isset ( $_SESSION ['user_validated'] )) {
+	$LastValidated = new DateTime ( $_SESSION ['user_validated'] );
+	$CurrentTime = new DateTime ( 'now' );
+	$SinceValidated = $LastValidated->diff ( $CurrentTime );
+	$DaysSince = $SinceValidated->format ( '%a' );
+	if ($DaysSince > 32) {
+		header ( "Location: /validate.php" );
+	}
+} else {
+	header ( "Location: /validate.php" );
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>The After Disaster Podcast Clips
-    </title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <style>
-      .hide {
-        display: none;
-      }
-      .segmentrow {
-        line-height: 80px;
-        min-height: 80px;
-        height: 80px;
-      }
-      audio {
-        width: 100%;
-      }
-      #zoomview-container {
-        height: 100px;
-      }
-      #overview-container {
-        height: 100px;
-      }
-    </style>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-  </script>
-  </head>
-  <body>
-    <div class="container">
-      <form action='?' method='post'>
-        <div class="form-group">
-          <label for="id">Choose an episode
-          </label>
-          <select class="form-control" name='id' onchange="this.form.elements['formEpisode'].click();">
-            <option disabled hidden='' selected value=''>
-            </option>
-            <?php
-include ('/var/connect.php');
-$dbconnect = mysqli_connect($GLOBALS["mysql_hostname"], $GLOBALS["mysql_username"], $GLOBALS["mysql_password"], $GLOBALS["mysql_database"]);
-if ($dbconnect->connect_error)
-{
-    die("Database connection failed: " . $dbconnect->connect_error);
+<head>
+<meta charset="UTF-8">
+<title>The After Disaster Podcast Clips</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+<style>
+.hide {
+	display: none;
 }
-$episodes = mysqli_query($dbconnect, "SELECT
+
+.segmentrow {
+	line-height: 80px;
+	min-height: 80px;
+	height: 80px;
+}
+
+audio {
+	width: 100%;
+}
+
+#zoomview-container {
+	height: 100px;
+}
+
+#overview-container {
+	height: 100px;
+}
+</style>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous">
+  </script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+	crossorigin="anonymous">
+  </script>
+</head>
+<body>
+	<div class="container">
+		<form action='?' method='post'>
+			<div class="form-group">
+				<label for="id">Choose an episode </label> <select
+					class="form-control" name='id'
+					onchange="this.form.elements['formEpisode'].click();">
+					<option disabled hidden='' selected value=''></option>
+            <?php
+												include ('/var/connect.php');
+												$dbconnect = mysqli_connect ( $GLOBALS ["mysql_hostname"], $GLOBALS ["mysql_username"], $GLOBALS ["mysql_password"], $GLOBALS ["mysql_database"] );
+												if ($dbconnect->connect_error) {
+													die ( "Database connection failed: " . $dbconnect->connect_error );
+												}
+												$episodes = mysqli_query ( $dbconnect, "SELECT
 ep_rowid,
 CONCAT(CAST(ep_episode_num AS FLOAT), ' - ', ep_title) AS ep_title
 FROM
 episodes
 ORDER BY
-ep_episode_num") or die(mysqli_error($dbconnect));
-while ($row = $episodes->fetch_assoc())
-{
-    unset($ep_rowid, $ep_title);
-    $ep_rowid = $row['ep_rowid'];
-    $ep_title = $row['ep_title'];
-    echo '
+ep_episode_num" ) or die ( mysqli_error ( $dbconnect ) );
+												while ( $row = $episodes->fetch_assoc () ) {
+													unset ( $ep_rowid, $ep_title );
+													$ep_rowid = $row ['ep_rowid'];
+													$ep_title = $row ['ep_title'];
+													echo '
 <option value="' . $ep_rowid . '">
 ' . $ep_title . '
 </option>';
-}
-?>
-          </select> 
-          <input class="d-none" name='formEpisode' type='submit' value='Select'>
-        </div>   
-      </form>
-      <div class="text-right">
+												}
+												?>
+          </select> <input class="d-none" name='formEpisode'
+					type='submit' value='Select'>
+			</div>
+		</form>
+		<div class="text-right">
         Logged in as 
         <?php echo $_SESSION['user_name']; ?>
-        <br />
-        <a href="/logout.php">Logout
-        </a>
-        <br />
-        <a href="/changepass.php">Change Password
-        </a>
+        <br /> <a href="/logout.php">Logout </a> <br /> <a
+				href="/changepass.php">Change Password </a>
+		</div>
+		<div class="float-right text-right">
+			<a href="/">Home</a> <br /> <a href="/search.php">Search Clips</a> <br />
+			<a href="/transcription.php">Search Transcriptions</a>
+        <?php
+
+								if ($_SESSION ['user_level'] <= 10) {
+									echo "<br /><a href=\"/upload.php\">Upload episode</a>";
+								}
+								?>
       </div>
-      <div class="float-right text-right">
-        <a href="/">Home</a>
-        <br />
-        <a href="/search.php">Search Clips</a>
-        <br />
-        <a href="/transcription.php">Search Transcriptions</a>
-        <?php if ($_SESSION['user_level'] <= 10)
-{
-    echo "<br /><a href=\"/upload.php\">Upload episode</a>";
-}
-?>
-      </div>
-    </div>
-    <?php if (isset($_GET['epid'])) {
-              $selected_ep_rowid = $_GET['epid'];
-          }
-          if (isset($_POST['formEpisode'])) {
-              $selected_ep_rowid = $_POST['id'];
-          }
-          if (isset($selected_ep_rowid)): ?>
+	</div>
     <?php
-        if (isset($_GET['timestamp'])) {
-            $timestamp = $_GET['timestamp'];
-        }
-        $selected_episode = $dbconnect->prepare("SELECT ep_filename, CAST(ep_episode_num AS FLOAT) AS ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?");
-        unset($ep_filename, $ep_title, $ep_description, $ep_episode_num, $ep_release_date);
-        $selected_episode->bind_param('i', $selected_ep_rowid);
-        $selected_episode->execute();
-        $selected_episode->store_result();
-        $selected_episode->bind_result($filename, $episode_num, $release_date, $title, $description);
-        while ($selected_episode->fetch())
-        {
-            $ep_filename = $filename;
-            $ep_title = htmlspecialchars($title, ENT_QUOTES);
-            $ep_description = htmlspecialchars($description, ENT_QUOTES);
-            $ep_episode_num = $episode_num;
-            $ep_release_date = $release_date;
-        }
-        $selected_episode->close();
-?>
+
+				if (isset ( $_GET ['epid'] )) {
+					$selected_ep_rowid = $_GET ['epid'];
+				}
+				if (isset ( $_POST ['formEpisode'] )) {
+					$selected_ep_rowid = $_POST ['id'];
+				}
+				if (isset ( $selected_ep_rowid )) :
+					?>
+    <?php
+					if (isset ( $_GET ['timestamp'] )) {
+						$timestamp = $_GET ['timestamp'];
+					}
+					$selected_episode = $dbconnect->prepare ( "SELECT ep_filename, CAST(ep_episode_num AS FLOAT) AS ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?" );
+					unset ( $ep_filename, $ep_title, $ep_description, $ep_episode_num, $ep_release_date );
+					$selected_episode->bind_param ( 'i', $selected_ep_rowid );
+					$selected_episode->execute ();
+					$selected_episode->store_result ();
+					$selected_episode->bind_result ( $filename, $episode_num, $release_date, $title, $description );
+					while ( $selected_episode->fetch () ) {
+						$ep_filename = $filename;
+						$ep_title = htmlspecialchars ( $title, ENT_QUOTES );
+						$ep_description = htmlspecialchars ( $description, ENT_QUOTES );
+						$ep_episode_num = $episode_num;
+						$ep_release_date = $release_date;
+					}
+					$selected_episode->close ();
+					?>
     <div class="container" id='titles'>
-      <h1>Episode 
+		<h1>Episode 
         <?php echo $ep_episode_num . ": " . $ep_title; ?>
       </h1>
-      <h3>Released 
+		<h3>Released 
         <?php echo $ep_release_date; ?>
       </h3>
-      <h4>
+		<h4>
         <?php echo $ep_description; ?>
       </h4>
-<?php 
-if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
-{
-    echo "<img class='img-fluid' src=/podcasts/" . $ep_filename . ".jpg>";
-}
-?>
+<?php
+					if (file_exists ( "/var/www/podcasts/" . $ep_filename . ".jpg" )) {
+						echo "<img class='img-fluid' src=/podcasts/" . $ep_filename . ".jpg>";
+					}
+					?>
     </div>
-    <div class="container">
-      <div id='waveform-container'>
-        <div id='zoomview-container'>
-        </div>
-        <div id='overview-container'>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div id='media-controls'>
-        <audio id='audio' controls='controls'>
-          <source src='/podcasts/<?php echo $ep_filename . ".mp3#t=" . $timestamp; ?>' type='audio/mpeg'>
-          Your browser does not support the audio element.
-        </audio>
-      <div class="row align-items-center flex-nowrap no-gutters">
-        <div class="col-1 text-center">
-          <label for="slider" class="form-label">Speed</label>
-        </div>
-        <div class="col-10 text-center">
-          <input class="form-range" type="range" min="0.5" max="2.0" step=".01" value="1" id="slider" oninput="outputUpdate(value)" onchange="outputSpeed(value)" style="width: 80%;">
-        </div>
-        <div class="col-1 text-center">
-          <output for="slider" id="playbackrate">1.0</output>x</div>
-        </div>
-      </div>
-      <script>
+	<div class="container">
+		<div id='waveform-container'>
+			<div id='zoomview-container'></div>
+			<div id='overview-container'></div>
+		</div>
+	</div>
+	<div class="container">
+		<div id='media-controls'>
+			<audio id='audio' controls='controls'>
+				<source
+					src='/podcasts/<?php echo $ep_filename . ".mp3#t=" . $timestamp; ?>'
+					type='audio/mpeg'>
+				Your browser does not support the audio element.
+			</audio>
+			<div class="row align-items-center flex-nowrap no-gutters">
+				<div class="col-1 text-center">
+					<label for="slider" class="form-label">Speed</label>
+				</div>
+				<div class="col-10 text-center">
+					<input class="form-range" type="range" min="0.5" max="2.0"
+						step=".01" value="1" id="slider" oninput="outputUpdate(value)"
+						onchange="outputSpeed(value)" style="width: 80%;">
+				</div>
+				<div class="col-1 text-center">
+					<output for="slider" id="playbackrate">1.0</output>
+					x
+				</div>
+			</div>
+		</div>
+		<script>
       function outputUpdate(speedDisplay) {
       document.querySelector('#playbackrate').value = speedDisplay;
       }
@@ -192,67 +195,61 @@ if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
               myAudio.playbackRate = document.querySelector('#playbackrate').value;
       }
       </script>
-      <div id='media-controls'>
-        <button type="button" class="btn btn-primary btn-lg btn-block" data-action='add-segment'>Add a Segment at current time
-        </button>
-        <br>
-      </div>
-    </div>
-    <hr/>
-    <div class="container">
-      <div id='media-controls' class="form-row">
-        <div class="col">
-          <button type="button" class="btn btn-secondary btn-sm" data-action='zoom-in'>Zoom in
-          </button>
-          <button type="button" class="btn btn-secondary btn-sm" data-action='zoom-out'>Zoom out
-          </button>
-        </div>
-        <div class="col">
-          <label for='amplitude-scale'>Amplitude scale
-          </label>
-          <input type='range' id='amplitude-scale' min='0' max='10' step='1'>
-        </div>
-      </div>
-      <div  id='media-controls' class="form-row">
-        <div class="col">
-          <input type='text' id='seek-time' value='0.0'>
-          <button type="button" class="btn btn-secondary btn-sm" data-action='seek'>Jump to (sec)
-          </button>  
-        </div>  
-        <div class="col">
-          <input type='checkbox' id='auto-scroll' checked>
-          <label for='auto-scroll'>Auto-scroll
-          </label>
-        </div>
-      </div>
-    </div>
-    <hr/>
-    <div>
-      <div class="hide container table-responsive " id='segments'>
-        <h2>Segments
-        </h2>
-        <table class="table table-condensed table-sm table-hover table-striped">
-          <thead>
-            <tr>
-              <th>Created by
-              </th>
-              <th class="w-50">Comment
-              </th>
-              <th>Time (seconds)
-              </th>
-              <th>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    </div>
-  <script src='peaks.js'>
+		<div id='media-controls'>
+			<button type="button" class="btn btn-primary btn-lg btn-block"
+				data-action='add-segment'>Add a Segment at current time</button>
+			<br>
+		</div>
+	</div>
+	<hr />
+	<div class="container">
+		<div id='media-controls' class="form-row">
+			<div class="col">
+				<button type="button" class="btn btn-secondary btn-sm"
+					data-action='zoom-in'>Zoom in</button>
+				<button type="button" class="btn btn-secondary btn-sm"
+					data-action='zoom-out'>Zoom out</button>
+			</div>
+			<div class="col">
+				<label for='amplitude-scale'>Amplitude scale </label> <input
+					type='range' id='amplitude-scale' min='0' max='10' step='1'>
+			</div>
+		</div>
+		<div id='media-controls' class="form-row">
+			<div class="col">
+				<input type='text' id='seek-time' value='0.0'>
+				<button type="button" class="btn btn-secondary btn-sm"
+					data-action='seek'>Jump to (sec)</button>
+			</div>
+			<div class="col">
+				<input type='checkbox' id='auto-scroll' checked> <label
+					for='auto-scroll'>Auto-scroll </label>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div>
+		<div class="hide container table-responsive " id='segments'>
+			<h2>Segments</h2>
+			<table
+				class="table table-condensed table-sm table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Created by</th>
+						<th class="w-50">Comment</th>
+						<th>Time (seconds)</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</div>
+	<script src='peaks.js'>
   </script>
-  <script>
+	<script>
     (function(Peaks) {
       var renderSegments = function(peaks) {
         var segmentsContainer = document.getElementById('segments');
@@ -430,7 +427,7 @@ if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
         }
                                                        );
         <?php
-        $segments = mysqli_query($dbconnect, "SELECT
+					$segments = mysqli_query ( $dbconnect, "SELECT
                                  sg_rowid,
                                  cby.us_username AS cby,
                                  sg_cdate,
@@ -449,19 +446,18 @@ if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
                                  sg_mby = mby.us_rowid
                                  WHERE
                                  sg_rowid_episode = $selected_ep_rowid
-                                 ORDER BY sg_starttime") or die(mysqli_error($dbconnect));
-        while ($row = mysqli_fetch_array($segments))
-        {
-            unset($sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime);
-            $sg_rowid = $row['sg_rowid'];
-            $cby = htmlspecialchars("" . $row['cby'] . "", ENT_QUOTES);
-            $sg_cdate = $row['sg_cdate'];
-            $mby = htmlspecialchars("" . $row['mby'] . "", ENT_QUOTES);
-            $sg_mdate = $row['sg_mdate'];
-            $sg_comment = str_replace("\n", "&#010;", str_replace("\r", "&#010;", str_replace("\r\n", "&#010;", htmlspecialchars($row['sg_comment'], ENT_QUOTES))));
-            $sg_starttime = $row['sg_starttime'];
-            $sg_endtime = $row['sg_endtime'];
-            echo "peaksInstance.segments.add({
+                                 ORDER BY sg_starttime" ) or die ( mysqli_error ( $dbconnect ) );
+					while ( $row = mysqli_fetch_array ( $segments ) ) {
+						unset ( $sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime );
+						$sg_rowid = $row ['sg_rowid'];
+						$cby = htmlspecialchars ( "" . $row ['cby'] . "", ENT_QUOTES );
+						$sg_cdate = $row ['sg_cdate'];
+						$mby = htmlspecialchars ( "" . $row ['mby'] . "", ENT_QUOTES );
+						$sg_mdate = $row ['sg_mdate'];
+						$sg_comment = str_replace ( "\n", "&#010;", str_replace ( "\r", "&#010;", str_replace ( "\r\n", "&#010;", htmlspecialchars ( $row ['sg_comment'], ENT_QUOTES ) ) ) );
+						$sg_starttime = $row ['sg_starttime'];
+						$sg_endtime = $row ['sg_endtime'];
+						echo "peaksInstance.segments.add({
           id: " . $sg_rowid . ",
             startTime: " . $sg_starttime . ",
               endTime: " . $sg_endtime . ",
@@ -472,8 +468,8 @@ if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
         );
         renderSegments(peaksInstance);
         ";
-        }
-?>
+					}
+					?>
                  var amplitudeScales = {
                  "0": 0.0,
                  "1": 0.1,
@@ -549,8 +545,11 @@ if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg"))
     )(peaks);
   </script>
   <?php
-endif; ?>
-  <iframe name="delete-segment" style="visibility: hidden; position: absolute; left: 0; top: 0; height:0; width:0; border: none;">
-  </iframe>
-  </body>
+endif;
+
+				?>
+  <iframe name="delete-segment"
+		style="visibility: hidden; position: absolute; left: 0; top: 0; height: 0; width: 0; border: none;">
+	</iframe>
+</body>
 </html>
