@@ -13,3 +13,8 @@ clips/*.mp3
 
 #don't track the database
 database/
+
+#don't track eclipse
+.project
+code/.project
+code/.buildpath
