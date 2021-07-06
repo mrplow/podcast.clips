@@ -27,6 +27,7 @@ CREATE TABLE `podcast_clips`.`users`(
     `us_email_validated` VARCHAR(32) NULL,
     `us_cdate` DATETIME NOT NULL,
     `us_mdate` DATETIME NULL,
+    `us_lastlogin` DATETIME NULL,
     `us_validated` DATETIME NULL,
     PRIMARY KEY(`us_rowid`),
     UNIQUE KEY `us_username`(`us_username`),
