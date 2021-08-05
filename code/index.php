@@ -269,9 +269,9 @@ ep_episode_num" ) or die ( mysqli_error ( $dbconnect ) );
               '        <td>' +
               '          <div class="form-group form-control-sm">' +
               '            <label for="starttime">Start</label>' +
-              '            <input id="starttime' + segment.id + '" class="form-control" form="segment' + segment.id + '" name="StartTime" data-action="update-segment-start-time" type="number" value="' + segment.startTime + '" data-id="' + segment.id + '"/>' +
+              '            <input id="starttime' + segment.id + '" class="form-control" form="segment' + segment.id + '" name="StartTime" data-action="update-segment-start-time" type="number" step="any" value="' + segment.startTime + '" data-id="' + segment.id + '"/>' +
               '            <label for="endtime">End</label>' +
-              '            <input id="endtime' + segment.id + '" class="form-control" form="segment' + segment.id + '" name="EndTime" data-action="update-segment-end-time" type="number" value="' + segment.endTime + '" data-id="' + segment.id + '"/>' +
+              '            <input id="endtime' + segment.id + '" class="form-control" form="segment' + segment.id + '" name="EndTime" data-action="update-segment-end-time" type="number" step="any" value="' + segment.endTime + '" data-id="' + segment.id + '"/>' +
               '          </div>' +
               '        </td>' +
               '        <td>' +
