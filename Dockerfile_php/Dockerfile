@@ -10,24 +10,32 @@ RUN apk update && apk add --no-cache ffmpeg
 RUN apk --no-cache add shadow && usermod -u 1000 www-data
 
 # Install audiowaveform, see https://github.com/realies/audiowaveform-docker/blob/master/Dockerfile
-env commit 3d07c8e
-RUN apk add --no-cache --virtual build-dependencies cmake curl git jq make && \
- apk --no-cache add boost-dev g++ gcc gd-dev libid3tag-dev libmad-dev libsndfile-dev && \
- git clone -n https://github.com/bbc/audiowaveform.git && \
- cd audiowaveform && \
- git checkout ${commit} && \
- curl -fL# $(curl -s "https://api.github.com/repos/google/googletest/releases/latest" | jq -r .tarball_url) -o googletest.tar.gz && \
- tar -xf googletest.tar.gz && \
- ln -s google*/google* . && \
- mkdir build && \
- cd build && \
- cmake .. && \
- cd ../build && \
- make -j $(nproc) && \
- make install && \
- apk del build-dependencies && \
- rm -rf /var/cache/apk/* && \
- rm -rf /var/www/html/audiowaveform
+RUN apk --no-cache add libstdc++
+ENV COMMIT b6b61b0
+RUN apk add --no-cache boost-dev boost-static cmake curl g++ gcc gd-dev git \
+    jq libid3tag-dev libmad-dev libpng-static libsndfile-dev libvorbis-static make zlib-static
+RUN apk add --no-cache autoconf automake libtool gettext && \
+    curl -fL# "$(curl -s 'https://api.github.com/repos/xiph/flac/tags' | jq -r '. | first | .tarball_url')" -o flac.tar.gz && \
+    mkdir flac && \
+    tar -xf flac.tar.gz -C flac --strip-components=1 && \
+    cd flac && \
+    ./autogen.sh && \
+    ./configure --enable-shared=no && \
+    make -j $(nproc) && \
+    make install
+RUN git clone -n https://github.com/bbc/audiowaveform.git && \
+    cd audiowaveform && \
+    git checkout ${COMMIT} && \
+    curl -fL# "$(curl -s 'https://api.github.com/repos/google/googletest/releases/latest' | jq -r '.tarball_url')" -o googletest.tar.gz && \
+    mkdir googletest && \
+    tar -xf googletest.tar.gz -C googletest --strip-components=1 && \
+    mkdir build && \
+    cd build && \
+    cmake -D ENABLE_TESTS=1 -D BUILD_STATIC=1 .. && \
+    make -j $(nproc) && \
+    # /audiowaveform/build/audiowaveform_tests && \
+    make install && \
+    strip /usr/local/bin/audiowaveform
 
 # Edit and install production php.ini but change maxupload to 256M
 ARG upload_max_filesize=256
