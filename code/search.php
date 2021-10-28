@@ -1,19 +1,19 @@
 <?php
-session_start ();
-if (! isset ( $_SESSION ['user_id'] )) {
-	header ( "Location: /login.php" );
+session_start();
+if (! isset($_SESSION ['user_id'])) {
+    header("Location: /login.php");
 }
 
-if (isset ( $_SESSION ['user_validated'] )) {
-	$LastValidated = new DateTime ( $_SESSION ['user_validated'] );
-	$CurrentTime = new DateTime ( 'now' );
-	$SinceValidated = $LastValidated->diff ( $CurrentTime );
-	$DaysSince = $SinceValidated->format ( '%a' );
-	if ($DaysSince > 32) {
-		header ( "Location: /validate.php" );
-	}
+if (isset($_SESSION ['user_validated'])) {
+    $LastValidated = new DateTime($_SESSION ['user_validated']);
+    $CurrentTime = new DateTime('now');
+    $SinceValidated = $LastValidated->diff($CurrentTime);
+    $DaysSince = $SinceValidated->format('%a');
+    if ($DaysSince > 32) {
+        header("Location: /validate.php");
+    }
 } else {
-	header ( "Location: /validate.php" );
+    header("Location: /validate.php");
 }
 ?>
 <!DOCTYPE html>
@@ -50,10 +50,10 @@ if (isset ( $_SESSION ['user_validated'] )) {
 			<a href="/transcription.php">Search Transcriptions</a>
         <?php
 
-								if ($_SESSION ['user_level'] <= 10) {
-									echo "<br /><a href=\"/upload.php\">Upload episode</a>";
-								}
-								?>
+                                if ($_SESSION ['user_level'] <= 10) {
+                                    echo "<br /><a href=\"/upload.php\">Upload episode</a>";
+                                }
+                                ?>
       </div>
 	</div>
 	<div class="container">
@@ -78,40 +78,40 @@ if (isset ( $_SESSION ['user_validated'] )) {
 			<tbody id="Segments">
 
             <?php
-												include ('/var/connect.php');
-												$dbconnect = mysqli_connect ( $GLOBALS ["mysql_hostname"], $GLOBALS ["mysql_username"], $GLOBALS ["mysql_password"], $GLOBALS ["mysql_database"] );
-												if ($dbconnect->connect_error) {
-													die ( "Database connection failed: " . $dbconnect->connect_error );
-												}
-												$episodes = mysqli_query ( $dbconnect, "SELECT ep_rowid, CAST(ep_episode_num AS FLOAT) AS ep_episode_num, ep_filename, sg_starttime, ep_title, sg_rowid, us_username, sg_comment, ROUND(sg_endtime - sg_starttime, 2) AS sg_length FROM episodes JOIN segments ON ep_rowid = sg_rowid_episode JOIN users ON sg_cby = us_rowid ORDER BY ep_episode_num, sg_starttime" ) or die ( mysqli_error ( $dbconnect ) );
-												while ( $row = $episodes->fetch_assoc () ) {
-													unset ( $ep_rowid, $ep_episode_num, $ep_filename, $sg_starttime, $ep_title, $sg_rowid, $us_username, $sg_comment, $sg_length );
-													$ep_rowid = $row ['ep_rowid'];
-													$ep_episode_num = $row ['ep_episode_num'];
-													$ep_filename = $row ['ep_filename'];
-													$sg_starttime = $row ['sg_starttime'];
-													$ep_title = $row ['ep_title'];
-													$sg_rowid = $row ['sg_rowid'];
-													$us_username = $row ['us_username'];
-													$sg_comment = $row ['sg_comment'];
-													$sg_length = $row ['sg_length'];
-													echo "
+                                                include('/var/connect.php');
+                                                $dbconnect = mysqli_connect($GLOBALS ["mysql_hostname"], $GLOBALS ["mysql_username"], $GLOBALS ["mysql_password"], $GLOBALS ["mysql_database"]);
+                                                if ($dbconnect->connect_error) {
+                                                    die("Database connection failed: " . $dbconnect->connect_error);
+                                                }
+                                                $episodes = mysqli_query($dbconnect, "SELECT ep_rowid, CAST(ep_episode_num AS FLOAT) AS ep_episode_num, ep_filename, sg_starttime, ep_title, sg_rowid, us_username, sg_comment, ROUND(sg_endtime - sg_starttime, 2) AS sg_length FROM episodes JOIN segments ON ep_rowid = sg_rowid_episode JOIN users ON sg_cby = us_rowid ORDER BY ep_episode_num, sg_starttime") or die(mysqli_error($dbconnect));
+                                                while ($row = $episodes->fetch_assoc()) {
+                                                    unset($ep_rowid, $ep_episode_num, $ep_filename, $sg_starttime, $ep_title, $sg_rowid, $us_username, $sg_comment, $sg_length);
+                                                    $ep_rowid = $row ['ep_rowid'];
+                                                    $ep_episode_num = $row ['ep_episode_num'];
+                                                    $ep_filename = $row ['ep_filename'];
+                                                    $sg_starttime = $row ['sg_starttime'];
+                                                    $ep_title = $row ['ep_title'];
+                                                    $sg_rowid = $row ['sg_rowid'];
+                                                    $us_username = $row ['us_username'];
+                                                    $sg_comment = $row ['sg_comment'];
+                                                    $sg_length = $row ['sg_length'];
+                                                    echo "
       <tr>
         <td>" . $ep_episode_num . "</td>
         <td><a href=\"/index.php?epid=" . $ep_rowid . "&timestamp=" . $sg_starttime . "\">" . $ep_title . "</a></td>
         <td>" . $us_username . "</td>
-        <td>" . nl2br ( $sg_comment ) . "</td>
+        <td>" . nl2br($sg_comment) . "</td>
         <td>" . $sg_length . "</td>
         <td>
         <audio id='" . $sg_rowid . "' src='/clips/" . $sg_rowid . ".mp3' type='audio/mpeg'></audio>
         <div class=\"btn-group-vertical\">
           <button class=\"btn btn-success btn-sm\" onclick=\"document.getElementById('" . $sg_rowid . "').play()\">Play</button>
-          <a class=\"btn btn-primary btn-sm\" href=\"/clips/" . $sg_rowid . ".mp3\" download=\"" . $ep_filename . " - Clip " . round ( $sg_starttime, 2 ) . "sec - " . strtok ( $sg_comment, "\r" ) . ".mp3\">Download</a>
+          <a class=\"btn btn-primary btn-sm\" href=\"/clips/" . $sg_rowid . ".mp3\" download=\"" . $ep_filename . " - Clip " . round($sg_starttime, 2) . "sec - " . strtok($sg_comment, "\r") . ".mp3\">Download</a>
         </div>
         </td>
       </tr>";
-												}
-												?>
+                                                }
+                                                ?>
     </tbody>
 		</table>
 	</div>

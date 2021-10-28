@@ -1,19 +1,19 @@
 <?php
-session_start ();
-if (! isset ( $_SESSION ['user_id'] )) {
-	header ( "Location: /login.php" );
+session_start();
+if (! isset($_SESSION ['user_id'])) {
+    header("Location: /login.php");
 }
 
-if (isset ( $_SESSION ['user_validated'] )) {
-	$LastValidated = new DateTime ( $_SESSION ['user_validated'] );
-	$CurrentTime = new DateTime ( 'now' );
-	$SinceValidated = $LastValidated->diff ( $CurrentTime );
-	$DaysSince = $SinceValidated->format ( '%a' );
-	if ($DaysSince > 32) {
-		header ( "Location: /validate.php" );
-	}
+if (isset($_SESSION ['user_validated'])) {
+    $LastValidated = new DateTime($_SESSION ['user_validated']);
+    $CurrentTime = new DateTime('now');
+    $SinceValidated = $LastValidated->diff($CurrentTime);
+    $DaysSince = $SinceValidated->format('%a');
+    if ($DaysSince > 32) {
+        header("Location: /validate.php");
+    }
 } else {
-	header ( "Location: /validate.php" );
+    header("Location: /validate.php");
 }
 ?>
 <!DOCTYPE html>
@@ -53,13 +53,13 @@ if (isset ( $_SESSION ['user_validated'] )) {
 			<a href="/transcription.php">Search Transcriptions</a>
         <?php
 
-								if ($_SESSION ['user_level'] <= 10) {
-									echo "<br /><a href=\"/upload.php\">Upload episode</a>";
-								}
-								ini_set ( 'display_errors', 1 );
-								ini_set ( 'display_startup_errors', 1 );
-								error_reporting ( E_ALL );
-								?>
+                                if ($_SESSION ['user_level'] <= 10) {
+                                    echo "<br /><a href=\"/upload.php\">Upload episode</a>";
+                                }
+                                ini_set('display_errors', 1);
+                                ini_set('display_startup_errors', 1);
+                                error_reporting(E_ALL);
+                                ?>
       </div>
 	</div>
 	<div class="container">

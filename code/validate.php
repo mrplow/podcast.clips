@@ -1,38 +1,38 @@
 <?php
-session_start ();
-if (! isset ( $_SESSION ['user_id'] )) {
-	header ( "Location: /login.php" );
+session_start();
+if (! isset($_SESSION ['user_id'])) {
+    header("Location: /login.php");
 }
 
-if (isset ( $_SESSION ['user_validated'] )) {
-	$LastValidated = new DateTime ( $_SESSION ['user_validated'] );
-	$CurrentTime = new DateTime ( 'now' );
-	$SinceValidated = $LastValidated->diff ( $CurrentTime );
-	$DaysSince = $SinceValidated->format ( '%a' );
-	if ($DaysSince <= 32) {
-		header ( "Location: /" );
-	}
+if (isset($_SESSION ['user_validated'])) {
+    $LastValidated = new DateTime($_SESSION ['user_validated']);
+    $CurrentTime = new DateTime('now');
+    $SinceValidated = $LastValidated->diff($CurrentTime);
+    $DaysSince = $SinceValidated->format('%a');
+    if ($DaysSince <= 32) {
+        header("Location: /");
+    }
 }
-include ('/var/connect.php');
-$dbconnect = mysqli_connect ( $GLOBALS ["mysql_hostname"], $GLOBALS ["mysql_username"], $GLOBALS ["mysql_password"], $GLOBALS ["mysql_database"] );
+include('/var/connect.php');
+$dbconnect = mysqli_connect($GLOBALS ["mysql_hostname"], $GLOBALS ["mysql_username"], $GLOBALS ["mysql_password"], $GLOBALS ["mysql_database"]);
 if ($dbconnect->connect_error) {
-	die ( "Database connection failed: " . $dbconnect->connect_error );
+    die("Database connection failed: " . $dbconnect->connect_error);
 }
-unset ( $message );
-if (! empty ( $_POST ['secretcode'] )) {
-	include ('secret.php');
-	unset ( $SecretCode, $fail );
-	$SecretCode = $_POST ['secretcode'];
-	if ($SecretCode !== $CurrentCode) {
-		$message = "<div class=\"alert alert-danger\" role=\"alert\">Sorry, wrong code</div>";
-	} else {
-		$Validated = $dbconnect->prepare ( 'UPDATE users SET us_validated = NOW() WHERE us_rowid = ?' );
-		$Validated->bind_param ( 'i', $_SESSION ['user_id'] );
-		$Validated->execute ();
-		$message = "<div class=\"alert alert-success\" role=\"alert\">Nailed it! Loading main page...</div>";
-		header ( "refresh:3; /" );
-		$_SESSION ['user_validated'] = date ( 'Y-m-d H:i:s' );
-	}
+unset($message);
+if (! empty($_POST ['secretcode'])) {
+    include('secret.php');
+    unset($SecretCode, $fail);
+    $SecretCode = $_POST ['secretcode'];
+    if ($SecretCode !== $CurrentCode) {
+        $message = "<div class=\"alert alert-danger\" role=\"alert\">Sorry, wrong code</div>";
+    } else {
+        $Validated = $dbconnect->prepare('UPDATE users SET us_validated = NOW() WHERE us_rowid = ?');
+        $Validated->bind_param('i', $_SESSION ['user_id']);
+        $Validated->execute();
+        $message = "<div class=\"alert alert-success\" role=\"alert\">Nailed it! Loading main page...</div>";
+        header("refresh:3; /");
+        $_SESSION ['user_validated'] = date('Y-m-d H:i:s');
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -67,8 +67,8 @@ if (! empty ( $_POST ['secretcode'] )) {
 		</div>
 	</form>
 <?php
-if (! empty ( $message )) {
-	echo $message;
+if (! empty($message)) {
+    echo $message;
 }
 ?>
     <h4>

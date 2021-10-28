@@ -1,19 +1,19 @@
 <?php
-session_start ();
-if (! isset ( $_SESSION ['user_id'] )) {
-	header ( "Location: /login.php" );
+session_start();
+if (! isset($_SESSION ['user_id'])) {
+    header("Location: /login.php");
 }
 
-if (isset ( $_SESSION ['user_validated'] )) {
-	$LastValidated = new DateTime ( $_SESSION ['user_validated'] );
-	$CurrentTime = new DateTime ( 'now' );
-	$SinceValidated = $LastValidated->diff ( $CurrentTime );
-	$DaysSince = $SinceValidated->format ( '%a' );
-	if ($DaysSince > 32) {
-		header ( "Location: /validate.php" );
-	}
+if (isset($_SESSION ['user_validated'])) {
+    $LastValidated = new DateTime($_SESSION ['user_validated']);
+    $CurrentTime = new DateTime('now');
+    $SinceValidated = $LastValidated->diff($CurrentTime);
+    $DaysSince = $SinceValidated->format('%a');
+    if ($DaysSince > 32) {
+        header("Location: /validate.php");
+    }
 } else {
-	header ( "Location: /validate.php" );
+    header("Location: /validate.php");
 }
 ?>
 <!DOCTYPE html>
@@ -69,28 +69,28 @@ audio {
 					onchange="this.form.elements['formEpisode'].click();">
 					<option disabled hidden='' selected value=''></option>
             <?php
-												include ('/var/connect.php');
-												$dbconnect = mysqli_connect ( $GLOBALS ["mysql_hostname"], $GLOBALS ["mysql_username"], $GLOBALS ["mysql_password"], $GLOBALS ["mysql_database"] );
-												if ($dbconnect->connect_error) {
-													die ( "Database connection failed: " . $dbconnect->connect_error );
-												}
-												$episodes = mysqli_query ( $dbconnect, "SELECT
+                                                include('/var/connect.php');
+                                                $dbconnect = mysqli_connect($GLOBALS ["mysql_hostname"], $GLOBALS ["mysql_username"], $GLOBALS ["mysql_password"], $GLOBALS ["mysql_database"]);
+                                                if ($dbconnect->connect_error) {
+                                                    die("Database connection failed: " . $dbconnect->connect_error);
+                                                }
+                                                $episodes = mysqli_query($dbconnect, "SELECT
 ep_rowid,
 CONCAT(CAST(ep_episode_num AS FLOAT), ' - ', ep_title) AS ep_title
 FROM
 episodes
 ORDER BY
-ep_episode_num" ) or die ( mysqli_error ( $dbconnect ) );
-												while ( $row = $episodes->fetch_assoc () ) {
-													unset ( $ep_rowid, $ep_title );
-													$ep_rowid = $row ['ep_rowid'];
-													$ep_title = $row ['ep_title'];
-													echo '
+ep_episode_num") or die(mysqli_error($dbconnect));
+                                                while ($row = $episodes->fetch_assoc()) {
+                                                    unset($ep_rowid, $ep_title);
+                                                    $ep_rowid = $row ['ep_rowid'];
+                                                    $ep_title = $row ['ep_title'];
+                                                    echo '
 <option value="' . $ep_rowid . '">
 ' . $ep_title . '
 </option>';
-												}
-												?>
+                                                }
+                                                ?>
           </select> <input class="d-none" name='formEpisode'
 					type='submit' value='Select'>
 			</div>
@@ -106,41 +106,41 @@ ep_episode_num" ) or die ( mysqli_error ( $dbconnect ) );
 			<a href="/transcription.php">Search Transcriptions</a>
         <?php
 
-								if ($_SESSION ['user_level'] <= 10) {
-									echo "<br /><a href=\"/upload.php\">Upload episode</a>";
-								}
-								?>
+                                if ($_SESSION ['user_level'] <= 10) {
+                                    echo "<br /><a href=\"/upload.php\">Upload episode</a>";
+                                }
+                                ?>
       </div>
 	</div>
     <?php
 
-				if (isset ( $_GET ['epid'] )) {
-					$selected_ep_rowid = $_GET ['epid'];
-				}
-				if (isset ( $_POST ['formEpisode'] )) {
-					$selected_ep_rowid = $_POST ['id'];
-				}
-				if (isset ( $selected_ep_rowid )) :
-					?>
+                if (isset($_GET ['epid'])) {
+                    $selected_ep_rowid = $_GET ['epid'];
+                }
+                if (isset($_POST ['formEpisode'])) {
+                    $selected_ep_rowid = $_POST ['id'];
+                }
+                if (isset($selected_ep_rowid)) :
+                    ?>
     <?php
-					if (isset ( $_GET ['timestamp'] )) {
-						$timestamp = $_GET ['timestamp'];
-					}
-					$selected_episode = $dbconnect->prepare ( "SELECT ep_filename, CAST(ep_episode_num AS FLOAT) AS ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?" );
-					unset ( $ep_filename, $ep_title, $ep_description, $ep_episode_num, $ep_release_date );
-					$selected_episode->bind_param ( 'i', $selected_ep_rowid );
-					$selected_episode->execute ();
-					$selected_episode->store_result ();
-					$selected_episode->bind_result ( $filename, $episode_num, $release_date, $title, $description );
-					while ( $selected_episode->fetch () ) {
-						$ep_filename = $filename;
-						$ep_title = htmlspecialchars ( $title, ENT_QUOTES );
-						$ep_description = htmlspecialchars ( $description, ENT_QUOTES );
-						$ep_episode_num = $episode_num;
-						$ep_release_date = $release_date;
-					}
-					$selected_episode->close ();
-					?>
+                    if (isset($_GET ['timestamp'])) {
+                        $timestamp = $_GET ['timestamp'];
+                    }
+                    $selected_episode = $dbconnect->prepare("SELECT ep_filename, CAST(ep_episode_num AS FLOAT) AS ep_episode_num, ep_release_date, ep_title, ep_description FROM episodes WHERE ep_rowid = ?");
+                    unset($ep_filename, $ep_title, $ep_description, $ep_episode_num, $ep_release_date);
+                    $selected_episode->bind_param('i', $selected_ep_rowid);
+                    $selected_episode->execute();
+                    $selected_episode->store_result();
+                    $selected_episode->bind_result($filename, $episode_num, $release_date, $title, $description);
+                    while ($selected_episode->fetch()) {
+                        $ep_filename = $filename;
+                        $ep_title = htmlspecialchars($title, ENT_QUOTES);
+                        $ep_description = htmlspecialchars($description, ENT_QUOTES);
+                        $ep_episode_num = $episode_num;
+                        $ep_release_date = $release_date;
+                    }
+                    $selected_episode->close();
+                    ?>
     <div class="container" id='titles'>
 		<h1>Episode 
         <?php echo $ep_episode_num . ": " . $ep_title; ?>
@@ -152,10 +152,10 @@ ep_episode_num" ) or die ( mysqli_error ( $dbconnect ) );
         <?php echo $ep_description; ?>
       </h4>
 <?php
-					if (file_exists ( "/var/www/podcasts/" . $ep_filename . ".jpg" )) {
-						echo "<img class='img-fluid' src=/podcasts/" . $ep_filename . ".jpg>";
-					}
-					?>
+                    if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg")) {
+                        echo "<img class='img-fluid' src=/podcasts/" . $ep_filename . ".jpg>";
+                    }
+                    ?>
     </div>
 	<div class="container">
 		<div id='waveform-container'>
@@ -427,7 +427,7 @@ ep_episode_num" ) or die ( mysqli_error ( $dbconnect ) );
         }
                                                        );
         <?php
-					$segments = mysqli_query ( $dbconnect, "SELECT
+                    $segments = mysqli_query($dbconnect, "SELECT
                                  sg_rowid,
                                  cby.us_username AS cby,
                                  sg_cdate,
@@ -446,18 +446,18 @@ ep_episode_num" ) or die ( mysqli_error ( $dbconnect ) );
                                  sg_mby = mby.us_rowid
                                  WHERE
                                  sg_rowid_episode = $selected_ep_rowid
-                                 ORDER BY sg_starttime" ) or die ( mysqli_error ( $dbconnect ) );
-					while ( $row = mysqli_fetch_array ( $segments ) ) {
-						unset ( $sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime );
-						$sg_rowid = $row ['sg_rowid'];
-						$cby = htmlspecialchars ( "" . $row ['cby'] . "", ENT_QUOTES );
-						$sg_cdate = $row ['sg_cdate'];
-						$mby = htmlspecialchars ( "" . $row ['mby'] . "", ENT_QUOTES );
-						$sg_mdate = $row ['sg_mdate'];
-						$sg_comment = str_replace ( "\n", "&#010;", str_replace ( "\r", "&#010;", str_replace ( "\r\n", "&#010;", htmlspecialchars ( $row ['sg_comment'], ENT_QUOTES ) ) ) );
-						$sg_starttime = $row ['sg_starttime'];
-						$sg_endtime = $row ['sg_endtime'];
-						echo "peaksInstance.segments.add({
+                                 ORDER BY sg_starttime") or die(mysqli_error($dbconnect));
+                    while ($row = mysqli_fetch_array($segments)) {
+                        unset($sg_rowid, $cby, $sg_cdate, $mby, $sg_mdate, $sg_comment, $sg_starttime, $sg_endtime);
+                        $sg_rowid = $row ['sg_rowid'];
+                        $cby = htmlspecialchars("" . $row ['cby'] . "", ENT_QUOTES);
+                        $sg_cdate = $row ['sg_cdate'];
+                        $mby = htmlspecialchars("" . $row ['mby'] . "", ENT_QUOTES);
+                        $sg_mdate = $row ['sg_mdate'];
+                        $sg_comment = str_replace("\n", "&#010;", str_replace("\r", "&#010;", str_replace("\r\n", "&#010;", htmlspecialchars($row ['sg_comment'], ENT_QUOTES))));
+                        $sg_starttime = $row ['sg_starttime'];
+                        $sg_endtime = $row ['sg_endtime'];
+                        echo "peaksInstance.segments.add({
           id: " . $sg_rowid . ",
             startTime: " . $sg_starttime . ",
               endTime: " . $sg_endtime . ",
@@ -468,8 +468,8 @@ ep_episode_num" ) or die ( mysqli_error ( $dbconnect ) );
         );
         renderSegments(peaksInstance);
         ";
-					}
-					?>
+                    }
+                    ?>
                  var amplitudeScales = {
                  "0": 0.0,
                  "1": 0.1,
@@ -547,7 +547,7 @@ ep_episode_num" ) or die ( mysqli_error ( $dbconnect ) );
   <?php
 endif;
 
-				?>
+                ?>
   <iframe name="delete-segment"
 		style="visibility: hidden; position: absolute; left: 0; top: 0; height: 0; width: 0; border: none;">
 	</iframe>

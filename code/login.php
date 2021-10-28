@@ -1,43 +1,43 @@
 <?php
-session_start ();
-if (isset ( $_SESSION ['user_id'] )) {
-	header ( "Location: /" );
+session_start();
+if (isset($_SESSION ['user_id'])) {
+    header("Location: /");
 }
-include ('/var/connect.php');
-$dbconnect = mysqli_connect ( $GLOBALS ["mysql_hostname"], $GLOBALS ["mysql_username"], $GLOBALS ["mysql_password"], $GLOBALS ["mysql_database"] );
+include('/var/connect.php');
+$dbconnect = mysqli_connect($GLOBALS ["mysql_hostname"], $GLOBALS ["mysql_username"], $GLOBALS ["mysql_password"], $GLOBALS ["mysql_database"]);
 if ($dbconnect->connect_error) {
-	die ( "Database connection failed: " . $dbconnect->connect_error );
+    die("Database connection failed: " . $dbconnect->connect_error);
 }
-if (! empty ( $_POST ['username'] ) && ! empty ( $_POST ['password'] )) {
-	unset ( $Username, $Password );
-	$Username = $_POST ['username'];
-	$Password = $_POST ['password'];
-	$records = $dbconnect->prepare ( 'SELECT us_rowid, us_username, us_password, ul_level, us_validated FROM users JOIN userlevel ON us_rowid_userlevel = ul_rowid WHERE us_username = ?' );
-	$records->bind_param ( 's', $Username );
-	$records->execute ();
-	$records->store_result ();
-	$records->bind_result ( $ID, $Username, $Password, $Userlevel, $Validated );
-	while ( $records->fetch () ) {
-		$ReturnedID = $ID;
-		$ReturnedUsername = $Username;
-		$ReturnedPassword = $Password;
-		$ReturnedUserlevel = $Userlevel;
-		$ReturnedValidated = $Validated;
-	}
-	$records->close ();
-	$message = '';
-	if (! empty ( $ReturnedID ) && password_verify ( $_POST ['password'], $ReturnedPassword )) {
-		$_SESSION ['user_id'] = $ReturnedID;
-		$_SESSION ['user_name'] = $ReturnedUsername;
-		$_SESSION ['user_level'] = $ReturnedUserlevel;
-		$_SESSION ['user_validated'] = $ReturnedValidated;
-		$Lastlogin = $dbconnect->prepare ( 'UPDATE users SET us_lastlogin = NOW() WHERE us_rowid = ?' );
-		$Lastlogin->bind_param ( 'i', $ReturnedID );
-		$Lastlogin->execute ();
-		header ( "Location: /" );
-	} else {
-		$message = 'Sorry, those credentials do not match';
-	}
+if (! empty($_POST ['username']) && ! empty($_POST ['password'])) {
+    unset($Username, $Password);
+    $Username = $_POST ['username'];
+    $Password = $_POST ['password'];
+    $records = $dbconnect->prepare('SELECT us_rowid, us_username, us_password, ul_level, us_validated FROM users JOIN userlevel ON us_rowid_userlevel = ul_rowid WHERE us_username = ?');
+    $records->bind_param('s', $Username);
+    $records->execute();
+    $records->store_result();
+    $records->bind_result($ID, $Username, $Password, $Userlevel, $Validated);
+    while ($records->fetch()) {
+        $ReturnedID = $ID;
+        $ReturnedUsername = $Username;
+        $ReturnedPassword = $Password;
+        $ReturnedUserlevel = $Userlevel;
+        $ReturnedValidated = $Validated;
+    }
+    $records->close();
+    $message = '';
+    if (! empty($ReturnedID) && password_verify($_POST ['password'], $ReturnedPassword)) {
+        $_SESSION ['user_id'] = $ReturnedID;
+        $_SESSION ['user_name'] = $ReturnedUsername;
+        $_SESSION ['user_level'] = $ReturnedUserlevel;
+        $_SESSION ['user_validated'] = $ReturnedValidated;
+        $Lastlogin = $dbconnect->prepare('UPDATE users SET us_lastlogin = NOW() WHERE us_rowid = ?');
+        $Lastlogin->bind_param('i', $ReturnedID);
+        $Lastlogin->execute();
+        header("Location: /");
+    } else {
+        $message = 'Sorry, those credentials do not match';
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -67,7 +67,7 @@ if (! empty ( $_POST ['username'] ) && ! empty ( $_POST ['password'] )) {
     <?php
 endif;
 
-				?>
+                ?>
     <div class="container">
 		<h1>Login</h1>
 		<span>or <a href="register.php">register here </a>
