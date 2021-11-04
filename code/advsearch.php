@@ -241,6 +241,7 @@ if (!empty($_GET['end_date'])) {
               <input class="form-control btn-primary" type="submit" name="form_submit" value="Search">
             </div>
           </div>
+          <input type="hidden" name="page" value="1">
         </form>
       </div>
     </div>
@@ -264,9 +265,8 @@ if ($dbconnect->connect_error) {
                 <th><strong>Timestamp</strong></th>
                 <th><strong>Transcription</strong></th>
             </tr>";
-                    // just stub values for pagination
-                    // calculate your own values
-                    $offset = 0;
+                    // pagination
+                    $offset = ($_GET['page'] -1) * 20;
                     $limit = 20;
 
                     // always initialize a variable before use!
@@ -347,7 +347,7 @@ if ($dbconnect->connect_error) {
                     // the main query
                     $query = "SELECT ep_rowid, CAST(ep_episode_num AS DOUBLE) AS ep_episode_num, ep_title, ep_release_date, SUBSTRING(TIME_FORMAT(SEC_TO_TIME(tr_time), '%H:%i:%s.%f'), 1, 11) AS tr_time, tr_text FROM episodes JOIN transcriptions ON ep_rowid = tr_rowid_episode";
 
-                    // a smart code to add all conditions, if any
+                    // add all conditions, if any
                     if ($conditions) {
                         $query .= " WHERE ".implode(" AND ", $conditions);
                     }
@@ -355,8 +355,7 @@ if ($dbconnect->connect_error) {
                     // add the order by
                     $query .=' ORDER BY ep_episode_num, tr_time';
 
-                    // a search query always needs at least a `LIMIT` clause,
-                    // especially if no filters were used. so we have to add it to our query:
+                    // a search query always needs at least a LIMIT clause
                     $query .= ' LIMIT ?, ?';
                     $parameters[] = $offset;
                     $parameters[] = $limit;
