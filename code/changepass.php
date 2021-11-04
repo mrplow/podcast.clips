@@ -76,7 +76,9 @@ if ($_POST ['password'] != $_POST ['confirm_password']) {
 		</div>
 		<div class="float-right text-right">
 			<a href="/">Home</a> <br /> <a href="/search.php">Search Clips</a> <br />
-			<a href="/transcription.php">Search Transcriptions</a>
+			<a href="/transcription.php">Search Transcriptions</a> <br />
+                        <a href="/advsearch.php">Advanced Search</a>
+
         <?php
 
                                 if ($_SESSION ['user_level'] <= 10) {

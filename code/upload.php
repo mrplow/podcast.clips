@@ -112,7 +112,8 @@ if (isset($_POST ['add'])) {
 		</div>
 		<div class="float-right text-right">
 			<a href="/">Home</a> <br /> <a href="/search.php">Search Clips</a> <br />
-			<a href="/transcription.php">Search Transcriptions</a>
+			<a href="/transcription.php">Search Transcriptions</a> <br />
+                        <a href="/advsearch.php">Advanced Search</a>
         <?php
 
                                 if ($_SESSION ['user_level'] <= 10) {
@@ -137,7 +138,7 @@ if (isset($_POST ['add'])) {
 				<textarea form="upload" class="form-control"
 					id="episode_description" name="episode_description"
 					maxlength="4000" rows="5"></textarea>
-				<br /> <input form="upload" class="form-control" type="submit"
+				<br /> <input form="upload" class="form-control btn-primary" type="submit"
 					name="add" value="Add episode">
 			</div>
 		</form>

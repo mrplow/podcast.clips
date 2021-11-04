@@ -50,17 +50,15 @@ if (isset($_SESSION ['user_validated'])) {
 		</div>
 		<div class="float-right text-right">
 			<a href="/">Home</a> <br /> <a href="/search.php">Search Clips</a> <br />
-			<a href="/transcription.php">Search Transcriptions</a>
+			<a href="/transcription.php">Search Transcriptions</a> <br />
+                        <a href="/advsearch.php">Advanced Search</a>
         <?php
 
                                 if ($_SESSION ['user_level'] <= 10) {
                                     echo "<br /><a href=\"/upload.php\">Upload episode</a>";
                                 }
-                                ini_set('display_errors', 1);
-                                ini_set('display_startup_errors', 1);
-                                error_reporting(E_ALL);
                                 ?>
-      </div>
+      <br /><br /><a href="/advsearch.php">Advanced Search</a></div>
 	</div>
 	<div class="container">
 		<h2>Transcriptions</h2>
