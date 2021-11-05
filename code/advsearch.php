@@ -51,9 +51,6 @@ if (isset($_SESSION ['user_validated'])) {
                                 if ($_SESSION ['user_level'] <= 10) {
                                     echo "<br /><a href=\"/upload.php\">Upload episode</a>";
                                 }
-                                ini_set('display_errors', 1);
-                                ini_set('display_startup_errors', 1);
-                                error_reporting(E_ALL);
                                 ?>
       </div>
 	</div>
@@ -256,15 +253,6 @@ if ($dbconnect->connect_error) {
 }
 
                 if (isset($_GET['form_submit'])) {
-                    echo	"<div class=\"container\">
-                 <table class=\"table table-condensed table-sm table-hover table-striped\" style=\"width: 100%\">
-            <tr>
-                <th><strong>Episode #</strong></th>
-                <th><strong>Title</strong></th>
-                <th><strong>Release Date</strong></th>
-                <th><strong>Timestamp</strong></th>
-                <th><strong>Transcription</strong></th>
-            </tr>";
                     // pagination
                     $offset = ($_GET['page'] -1) * 20;
                     $limit = 20;
@@ -352,6 +340,19 @@ if ($dbconnect->connect_error) {
                         $query .= " WHERE ".implode(" AND ", $conditions);
                     }
 
+                    // count the results
+                    if (empty($total)) {
+                        $count_query = "SELECT COUNT(tr_rowid) FROM episodes JOIN transcriptions ON ep_rowid = tr_rowid_episode";
+                        if ($conditions) {
+                            $count_query .= " WHERE ".implode(" AND ", $conditions);
+                        }
+                        $cnt_stmt = $dbconnect->prepare($count_query);
+                        $cnt_stmt->bind_param($bindtype, ...$parameters);
+                        $cnt_stmt->execute();
+                        $cnt_result = $cnt_stmt->get_result()->fetch_row();
+                        $total = $cnt_result[0];
+                    }
+
                     // add the order by
                     $query .=' ORDER BY ep_episode_num, tr_time';
 
@@ -366,14 +367,43 @@ if ($dbconnect->connect_error) {
                     $stmt->execute();
                     $result = $stmt->get_result();
                     $output = array();
-                    $i=0;
+
+                    $url_prev = $_GET;
+                    $url_prev["page"] = $_GET['page'] - 1;
+                    $prev = http_build_query($url_prev);
+                    $url_next = $_GET;
+                    $url_next["page"] = $_GET['page'] + 1;
+                    $next = http_build_query($url_next);
+                    echo $total . " search results<br />Page " . $_GET['page'] . " of " . ceil($total / $limit) . ". ";
+                    if ($_GET['page'] == 1) {
+                        echo	"Previous ";
+                    } else {
+                        echo	"<a href=\"/advsearch.php?" . $prev . "\">Previous</a> ";
+                    }
+
+                    $totalpages = ceil($total / $limit);
+                    if ($_GET['page'] == $totalpages) {
+                        echo "Next";
+                    } else {
+                        echo "<a href=\"/advsearch.php?" . $next . "\">Next</a>";
+                    }
+                    echo "
+<div class=\"container\">
+                 <table class=\"table table-condensed table-sm table-hover table-striped\" style=\"width: 100%\">
+            <tr>
+                <th><strong>Episode #</strong></th>
+                <th><strong>Title</strong></th>
+                <th><strong>Release Date</strong></th>
+                <th><strong>Timestamp</strong></th>
+                <th><strong>Transcription</strong></th>
+            </tr>";
                     while ($row = $result->fetch_assoc()) {
-                        echo "<tr><td>" . $row['ep_episode_num'] . "</td>";
+                        echo "
+            <tr><td>" . $row['ep_episode_num'] . "</td>";
                         echo "<td>" . $row['ep_title'] . "</td>";
                         echo "<td class=\"text-nowrap\">" . $row['ep_release_date'] . "</td>";
                         echo "<td><a href=\"/index.php?epid=" . $row['ep_rowid'] . "&timestamp=" . $row['tr_time'] . "\">" . $row['tr_time'] . "</a></td>";
                         echo "<td>" . $row['tr_text'] . "</td></tr>";
-                        $i++;
                     }
                 }
 ?>

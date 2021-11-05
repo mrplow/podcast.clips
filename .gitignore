@@ -18,3 +18,4 @@ database/
 .project
 code/.project
 code/.buildpath
+code/.php-cs-fixer.cache
