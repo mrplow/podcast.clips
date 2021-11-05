@@ -62,6 +62,9 @@ CREATE TABLE `podcast_clips`.`transcriptions`(
     FOREIGN KEY(tr_rowid_episode) REFERENCES episodes(ep_rowid)
 ) ENGINE = INNODB AUTO_INCREMENT = 1;
 
+ALTER TABLE
+    `transcriptions` ADD FULLTEXT INDEX `idx_text`(`tr_text`);
+
 CREATE VIEW `podcast_clips`.`episode_transcriptions` AS SELECT
     `tr_rowid`,
     `ep_rowid`,
