@@ -31,6 +31,11 @@ services:
             - ./setupdb:/docker-entrypoint-initdb.d
         environment:
             TZ: America/Vancouver
+        command:
+            - "mysqld"
+            - "--innodb_buffer_pool_size=400M"
+            - "--innodb-ft-min-token-size=2"
+            - "--innodb-ft-enable-stopword=off"
         depends_on:
             - nginx
         #root password is stored in .env_mariadb, change it to a secure password

@@ -1,4 +1,8 @@
  <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 if (! isset($_SESSION ['user_id'])) {
     header("Location: /login.php");
@@ -69,16 +73,15 @@ if (isset($_SESSION ['user_validated'])) {
               </button>
             </div>
             <div class="toast-body">
-              All fields are optional.<br /><br />
+              <b>All fields are optional.</b><br /><br />
               The numbered Transcription Text Search Term fields each have OR conditions<br /><br />
-              For example:<br />
+              <b>For example:</b><br />
               If you put pee in the 1<sup>st</sup> Term 1 field and poo in the 2<sup>nd</sup> Term 1 field it would return results with pee OR poo.<br />
               If you also put penis in the 1<sup>st</sup> Term 2 field and vagina in 2<sup>nd</sup> the Term 2 field it would return results with (pee OR poo) AND (penis OR vagina).<br /><br />
-              Yes, these examples actually return great results such as:<br />
+              <b>Yes, these examples actually return great results such as:</b><br />
               &quot;Cleaning poop off of a little penis or a vagina&quot;<br />
               and<br />
-              &quot;Most girls I know have talked about I was laughing so hard I just started peeing and apparently the vagina is not as&quot;...<br /><br />
-              Only the first 20 results are output currently
+              &quot;Most girls I know have talked about I was laughing so hard I just started peeing and apparently the vagina is not as&quot;...
             </div>
           </div>
         </div>
@@ -257,7 +260,7 @@ if ($dbconnect->connect_error) {
                     $offset = ($_GET['page'] -1) * 20;
                     $limit = 20;
 
-                    // always initialize a variable before use!
+                    // initialize variables
                     $conditions = [];
                     $parameters = [];
                     $bindtype = '';
@@ -270,41 +273,41 @@ if ($dbconnect->connect_error) {
                     }
 
                     if (!empty($_GET['tr_text1']) && empty($_GET['tr_text1or'])) {
-                        $conditions[] = 'tr_text LIKE ?';
-                        $parameters[] = '%'.$_GET['tr_text1'].'%';
+                        $conditions[] = 'MATCH(tr_text) AGAINST(?)';
+                        $parameters[] = '"' . $_GET['tr_text1'] . '"';
                         $bindtype .= 's';
                     }
 
                     if (!empty($_GET['tr_text1']) && !empty($_GET['tr_text1or'])) {
-                        $conditions[] = '(tr_text LIKE ? OR tr_text LIKE ?)';
-                        $parameters[] = '%'.$_GET['tr_text1'].'%';
-                        $parameters[] = '%'.$_GET['tr_text1or'].'%';
+                        $conditions[] = '(MATCH(tr_text) AGAINST(?) OR MATCH(tr_text) AGAINST(?))';
+                        $parameters[] = '"' . $_GET['tr_text1'] . '"';
+                        $parameters[] = '"' . $_GET['tr_text1or'] . '"';
                         $bindtype .= 'ss';
                     }
 
                     if (!empty($_GET['tr_text2']) && empty($_GET['tr_text2or'])) {
-                        $conditions[] = 'tr_text LIKE ?';
-                        $parameters[] = '%'.$_GET['tr_text2'].'%';
+                        $conditions[] = 'MATCH(tr_text) AGAINST(?)';
+                        $parameters[] = '"' . $_GET['tr_text2'] . '"';
                         $bindtype .= 's';
                     }
 
                     if (!empty($_GET['tr_text2']) && !empty($_GET['tr_text2or'])) {
-                        $conditions[] = '(tr_text LIKE ? OR tr_text LIKE ?)';
-                        $parameters[] = '%'.$_GET['tr_text2'].'%';
-                        $parameters[] = '%'.$_GET['tr_text2or'].'%';
+                        $conditions[] = '(MATCH(tr_text) AGAINST(?) OR MATCH(tr_text) AGAINST(?))';
+                        $parameters[] = '"' . $_GET['tr_text2'] . '"';
+                        $parameters[] = '"' . $_GET['tr_text2or'] . '"';
                         $bindtype .= 'ss';
                     }
 
                     if (!empty($_GET['tr_text3']) && empty($_GET['tr_text3or'])) {
-                        $conditions[] = 'tr_text LIKE ?';
-                        $parameters[] = '%'.$_GET['tr_text3'].'%';
+                        $conditions[] = 'MATCH(tr_text) AGAINST(?)';
+                        $parameters[] = '"' . $_GET['tr_text3'] . '"';
                         $bindtype .= 's';
                     }
 
                     if (!empty($_GET['tr_text3']) && !empty($_GET['tr_text3or'])) {
-                        $conditions[] = '(tr_text LIKE ? OR tr_text LIKE ?)';
-                        $parameters[] = '%'.$_GET['tr_text3'].'%';
-                        $parameters[] = '%'.$_GET['tr_text3or'].'%';
+                        $conditions[] = '(MATCH(tr_text) AGAINST(?) OR MATCH(tr_text) AGAINST(?))';
+                        $parameters[] = '"' . $_GET['tr_text3'] . '"';
+                        $parameters[] = '"' . $_GET['tr_text3or'] . '"';
                         $bindtype .= 'ss';
                     }
 
@@ -346,10 +349,15 @@ if ($dbconnect->connect_error) {
                         if ($conditions) {
                             $count_query .= " WHERE ".implode(" AND ", $conditions);
                         }
-                        $cnt_stmt = $dbconnect->prepare($count_query);
-                        $cnt_stmt->bind_param($bindtype, ...$parameters);
-                        $cnt_stmt->execute();
+                        if($cnt_stmt = $dbconnect->prepare($count_query)) {
+                            $cnt_stmt->bind_param($bindtype, ...$parameters);
+                            $cnt_stmt->execute();
+                        } else {
+                            $error = $dbconnect->errno . ' ' . $dbconnect->error;
+                            echo "Tell Dan he broke something with this error: " . $error . "<br />";
+                        }
                         $cnt_result = $cnt_stmt->get_result()->fetch_row();
+                        $cnt_stmt->close();
                         $total = $cnt_result[0];
                     }
 
@@ -366,6 +374,7 @@ if ($dbconnect->connect_error) {
                     $stmt->bind_param($bindtype, ...$parameters);
                     $stmt->execute();
                     $result = $stmt->get_result();
+                    $stmt->close();
                     $output = array();
 
                     $url_prev = $_GET;
@@ -374,7 +383,12 @@ if ($dbconnect->connect_error) {
                     $url_next = $_GET;
                     $url_next["page"] = $_GET['page'] + 1;
                     $next = http_build_query($url_next);
-                    echo $total . " search results<br />Page " . $_GET['page'] . " of " . ceil($total / $limit) . ". ";
+                    echo "<div class=\"container\">" . $total . " search results<br />Page ";
+                    if (ceil($total / $limit) > 0) {
+                        echo $_GET['page'] . " of " . ceil($total / $limit) . ". ";
+                    } else {
+                        echo "0 of " . ceil($total / $limit) . ". ";
+                    }
                     if ($_GET['page'] == 1) {
                         echo	"Previous ";
                     } else {
@@ -387,7 +401,7 @@ if ($dbconnect->connect_error) {
                     } else {
                         echo "<a href=\"/advsearch.php?" . $next . "\">Next</a>";
                     }
-                    echo "
+                    echo "</div>
 <div class=\"container\">
                  <table class=\"table table-condensed table-sm table-hover table-striped\" style=\"width: 100%\">
             <tr>
