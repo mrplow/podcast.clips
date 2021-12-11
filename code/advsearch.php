@@ -194,9 +194,9 @@ if (!empty($_GET['ep_name'])) {
               <label class="col-form-label col-form-label-sm" for="ep_num_min">Minimum Ep #</label>
 <?php
 if (!empty($_GET['ep_num_min'])) {
-    echo "<input class=\"form-control\" type=\"number\" name=\"ep_num_min\" value=\"" . $_GET['ep_num_min'] . "\">";
+    echo "<input class=\"form-control\" type=\"number\" name=\"ep_num_min\" step=\".1\" value=\"" . $_GET['ep_num_min'] . "\">";
 } else {
-    echo "<input class=\"form-control\" type=\"number\" name=\"ep_num_min\">";
+    echo "<input class=\"form-control\" type=\"number\" name=\"ep_num_min\" step=\".1\">";
 }
 ?>
             </div>
@@ -204,9 +204,9 @@ if (!empty($_GET['ep_num_min'])) {
               <label class="col-form-label col-form-label-sm" for="ep_num_max">Maximum Ep #</label>
 <?php
 if (!empty($_GET['ep_num_max'])) {
-    echo "<input class=\"form-control\" type=\"number\" name=\"ep_num_max\" value=\"" . $_GET['ep_num_max'] . "\">";
+    echo "<input class=\"form-control\" type=\"number\" name=\"ep_num_max\" step=\".1\" value=\"" . $_GET['ep_num_max'] . "\">";
 } else {
-    echo "<input class=\"form-control\" type=\"number\" name=\"ep_num_max\">";
+    echo "<input class=\"form-control\" type=\"number\" name=\"ep_num_max\" step=\".1\">";
 }
 ?>
             </div>
@@ -314,13 +314,13 @@ if ($dbconnect->connect_error) {
                     if (!empty($_GET['ep_num_min'])) {
                         $conditions[] = 'ep_episode_num >= ?';
                         $parameters[] = $_GET['ep_num_min'];
-                        $bindtype .= 'i';
+                        $bindtype .= 'd';
                     }
 
                     if (!empty($_GET['ep_num_max'])) {
                         $conditions[] = 'ep_episode_num <= ?';
                         $parameters[] = $_GET['ep_num_max'];
-                        $bindtype .= 'i';
+                        $bindtype .= 'd';
                     }
 
                     if (!empty($_GET['start_date'])) {
@@ -354,7 +354,7 @@ if ($dbconnect->connect_error) {
                             $cnt_stmt->execute();
                         } else {
                             $error = $dbconnect->errno . ' ' . $dbconnect->error;
-                            echo "Tell Dan he broke something with this error: " . $error . "<br />";
+                            echo "<br />Tell Dan he broke something with this error: " . $error . "<br />";
                         }
                         $cnt_result = $cnt_stmt->get_result()->fetch_row();
                         $cnt_stmt->close();
