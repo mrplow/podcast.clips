@@ -151,7 +151,8 @@ ep_episode_num") or die(mysqli_error($dbconnect));
         <?php echo $ep_release_date; ?>
       </h3>
 		<h4>
-        <?php echo $ep_description; ?>
+
+        <?php echo nl2br($ep_description); ?>
       </h4>
 <?php
                     if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg")) {
