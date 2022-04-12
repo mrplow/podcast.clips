@@ -31,7 +31,7 @@ if (! empty($_POST ['username']) && ! empty($_POST ['password'])) {
         $_SESSION ['user_name'] = $ReturnedUsername;
         $_SESSION ['user_level'] = $ReturnedUserlevel;
         $_SESSION ['user_validated'] = $ReturnedValidated;
-        $Lastlogin = $dbconnect->prepare('UPDATE users SET us_lastlogin = NOW() WHERE us_rowid = ?');
+        $Lastlogin = $dbconnect->prepare('UPDATE users SET us_lastlogin = NOW(), us_logincount = us_logincount + 1 WHERE us_rowid = ?');
         $Lastlogin->bind_param('i', $ReturnedID);
         $Lastlogin->execute();
         header("Location: /");
