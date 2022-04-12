@@ -23,7 +23,7 @@ services:
             - podcast_clips
 
     mariaDB:
-        image: mariadb:latest
+        image: mariadb:10.6
         restart: unless-stopped
         container_name: podcast_clips_mariaDB
         volumes:
@@ -31,6 +31,8 @@ services:
             - ./setupdb:/docker-entrypoint-initdb.d
         environment:
             TZ: America/Vancouver
+            #root password is stored in .env, change it to a secure password
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         command:
             - "mysqld"
             - "--innodb_buffer_pool_size=400M"
@@ -38,9 +40,6 @@ services:
             - "--innodb-ft-enable-stopword=off"
         depends_on:
             - nginx
-        #root password is stored in .env_mariadb, change it to a secure password
-        env_file:
-            - .env_mariadb
         networks:
             - podcast_clips
 
@@ -71,6 +70,30 @@ services:
         environment:
             TZ: America/Vancouver
             PMA_ARBITRARY: 1
+        depends_on:
+            - mariaDB
+        networks:
+            - podcast_clips
+
+    db-backup:
+        container_name: podcast_clips_db_backup
+        image: tiredofit/db-backup
+        volumes:
+            - ./backups:/backup
+        environment:
+            - DB_TYPE=mariadb
+            - DB_HOST=podcast_clips_mariaDB
+            - DB_NAME=ALL
+            - DB_NAME_EXCLUDE=mysql,sys
+            - DB_USER=root
+            - DB_PASS=${MYSQL_ROOT_PASSWORD}
+            - DB_DUMP_FREQ=1440
+            - DB_DUMP_BEGIN=0300
+            - DB_CLEANUP_TIME=8640
+            - COMPRESSION=XZ
+            - COMPRESSION_LEVEL=9
+            - TZ=America/Vancouver
+        restart: unless-stopped
         depends_on:
             - mariaDB
         networks:
