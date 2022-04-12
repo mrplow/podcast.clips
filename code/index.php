@@ -104,14 +104,15 @@ ep_episode_num") or die(mysqli_error($dbconnect));
 		<div class="float-right text-right">
 			<a href="/">Home</a> <br /> <a href="/search.php">Search Clips</a> <br />
 			<a href="/transcription.php">Search Transcriptions</a> <br />
-                        <a href="/advsearch.php">Advanced Search</a>
+                        <a href="/advsearch.php">Advanced Search</a> <br />
 
         <?php
 
                                 if ($_SESSION ['user_level'] <= 10) {
-                                    echo "<br /><a href=\"/upload.php\">Upload episode</a>";
+                                    echo "<a href=\"/upload.php\">Upload episode</a><br />";
                                 }
                                 ?>
+                        <a href="https://github.com/mrplow/podcast.clips" target="_blank">Source code <img src="github.png" alt="GitHub" width="16" height="20"></a>
       </div>
 	</div>
     <?php
