@@ -65,5 +65,8 @@ RUN echo "sendmail_path=sendmail -i -t" >> /usr/local/etc/php/conf.d/php-sendmai
 # install fpcalc
 RUN apk add chromaprint --no-cache
 
-#install mp3splt
+# install mp3splt
 RUN apk add mp3splt --no-cache
+
+# install word cloud
+#RUN pip install wordmesh && python -m spacy download en_core_web_md
