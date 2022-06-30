@@ -79,7 +79,8 @@ if ($_POST ['password'] != $_POST ['confirm_password']) {
                 }
                 ?>
     <form action="register.php" method="POST">
-			<input type="text" placeholder="Enter your username" name="username">
+			<input type="text" placeholder="Enter your username" name="username" onkeydown="return /[0-9a-zA-Z]/i.test(event.key)">
+
 			<input type="password" placeholder="and password" name="password"> <input
 				type="password" placeholder="confirm password"
 				name="confirm_password"> <input type="submit">
