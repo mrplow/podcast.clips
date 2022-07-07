@@ -64,7 +64,9 @@ CREATE TABLE `podcast_clips`.`transcriptions`(
 ) ENGINE = INNODB AUTO_INCREMENT = 1;
 
 ALTER TABLE
-    `transcriptions` ADD FULLTEXT INDEX `idx_text`(`tr_text`);
+   `podcast_clips`.`transcriptions` ADD FULLTEXT INDEX `idx_text`(`tr_text`);
+
+USE `podcast_clips`;
 
 CREATE VIEW `podcast_clips`.`episode_transcriptions` AS SELECT
     `tr_rowid`,
