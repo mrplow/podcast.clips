@@ -109,12 +109,12 @@ RUN apk add --no-cache boost-dev boost-static cmake g++ gcc gd-dev git libgd lib
 	make install && \
 	strip /usr/local/bin/audiowaveform
 
-# Edit and install production php.ini but change maxupload to 256M
-ARG upload_max_filesize=256
+# Edit and install production php.ini but change maxupload to 512M
+ARG upload_max_filesize=512
 # post_max_size must be larger than upload_max_filesize
-ARG post_max_size=288
+ARG post_max_size=590
 # memory_limit _should_ be larger than post_max_size (maybe)
-ARG memory_limit=320
+ARG memory_limit=630
 RUN sed -ri 's/^(upload_max_filesize = )[0-9]+(M.*)$/\1'${upload_max_filesize}'\2/' "$PHP_INI_DIR/php.ini-production"
 RUN sed -ri 's/^(post_max_size = )[0-9]+(M.*)$/\1'${post_max_size}'\2/' "$PHP_INI_DIR/php.ini-production"
 RUN sed -ri 's/^(memory_limit = )[0-9]+(M.*)$/\1'${memory_limit}'\2/' "$PHP_INI_DIR/php.ini-production"
