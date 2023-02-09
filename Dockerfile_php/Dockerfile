@@ -11,7 +11,7 @@ RUN apk --no-cache add shadow && usermod -u 1000 www-data
 
 # Install audiowaveform, see https://github.com/realies/audiowaveform-docker/blob/master/Dockerfile
 RUN apk --no-cache add libstdc++
-ENV COMMIT 9b73bd1
+ENV COMMIT 78126bd
 RUN apk add --no-cache autoconf automake g++ gcc libtool make nasm ncurses-dev && \
 	wget https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz && \
 	tar -xf lame-3.100.tar.gz && \
@@ -54,7 +54,7 @@ RUN apk add --no-cache cmake g++ gcc git samurai && \
 		-DCMAKE_BUILD_TYPE=Release \
 		$CMAKE_CROSSOPTS && \
 	cmake --build build -j $(nproc) && \
-	cmake --build build --target test -j $(nproc) && \
+	ctest -j $(nproc) && \
 	cmake --install build
 RUN apk add --no-cache autoconf automake libtool g++ gcc gettext git !libiconv make pkgconfig && \
 	git clone https://github.com/xiph/flac && \
@@ -83,7 +83,7 @@ RUN apk add --no-cache alsa-lib-dev cmake git flac-dev libvorbis-dev linux-heade
 	cd .. && \
 	cmake --install build
 RUN apk add --no-cache cmake g++ gcc git samurai zlib-dev && \
-	git clone https://github.com/tenacityteam/libid3tag && \
+	git clone https://codeberg.org/tenacityteam/libid3tag && \
 	cd libid3tag && \
 	cmake -B build -G Ninja \
 		-DBUILD_SHARED_LIBS=OFF \
@@ -103,7 +103,7 @@ RUN apk add --no-cache boost-dev boost-static cmake g++ gcc gd-dev git libgd lib
 	git clone https://github.com/google/googletest && \
 	mkdir build && \
 	cd build && \
-	cmake -D ENABLE_TESTS=0 -D BUILD_STATIC=1 .. && \
+	cmake -DCMAKE_CXX_STANDARD=14 -D ENABLE_TESTS=1 -D BUILD_STATIC=1 .. && \
 	make -j $(nproc) && \
 	/audiowaveform/build/audiowaveform_tests || true && \
 	make install && \
