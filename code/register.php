@@ -15,22 +15,26 @@ $CheckOwner->store_result();
 $OwnerRows = $CheckOwner->num_rows;
 $message = '';
 if ($_POST ['password'] != $_POST ['confirm_password']) {
-    echo "passwords do not match";
+    echo "Passwords do not match.";
 } else {
     if (! empty($_POST ['username']) && ! empty($_POST ['password'])) {
         unset($Username, $Password);
         $Username = $_POST ['username'];
         $Password = password_hash($_POST ['password'], PASSWORD_BCRYPT);
-        if ($OwnerRows > 0) {
-            $NewUser = $dbconnect->prepare('INSERT INTO users (us_rowid_userlevel, us_username, us_password, us_cdate) VALUES (3, ?, ?, NOW())');
+        if (strpos($Username, '@') !== false) {
+            echo "Usernames cannot contain a @, this is to prevent emails as usernames.";
         } else {
-            $NewUser = $dbconnect->prepare('INSERT INTO users (us_rowid_userlevel, us_username, us_password, us_cdate) VALUES (1, ?, ?, NOW())');
-        }
-        $NewUser->bind_param('ss', $Username, $Password);
-        if ($NewUser->execute()) {
-            $message = 'Successfully created new user';
-        } else {
-            $message = 'Sorry there was an issue creating your account, maybe that username is already registered';
+            if ($OwnerRows > 0) {
+                $NewUser = $dbconnect->prepare('INSERT INTO users (us_rowid_userlevel, us_username, us_password, us_cdate) VALUES (3, ?, ?, NOW())');
+            } else {
+                $NewUser = $dbconnect->prepare('INSERT INTO users (us_rowid_userlevel, us_username, us_password, us_cdate) VALUES (1, ?, ?, NOW())');
+            }
+            $NewUser->bind_param('ss', $Username, $Password);
+            if ($NewUser->execute()) {
+                $message = 'Successfully created new user';
+            } else {
+                $message = 'Sorry there was an issue creating your account, maybe that username is already registered';
+            }
         }
     }
 }
