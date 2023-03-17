@@ -81,6 +81,7 @@ services:
         volumes:
             - ./backups:/backup
         environment:
+            - CONTAINER_ENABLE_MONITORING=FALSE
             - DB_TYPE=mariadb
             - DB_HOST=podcast_clips_mariaDB
             - DB_NAME=ALL
