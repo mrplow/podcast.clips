@@ -156,8 +156,14 @@ ep_episode_num") or die(mysqli_error($dbconnect));
         <?php echo nl2br($ep_description); ?>
       </h4>
 <?php
+                    if (file_exists("/var/www/podcasts/" . $ep_filename . ".gif")) {
+                        echo "<img class='img-fluid' src=/podcasts/" . $ep_filename . ".gif>";
+                    }
                     if (file_exists("/var/www/podcasts/" . $ep_filename . ".jpg")) {
                         echo "<img class='img-fluid' src=/podcasts/" . $ep_filename . ".jpg>";
+                    }
+                    if (file_exists("/var/www/podcasts/" . $ep_filename . ".png")) {
+                        echo "<img class='img-fluid' src=/podcasts/" . $ep_filename . ".png>";
                     }
                     ?>
     </div>
