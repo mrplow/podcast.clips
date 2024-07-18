@@ -11,7 +11,7 @@ RUN apk --no-cache add shadow && usermod -u 1000 www-data
 
 # Install audiowaveform, see https://github.com/realies/audiowaveform-docker/blob/master/Dockerfile
 RUN apk --no-cache add libstdc++
-ENV COMMIT 78126bd
+ENV COMMIT 6424986
 RUN apk add --no-cache autoconf automake g++ gcc libtool make nasm ncurses-dev && \
 	wget https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz && \
 	tar -xf lame-3.100.tar.gz && \
@@ -121,7 +121,7 @@ RUN sed -ri 's/^(memory_limit = )[0-9]+(M.*)$/\1'${memory_limit}'\2/' "$PHP_INI_
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # Install Autosub
-RUN apk add py-pip git --no-cache && pip install pip install git+https://github.com/agermanidis/autosub.git
+RUN apk add py-pip git --no-cache && pip install git+https://github.com/agermanidis/autosub.git
 
 # Install mail server
 RUN apk add ssmtp --no-cache
